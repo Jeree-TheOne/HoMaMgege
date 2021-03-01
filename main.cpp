@@ -18,10 +18,9 @@ int main() {
     std::string a;
     std::getline(std::cin, a);
     std::cout << std::endl;
-    if (a != "WE-WE POWER"){
+    if (a != "WE-WE POWER") {
         std::cout << "Ну ты че, давай нормально" << std::endl;
         goto start;
     }
-    std::cout << "a";
     return 0;
 }
