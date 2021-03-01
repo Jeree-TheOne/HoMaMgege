@@ -2,6 +2,7 @@
 #include <string>
 #include <windows.h>
 int main() {
+    SetConsoleOutputCP(CP_UTF8);
     start:
     system("cls");
     Sleep(1000);
@@ -15,7 +16,7 @@ int main() {
                  "существ, опасностей и гачистов?\n"
                  "Если да, то напиши WE-WE POWER: ";
     std::string a;
-    std::cin >>a;
+    std::getline(std::cin, a);
     std::cout << std::endl;
     if (a != "WE-WE POWER"){
         std::cout << "Ну ты че, давай нормально" << std::endl;
