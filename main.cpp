@@ -22,5 +22,6 @@ int main() {
         std::cout << "Ну ты че, давай нормально" << std::endl;
         goto start;
     }
+    std::cout << "a";
     return 0;
 }
