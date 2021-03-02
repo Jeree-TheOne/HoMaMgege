@@ -13,6 +13,7 @@ protected:
     string Stih; // Стихия заклинания (Всего 4 - Земля, Огонь, Вода, Воздух).
     string Type; // Тип (дамажный, антимагический, усиляющий, разум).
     string Distance; // Дистанция заклинания (Один/ауе/все персонажи).
+    string Duration; // Длительность заклинания
     string Level; // Уровень заклинания.
     string Cost; // Цена в маны
 public:
@@ -25,9 +26,14 @@ class DSpell : Spells
 {
 private: int Damage;
 public:
-    void SetDSpell(string name, string stih, string type, string distance, string level, string cost, int damage){
+    void SetDSpell(string name, string stih, string type, string distance, string level, string cost, string duration, int damage){
         Name = name;
-// и другие
+        Stih = stih;
+        Type = type;
+        Distance = distance;
+        Level = level;
+        Cost = cost;
+        Duration = duration;
         Damage = damage;
     }
 
