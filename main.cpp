@@ -1,25 +1,26 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
+using namespace std;
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     start:
     system("cls");
     Sleep(1000);
-    std::cout << "1" << std::endl;
+    cout << "1" << endl;
     Sleep(1000);
-    std::cout << "2" << std::endl;
+    cout << "2" << endl;
     Sleep(1000);
-    std::cout << "3" << std::endl;
+    cout << "3" << endl;
     Sleep(1000);
     std::cout << "Ну что, готов окунуться в этот мир, полный приключений,\n"
                  "существ, опасностей и гачистов?\n"
                  "Если да, то напиши WE-WE POWER: ";
-    std::string a;
-    std::getline(std::cin, a);
-    std::cout << std::endl;
+    string a;
+    getline(cin, a);
+    cout << endl;
     if (a != "WE-WE POWER") {
-        std::cout << "Ну ты че, давай нормально" << std::endl;
+        cout << "Ну ты че, давай нормально" << endl;
         goto start;
     }
     return 0;

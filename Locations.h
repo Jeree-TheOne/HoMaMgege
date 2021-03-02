@@ -6,7 +6,7 @@
 #define UNTITLED3_LOCATIONS_H
 
 using namespace std;
-class Locations {
+class Location {
 
 };
 

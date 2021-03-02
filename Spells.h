@@ -8,11 +8,11 @@
 using namespace std;
 class Spells {
 
-private:
+protected:
     string Name; // Название
     string Stih; // Стихия заклинания (Всего 4 - Земля, Огонь, Вода, Воздух).
     string Type; // Тип (дамажный, антимагический, усиляющий, разум).
-    string Disctance; // Дистанция заклинания (Один/ауе/все персонажи).
+    string Distance; // Дистанция заклинания (Один/ауе/все персонажи).
     string Level; // Уровень заклинания.
     string Cost; // Цена в маны
 public:
@@ -20,12 +20,19 @@ public:
     {
 
     }
-    };
+};
 class DSpell : Spells
-        {
-        private: int Damage;
+{
+private: int Damage;
+public:
+    void SetDSpell(string name, string stih, string type, string distance, string level, string cost, int damage){
+        Name = name;
+// и другие
+        Damage = damage;
+    }
 
-        }; // Дамажные заклинания
+}; // Дамажные заклинания
+
 class ASpell : Spells
 {
 
