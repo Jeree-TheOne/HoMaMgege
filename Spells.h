@@ -10,39 +10,37 @@ class Spells {
 
 private:
     string Name; // Название
+    string Stih; // Стихия заклинания (Всего 4 - Земля, Огонь, Вода, Воздух).
     string Type; // Тип (дамажный, антимагический, усиляющий, разум).
-    string Cost; // Цена в мане
     string Disctance; // Дистанция заклинания (Один/ауе/все персонажи).
     string Level; // Уровень заклинания.
-    string Stih; // Стихия заклинания (Всего 4 - Земля, Огонь, Вода, Воздух).
-    string ALLSPELLS[16][7] = {
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-
-    }; // инициализация всех перков
-
+    string Cost; // Цена в маны
 public:
     void SpellADD (string name) // Добавление заклинание через массив данных о заклинаниях.
     {
 
     }
+    };
+class DSpell : Spells
+        {
+        private: int Damage;
+
+        }; // Дамажные заклинания
+class ASpell : Spells
+{
+
+}; // Антимагические заклинания
+class BSpell : Spells
+{
+
+}; // Усиляющие заклинания
+class MSpell : Spells
+{
+
+}; // Разумные заклинания
 
 
-};
+
 
 
 #endif //MAIN_CPP_SPELLS_H

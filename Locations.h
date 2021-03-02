@@ -5,7 +5,7 @@
 #ifndef UNTITLED3_LOCATIONS_H
 #define UNTITLED3_LOCATIONS_H
 
-
+using namespace std;
 class Locations {
 
 };

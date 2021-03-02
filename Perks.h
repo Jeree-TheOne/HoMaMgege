@@ -6,14 +6,14 @@
 #define UNTITLED3_PERKS_H
 
 #include <iostream>
-
+using namespace std;
 class Perk {
 private:
-    std::string Name;
-    std::string Action;
+    string Name;
+    string Action;
     int Stage;
     int Chance;
-    std::string perks [12][3] = {
+  string perks [12][3] = {
             {"Стрельба"},
             {"Удача"},
             {"Уклонение"},
@@ -29,10 +29,10 @@ private:
     };
     //BATYGINA OTRABOTIVAI
 public:
-    void AddPerk(std::string name) {
+    void AddPerk(string name) {
         
     }
-    void UpgradePerk(std::string name, std::string action, int stage){
+    void UpgradePerk(string name, string action, int stage){
 
     }
 };

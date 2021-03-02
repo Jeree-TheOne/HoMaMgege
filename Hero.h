@@ -9,9 +9,10 @@
 #include <iostream>
 #include <list>
 #include "Perks.h"
+using namespace std;
 class Hero {
 private:
-    std::string Type;
+    string Type;
     int Damage;
     int HP;
     int Armor;
@@ -21,7 +22,7 @@ private:
     Perk Perks[4];
     int Xp;
 public:
-    void CreateHero(std::string type)
+    void CreateHero(string type)
     {
         ch:
         if (type == "Лучник"){
@@ -46,7 +47,7 @@ public:
             MagicStrength = 1;
         }
         else{
-            std::cout << "Ты ввел что-то не то, дружочек-пирожочек" << std::endl;
+            cout << "Ты ввел что-то не то, дружочек-пирожочек" << endl;
             Sleep(2000);
             system("cls");
             goto ch;
