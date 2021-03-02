@@ -13,7 +13,20 @@ private:
     std::string Action;
     int Stage;
     int Chance;
-    std::string perks [10][3];
+    std::string perks [12][3] = {
+            {"Стрельба"},
+            {"Удача"},
+            {"Уклонение"},
+            {""},
+            {""},
+            {""},
+            {""},
+            {""},
+            {""},
+            {""},
+            {""},
+            {""}
+    };
     //BATYGINA OTRABOTIVAI
 public:
     void AddPerk(std::string name) {
