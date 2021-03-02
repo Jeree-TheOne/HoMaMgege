@@ -15,12 +15,6 @@ private:
     int Intellect;
     int MagicStrength;
     void CreateEquipment(std::string name, int damage, int hp, int armor, int intellect, int magicstrength){
-        Name = name;
-        Damage = damage;
-        HP = hp;
-        Armor = armor;
-        Intellect = intellect;
-        MagicStrength = magicstrength;
 
     }
     void EquipEquipment(std::string name, int damage, int hp, int armor, int intellect, int magicstrength){
