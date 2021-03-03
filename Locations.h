@@ -1,5 +1,5 @@
 //
-// Created by JerEe^ on 01.03.2021.
+// Created by JerEe^ and Kosty on 01.03.2021.
 //
 
 #ifndef UNTITLED3_LOCATIONS_H
