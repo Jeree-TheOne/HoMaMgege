@@ -26,6 +26,7 @@ private:
             {"Сопротивление магии",""},
             {"Артилерия",""}
     };
+
     //BATYGINA OTRABOTIVAI
 public:
     void AddPerk(std::string name) {
