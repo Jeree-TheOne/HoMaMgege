@@ -5,7 +5,8 @@
 
 using namespace std;
 int main() {
-    SetConsoleOutputCP(CP_UTF8);
+
+   /* SetConsoleOutputCP(CP_UTF8);
     start:
     system("cls");
     Sleep(1000);
@@ -24,9 +25,12 @@ int main() {
     if (a != "WE-WE POWER") {
         cout << "Ну ты че, давай нормально" << endl;
         goto start;
-    }
+    }*/
     Randomize dd;
     dd.GetRand(1,6);
-
+    int s = dd.GetRand(1,6);
+    cout << s;
     return 0;
+
+
 }

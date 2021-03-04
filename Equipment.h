@@ -14,6 +14,11 @@ private:
     int Armor;
     int Intellect;
     int MagicStrength;
+    int helmet;
+    int breastplate;
+    int righthand;
+    int lefthand;
+    int legs;
     void CreateEquipment(string name, int damage, int hp, int armor, int intellect, int magicstrength){
 
     }
