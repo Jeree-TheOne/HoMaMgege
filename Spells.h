@@ -34,7 +34,12 @@ public:
         this->Level = Level;
         this->Cost = Cost;
     }
+void CastSpell(int name, Spells a)
+{
+    switch (Name) {
 
+    }
+}
    enum spellsname
    {
         NClone,
