@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-class Perk {
+class Perks {
 private:
     std::string Name;
     std::string Action;
