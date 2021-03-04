@@ -7,6 +7,8 @@
 
 #include "Spells.h"
 class Spells2 {
+
+     //= Spells::SetSpell();   Spells spell_arr[16] = {Spells::Clone, Spells::Weakness, Spells::Waterdefence, Spells::Blind, Spells::Curse, Spells::Fireshield, Spells::UndeadDead, Spells::StoneSkin, Spells::DirtDefence, Spells::Accuracy, Spells::Lucky, Spells::Dimensiondoor, Spells::Fireball, Spells::Icearrow, Spells::boom, Spells::Chainzipper};
 };
 
 
