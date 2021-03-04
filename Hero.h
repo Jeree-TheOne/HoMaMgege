@@ -9,8 +9,17 @@
 #include <iostream>
 #include <list>
 #include "Perks.h"
+#include "Equipment.h"
+#include "Spells.h"
 #include "Randomize.h"
 using namespace std;
+
+enum Types{
+    Лучник = 1,
+    Воин,
+    Волшебник
+};
+
 class Hero {
 private:
     string Type;
@@ -20,45 +29,49 @@ private:
     int Intellect;
     int MagicStrength;
     int Gold = 2500;
-    Perk Perks[4];
-    int Xp;
+    Perks perks[4];
+    Equipment equipment[1];
+    int Xp = 0;
 public:
-    void CreateHero(string type)
+    void CreateHero(Types type)
     {
-        ch:
-        if (type == "Лучник"){
-            Damage = 1;
-            HP = 1;
-            Armor = 1;
-            Intellect = 1;
-            MagicStrength = 1;
-        }
-        else if (type == "Воин"){
-            Damage = 1;
-            HP = 1;
-            Armor = 1;
-            Intellect = 1;
-            MagicStrength = 1;
-        }
-        else if (type == "Маг"){
-            Damage = 1;
-            HP = 1;
-            Armor = 1;
-            Intellect = 1;
-            MagicStrength = 1;
-        }
-        else{
-            cout << "Ты ввел что-то не то, дружочек-пирожочек" << endl;
-            Sleep(2000);
-            system("cls");
-            goto ch;
+        switch (type) {
+            case 1: //По номеру типа
+                Type = "Лучник";
+                Damage = 1;//+ ((new Randomize)->getRandomNumber(1,1));|| Используем ранд чтоб сделать разброс статов.
+                HP = 1;
+                Armor = 1;
+                Intellect = 1;
+                MagicStrength = 1;/* Хуй знает как забить класс хуй пойми откуда в массив классов хуй пойми откуда
+                static Perks* d = new Perks(); ебал плюсы
+                d->AddPerk("");-----------МБ МОЖНО ЗАБИТЬ МАССИВ ИЗ ДРУГОГО МЕТОДА--------------------
+                perks[0] = d;*/
+                break;
+            case 2: //По номеру типа
+                Type = "Лучник";
+                Damage = 1;//+ ((new Randomize)->getRandomNumber(1,1));|| Используем ранд чтоб сделать разброс статов.
+                HP = 1;
+                Armor = 1;
+                Intellect = 1;
+                MagicStrength = 1;/* Хуй знает как забить класс хуй пойми откуда в массив классов хуй пойми откуда
+                static Perks* d = new Perks(); ебал плюсы
+                d->AddPerk("");
+                perks[0] = d;*/
+                break;
+            case 3: //По номеру типа
+                Type = "Лучник";
+                Damage = 1;//+ ((new Randomize)->getRandomNumber(1,1));|| Используем ранд чтоб сделать разброс статов.
+                HP = 1;
+                Armor = 1;
+                Intellect = 1;
+                MagicStrength = 1;/* Хуй знает как забить класс хуй пойми откуда в массив классов хуй пойми откуда
+                static Perks* d = new Perks(); ебал плюсы
+                d->AddPerk("");
+                perks[0] = d;*/
+                break; //Ну тип герой создается, но ++ сосет, надо задать каждому индивидуальные
+                        //значения и разброс
         }
     }
-};
-enum {
-    Arch,
-    Sword,
-    Maga
 };
 
 
