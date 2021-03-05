@@ -20,6 +20,8 @@ private:
     int lefthand;
     int legs;
     void CreateEquipment(string name, int damage, int hp, int armor, int intellect, int magicstrength){
+int i;
+       if (helmet==1)
 
     }
     void EquipEquipment(string name, int damage, int hp, int armor, int intellect, int magicstrength){
