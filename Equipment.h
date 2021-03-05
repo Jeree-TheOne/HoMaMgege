@@ -125,8 +125,8 @@ int i;
                     break;
             }
         }
-        list<int> numbers1;
-        auto iter4 = numbers1.cend({ar});
+        list<int> inventar;
+        inventar.push_back(ar);
     }
     void EquipEquipment(string name, int damage, int hp, int armor, int intellect, int magicstrength){
 
