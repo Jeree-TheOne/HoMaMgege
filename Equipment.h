@@ -5,6 +5,8 @@
 #ifndef UNTITLED3_EQUIPMENT_H
 #define UNTITLED3_EQUIPMENT_H
 #include <iostream>
+#include <list>
+
 using namespace std;
 class Equipment {
 private:
@@ -14,11 +16,7 @@ private:
     int Armor;
     int Intellect;
     int MagicStrength;
-    int helmet;
-    int breastplate;
-    int righthand;
-    int lefthand;
-    int legs;
+    int ar;
     int sh=0;
     int grud=0;
     int ruk1=0;
@@ -27,11 +25,11 @@ private:
     void CreateEquipment(string name, int damage, int hp, int armor, int intellect, int magicstrength){
 int i;
         cout << "Вам выпал: ";
-       if (helmet==1)
+       if (ar==1)
            cout << "Шлем белого единорога" << endl;
-        else if (helmet==2)
-            cout << "Шлем Хаоса" << endl;
-        else if (helmet==3)
+        else if (ar==2)
+           cout << "Шлем Хаоса" << endl;
+        else if (ar==3)
             cout << "Шлем небесного грома" << endl;
         else {
            cout << "Желаете надеть шлем?" << endl;
@@ -40,18 +38,18 @@ int i;
            cin >> i;
             switch(i){
             case 1:
-                sh = helmet;
+                sh = ar;
                 break;
             case 2:
                 sh = sh;
                 break;
         }
         }
-        if (breastplate==1)
+        if (ar==4)
             cout << "Туника короля циклопов" << endl;
-        else if (breastplate==2)
+        else if (ar==5)
             cout << "Доспех из чешуи дракона" << endl;
-        else if (breastplate==3)
+        else if (ar==6)
             cout << "Кираса титана" << endl;
         else {
             cout << "Желаете надеть нагрудник?" << endl;
@@ -60,18 +58,18 @@ int i;
             cin >> i;
             switch(i){
                 case 1:
-                    grud = breastplate;
+                    grud = ar;
                     break;
                 case 2:
                     grud = grud;
                     break;
             }
         }
-        if (lefthand==1)
+        if (ar==7)
             cout << "Щит короля гномов" << endl;
-        else if (lefthand==2)
+        else if (ar=8)
             cout << "Щит тоскующих мертвецов" << endl;
-        else if (lefthand==3)
+        else if (ar==9)
             cout << "Щит из чешуи дракона" << endl;
         else {
             cout << "Желаете надеть щит?" << endl;
@@ -80,18 +78,18 @@ int i;
             cin >> i;
             switch(i){
                 case 1:
-                    ruk1 = lefthand;
+                    ruk1 = ar;
                     break;
                 case 2:
                     ruk1 = ruk1;
                     break;
             }
         }
-        if (righthand==1)
+        if (ar==10)
             cout << "Гладиус титана" << endl;
-        else if (righthand==2)
+        else if (ar==11)
             cout << "Карающая дубина огра" << endl;
-        else if (righthand==3)
+        else if (ar==12)
             cout << "Секира кентавра" << endl;
         else {
             cout << "Желаете взять оружие?" << endl;
@@ -100,18 +98,18 @@ int i;
             cin >> i;
             switch(i){
                 case 1:
-                    ruk2 = righthand;
+                    ruk2 = ar;
                     break;
                 case 2:
                     ruk2 = ruk2;
                     break;
             }
         }
-        if (legs==1)
+        if (ar==13)
             cout << "Сапоги левитации" << endl;
-        else if (legs==2)
+        else if (ar==14)
             cout << "Башмаки мертвеца" << endl;
-        else if (legs==3)
+        else if (ar==15)
             cout << "Сандалии святого" << endl;
         else {
             cout << "Желаете надеть обувь?" << endl;
@@ -120,13 +118,15 @@ int i;
             cin >> i;
             switch(i){
                 case 1:
-                    nog = helmet;
+                    nog = ar;
                     break;
                 case 2:
                     nog = nog;
                     break;
             }
         }
+        list<int> numbers1;
+        auto iter4 = numbers1.cend({ar});
     }
     void EquipEquipment(string name, int damage, int hp, int armor, int intellect, int magicstrength){
 
