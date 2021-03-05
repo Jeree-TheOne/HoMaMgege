@@ -19,22 +19,22 @@ private:
     int Intellect;
     int MagicStrength;
     int ar;
-    int sh=0;
-    int grud=0;
+    int sh=0; //переменные в которых написано одет пользователь или нет, если да, то во что
+    int grud=0; //НОРМАЛЬНЫЙ НЕЙМИНГ ЧЁ ТЕБЕ НЕ НРАВИТСЯ?
     int ruk1=0;
     int ruk2=0;
     int nog=0;
     void CreateEquipment(string name, int damage, int hp, int armor, int intellect, int magicstrength) {
         int i;
-        int y;
-        list<int> inventar;
-        for (auto inv = inventar.begin(); inv!=inventar.end();inv++)
-        if (*inv == y)
+        int y;//переменная которая будет коннектиться с рандомом
+        list<int> inventar; //объявление листа
+        for (auto inv = inventar.begin(); inv!=inventar.end();inv++) //перебирание всех элементов листа
+        if (*inv == y) //проверка на существование этого элемента в листа, то есть в инвентаре, если такой предмет есть тебя шлют нахуй
         cout<<"К сожалению у вас есть уже такой инвентарь";
-        else
+        else //далее идёт запись в лист и разговор с пользователем
         {
         cout << "Вам выпал: ";
-        if (ar == 1)
+        if (ar == 1) //ар это оружие, сейчас переименую, каждому предмету присваивается своё число
             cout << "Шлем белого единорога" << endl;
         else if (ar == 2)
             cout << "Шлем Хаоса" << endl;
@@ -48,7 +48,7 @@ private:
             switch (i) {
                 case 1:
                     sh = ar;
-                    break;
+                    break
                 case 2:
                     sh = sh;
                     break;
