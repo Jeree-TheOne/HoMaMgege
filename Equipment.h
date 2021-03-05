@@ -5,11 +5,13 @@
 #ifndef UNTITLED3_EQUIPMENT_H
 #define UNTITLED3_EQUIPMENT_H
 #include <iostream>
-#include <list>
+
 
 using namespace std;
+template<typename T>
 class Equipment {
 private:
+
     string Name;
     int Damage;
     int HP;
@@ -22,41 +24,48 @@ private:
     int ruk1=0;
     int ruk2=0;
     int nog=0;
-    void CreateEquipment(string name, int damage, int hp, int armor, int intellect, int magicstrength){
-int i;
+    void CreateEquipment(string name, int damage, int hp, int armor, int intellect, int magicstrength) {
+        int i;
+        int y;
+        list<int> inventar;
+        for (auto inv = inventar.begin(); inv!=inventar.end();inv++)
+        if (*inv == y)
+        cout<<"К сожалению у вас есть уже такой инвентарь";
+        else
+        {
         cout << "Вам выпал: ";
-       if (ar==1)
-           cout << "Шлем белого единорога" << endl;
-        else if (ar==2)
-           cout << "Шлем Хаоса" << endl;
-        else if (ar==3)
+        if (ar == 1)
+            cout << "Шлем белого единорога" << endl;
+        else if (ar == 2)
+            cout << "Шлем Хаоса" << endl;
+        else if (ar == 3)
             cout << "Шлем небесного грома" << endl;
         else {
-           cout << "Желаете надеть шлем?" << endl;
-           cout << "1)Да" << endl;
-           cout << "2)Нет" << endl;
-           cin >> i;
-            switch(i){
-            case 1:
-                sh = ar;
-                break;
-            case 2:
-                sh = sh;
-                break;
+            cout << "Желаете надеть шлем?" << endl;
+            cout << "1)Да" << endl;
+            cout << "2)Нет" << endl;
+            cin >> i;
+            switch (i) {
+                case 1:
+                    sh = ar;
+                    break;
+                case 2:
+                    sh = sh;
+                    break;
+            }
         }
-        }
-        if (ar==4)
+        if (ar == 4)
             cout << "Туника короля циклопов" << endl;
-        else if (ar==5)
+        else if (ar == 5)
             cout << "Доспех из чешуи дракона" << endl;
-        else if (ar==6)
+        else if (ar == 6)
             cout << "Кираса титана" << endl;
         else {
             cout << "Желаете надеть нагрудник?" << endl;
             cout << "1)Да" << endl;
             cout << "2)Нет" << endl;
             cin >> i;
-            switch(i){
+            switch (i) {
                 case 1:
                     grud = ar;
                     break;
@@ -65,18 +74,18 @@ int i;
                     break;
             }
         }
-        if (ar==7)
+        if (ar == 7)
             cout << "Щит короля гномов" << endl;
-        else if (ar=8)
+        else if (ar = 8)
             cout << "Щит тоскующих мертвецов" << endl;
-        else if (ar==9)
+        else if (ar == 9)
             cout << "Щит из чешуи дракона" << endl;
         else {
             cout << "Желаете надеть щит?" << endl;
             cout << "1)Да" << endl;
             cout << "2)Нет" << endl;
             cin >> i;
-            switch(i){
+            switch (i) {
                 case 1:
                     ruk1 = ar;
                     break;
@@ -85,18 +94,18 @@ int i;
                     break;
             }
         }
-        if (ar==10)
+        if (ar == 10)
             cout << "Гладиус титана" << endl;
-        else if (ar==11)
+        else if (ar == 11)
             cout << "Карающая дубина огра" << endl;
-        else if (ar==12)
+        else if (ar == 12)
             cout << "Секира кентавра" << endl;
         else {
             cout << "Желаете взять оружие?" << endl;
             cout << "1)Да" << endl;
             cout << "2)Нет" << endl;
             cin >> i;
-            switch(i){
+            switch (i) {
                 case 1:
                     ruk2 = ar;
                     break;
@@ -105,18 +114,18 @@ int i;
                     break;
             }
         }
-        if (ar==13)
+        if (ar == 13)
             cout << "Сапоги левитации" << endl;
-        else if (ar==14)
+        else if (ar == 14)
             cout << "Башмаки мертвеца" << endl;
-        else if (ar==15)
+        else if (ar == 15)
             cout << "Сандалии святого" << endl;
         else {
             cout << "Желаете надеть обувь?" << endl;
             cout << "1)Да" << endl;
             cout << "2)Нет" << endl;
             cin >> i;
-            switch(i){
+            switch (i) {
                 case 1:
                     nog = ar;
                     break;
@@ -125,8 +134,9 @@ int i;
                     break;
             }
         }
-        list<int> inventar;
+
         inventar.push_back(ar);
+    }
     }
     void EquipEquipment(string name, int damage, int hp, int armor, int intellect, int magicstrength){
 
