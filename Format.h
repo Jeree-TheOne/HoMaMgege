@@ -37,6 +37,7 @@ public:
         arr.push_back( format.substr( prev ) );
 
         return res;
+
     }
 };
 
