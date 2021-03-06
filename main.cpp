@@ -26,6 +26,6 @@ int main() {
     }*/
 
     Equipment qq("","","");
-    qq.DropEquipment(3);
+    qq.DropEquipment(9);
     return 0;
 }

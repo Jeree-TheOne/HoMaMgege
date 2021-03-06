@@ -84,7 +84,7 @@ public:
         else if (action == 2)
             AddToInventory(equipment[index][0]);
         else{
-            cout<<"Введено неверное значение";
+            cout<<"Введено неверное значение\n";
             goto ch;
         }
     }
