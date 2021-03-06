@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
-#include "Format.h"
+#include "Equipment.h"
 using namespace std;
 int main() {
     SetConsoleOutputCP(CP_UTF8);
@@ -14,7 +14,7 @@ int main() {
     Sleep(1000);
     cout << "3" << endl;
     Sleep(1000);
-    std::cout << "Ну что, готов окунуться в этот мир, полный приключений,\n"
+    /*std::cout << "Ну что, готов окунуться в этот мир, полный приключений,\n"
                  "существ, опасностей и гачистов?\n"
                  "Если да, то напиши WE-WE POWER: ";
     string a;
@@ -23,7 +23,9 @@ int main() {
     if (a != "WE-WE POWER") {
         cout << "Ну ты че, давай нормально" << endl;
         goto start;
-    }
-    Format::DeFormat("111_112_113");
+    }*/
+
+    Equipment qq("","","");
+    qq.DropEquipment(3);
     return 0;
 }

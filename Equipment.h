@@ -6,6 +6,7 @@
 #define UNTITLED3_EQUIPMENT_H
 #include <iostream>
 #include <list>
+#include "Format.h"
 
 using namespace std;
 
@@ -73,11 +74,23 @@ public:
     }
     void DropEquipment(int index){
         cout << "Вам выпал новый предмет: " << equipment[index][0]<<endl;
-        cout << "Его характеристики: " <<
+        cout << "Его характеристики: \n" << Format::DeFormat(equipment[index][2]) << "\n";
+        ch:
+        cout << "Ваши действия: \n1) Надеть новый предмет \n2) Положить в инвентарь\nВыберите действие: ";
+        int action;
+        cin >> action;
+        if (action == 1)
+            EquipEquipment(equipment[index][0]);
+        else if (action == 2)
+            AddToInventory(equipment[index][0]);
+        else{
+            cout<<"Введено неверное значение";
+            goto ch;
+        }
     }
 
     void EquipEquipment(string name){
-        for
+
     }
 
     void AddToInventory(string name){

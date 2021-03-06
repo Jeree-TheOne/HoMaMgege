@@ -1,5 +1,5 @@
 //
-// Created by user on 06.03.2021.
+// Created by user on 07.03.2021.
 //
 
 #ifndef MAIN_CPP_FORMAT_H
@@ -7,30 +7,36 @@
 #include <iostream>
 #include <vector>
 #include <string>
-
 using namespace std;
+
+
 class Format {
+
 public:
+
     static string DeFormat(string format){
+        string stats[6] = {"Урон","Здоровье","Броня","Интеллект","Магическая сила","Стоимость"};
         vector<string> arr;
-        string delim = "_";
+        string delim("_");
         size_t prev = 0;
         size_t next;
-        size_t delta = 1;
-
+        size_t delta = delim.length();
+        int index = 0;
+        string res;
         while( ( next = format.find( delim, prev ) ) != string::npos ){
             string tmp = format.substr( prev, next-prev );
-            cout << tmp << endl;
-
+            if (stoi(tmp) != 0)
+                res += stats[index] + ": " + tmp + "\n";
+            ++index;
             arr.push_back( format.substr( prev, next-prev ) );
             prev = next + delta;
         }
         string tmp = format.substr( prev );
-        cout << tmp << endl;
-
+        if (stoi(tmp) != 0)
+            res += stats[index] + ": " + tmp + "\n";
         arr.push_back( format.substr( prev ) );
 
-        return "";
+        return res;
     }
 };
 
