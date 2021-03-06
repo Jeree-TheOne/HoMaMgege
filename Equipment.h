@@ -18,12 +18,12 @@ private:
     int Armor;
     int Intellect;
     int MagicStrength;
-    int ar;
-    int sh=0; //переменные в которых написано одет пользователь или нет, если да, то во что
-    int grud=0; //НОРМАЛЬНЫЙ НЕЙМИНГ ЧЁ ТЕБЕ НЕ НРАВИТСЯ?
-    int ruk1=0;
-    int ruk2=0;
-    int nog=0;
+    int ekipirovka;
+    int helmet=0; //переменные в которых написано одет пользователь или нет, если да, то во что
+    int breastplace=0; //НОРМАЛЬНЫЙ НЕЙМИНГ ЧЁ ТЕБЕ НЕ НРАВИТСЯ?
+    int lefthand=0;
+    int righthand=0;
+    int legs=0;
     void CreateEquipment(string name, int damage, int hp, int armor, int intellect, int magicstrength) {
         int i;
         int y;//переменная которая будет коннектиться с рандомом
@@ -34,109 +34,115 @@ private:
         else //далее идёт запись в лист и разговор с пользователем
         {
         cout << "Вам выпал: ";
-        if (ar == 1) //ар это оружие, сейчас переименую, каждому предмету присваивается своё число
+        if (ekipirovka == 1) //ар это оружие, сейчас переименую, каждому предмету присваивается своё число
             cout << "Шлем белого единорога" << endl;
-        else if (ar == 2)
+        else if (ekipirovka == 2)
             cout << "Шлем Хаоса" << endl;
-        else if (ar == 3)
+        else if (ekipirovka == 3)
             cout << "Шлем небесного грома" << endl;
-        else {
+
+        if (ekipirovka == 4)
+            cout << "Туника короля циклопов" << endl;
+        else if (ekipirovka == 5)
+            cout << "Доспех из чешуи дракона" << endl;
+        else if (ekipirovka == 6)
+            cout << "Кираса титана" << endl;
+
+        if (ekipirovka == 7)
+            cout << "Щит короля гномов" << endl;
+        else if (ekipirovka = 8)
+            cout << "Щит тоскующих мертвецов" << endl;
+        else if (ekipirovka == 9)
+            cout << "Щит из чешуи дракона" << endl;
+
+        if (ekipirovka == 10)
+            cout << "Гладиус титана" << endl;
+        else if (ekipirovka == 11)
+            cout << "Карающая дубина огра" << endl;
+        else if (ekipirovka == 12)
+            cout << "Секира кентавра" << endl;
+
+        if (ekipirovka == 13)
+            cout << "Сапоги левитации" << endl;
+        else if (ekipirovka == 14)
+            cout << "Башмаки мертвеца" << endl;
+        else if (ekipirovka == 15)
+            cout << "Сандалии святого" << endl;
+
+
+        inventar.push_back(ekipirovka);//Записывает полученную вещь (если её там нет) в конец листа
+    }
+        if (ekipirovka==1||ekipirovka==2||ekipirovka==3) //предоставляет выбор надеть полученную броню или нет
+        {
             cout << "Желаете надеть шлем?" << endl;
             cout << "1)Да" << endl;
             cout << "2)Нет" << endl;
             cin >> i;
             switch (i) {
                 case 1:
-                    sh = ar;
-                    break
+                    helmet = ekipirovka; //если да, вещи меняются
+                    break;
                 case 2:
-                    sh = sh;
+                    helmet = helmet; //если нет вещь остаётся на месте
                     break;
             }
         }
-        if (ar == 4)
-            cout << "Туника короля циклопов" << endl;
-        else if (ar == 5)
-            cout << "Доспех из чешуи дракона" << endl;
-        else if (ar == 6)
-            cout << "Кираса титана" << endl;
-        else {
+        else if (ekipirovka==4||ekipirovka==5||ekipirovka==6){
             cout << "Желаете надеть нагрудник?" << endl;
             cout << "1)Да" << endl;
             cout << "2)Нет" << endl;
             cin >> i;
             switch (i) {
                 case 1:
-                    grud = ar;
+                    breastplace = ekipirovka;
                     break;
                 case 2:
-                    grud = grud;
+                    breastplace = breastplace;
                     break;
             }
         }
-        if (ar == 7)
-            cout << "Щит короля гномов" << endl;
-        else if (ar = 8)
-            cout << "Щит тоскующих мертвецов" << endl;
-        else if (ar == 9)
-            cout << "Щит из чешуи дракона" << endl;
-        else {
+        else if (ekipirovka==7||ekipirovka==8||ekipirovka==9){
             cout << "Желаете надеть щит?" << endl;
             cout << "1)Да" << endl;
             cout << "2)Нет" << endl;
             cin >> i;
             switch (i) {
                 case 1:
-                    ruk1 = ar;
+                    lefthand = ekipirovka;
                     break;
                 case 2:
-                    ruk1 = ruk1;
+                    lefthand = lefthand;
                     break;
             }
         }
-        if (ar == 10)
-            cout << "Гладиус титана" << endl;
-        else if (ar == 11)
-            cout << "Карающая дубина огра" << endl;
-        else if (ar == 12)
-            cout << "Секира кентавра" << endl;
-        else {
+        else if (ekipirovka==10||ekipirovka==11||ekipirovka==12){
             cout << "Желаете взять оружие?" << endl;
             cout << "1)Да" << endl;
             cout << "2)Нет" << endl;
             cin >> i;
             switch (i) {
                 case 1:
-                    ruk2 = ar;
+                    righthand = ekipirovka;
                     break;
                 case 2:
-                    ruk2 = ruk2;
+                    righthand = righthand;
                     break;
             }
         }
-        if (ar == 13)
-            cout << "Сапоги левитации" << endl;
-        else if (ar == 14)
-            cout << "Башмаки мертвеца" << endl;
-        else if (ar == 15)
-            cout << "Сандалии святого" << endl;
-        else {
+        else if (ekipirovka==13||ekipirovka==14||ekipirovka==15){
             cout << "Желаете надеть обувь?" << endl;
             cout << "1)Да" << endl;
             cout << "2)Нет" << endl;
             cin >> i;
             switch (i) {
                 case 1:
-                    nog = ar;
+                    legs = ekipirovka;
                     break;
                 case 2:
-                    nog = nog;
+                    legs = legs;
                     break;
             }
         }
-
-        inventar.push_back(ar);
-    }
     }
     void EquipEquipment(string name, int damage, int hp, int armor, int intellect, int magicstrength){
 
