@@ -15,9 +15,9 @@
 using namespace std;
 
 enum Types{
-    Archer = 1,
-    Warrior,
-    Mag
+    Лучник = 1,
+    Воин,
+    Волшебник
 };
 
 class Hero {
