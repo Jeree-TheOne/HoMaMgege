@@ -9,6 +9,7 @@
 #include <iostream>
 #include <list>
 #include "Perks.h"
+#include "Randomize.h"
 using namespace std;
 class Hero {
 private:
