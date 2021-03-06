@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
+#include "Format.h"
 using namespace std;
 int main() {
     SetConsoleOutputCP(CP_UTF8);
@@ -23,5 +24,6 @@ int main() {
         cout << "Ну ты че, давай нормально" << endl;
         goto start;
     }
+    Format::DeFormat("111_112_113");
     return 0;
 }
