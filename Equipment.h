@@ -17,7 +17,7 @@ private:
 public:
     Equipment(string name, string type, int )
     {
-
+    
     }
     void EquipEquipment(string name, int damage, int hp, int armor, int intellect, int magicstrength){
 
