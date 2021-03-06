@@ -15,9 +15,9 @@
 using namespace std;
 
 enum Types{
-    Лучник = 1,
-    Воин,
-    Волшебник
+    Archer = 1,
+    Warrior,
+    Mag
 };
 
 class Hero {
@@ -30,7 +30,7 @@ private:
     int MagicStrength;
     int Gold = 2500;
     Perks perks[4];
-    Equipment equipment[1];
+    //Equipment equipment[1];
     int Xp = 0;
 public:
     void CreateHero(Types type)
