@@ -1,5 +1,5 @@
 //
-// Created by JerEe^ and Kosty on 01.03.2021.
+// Created by Kosty on 01.03.2021.
 //
 
 #ifndef UNTITLED3_LOCATIONS_H
@@ -41,7 +41,7 @@ public:
          int n3 = Randomize::GetRand(0,9) ; //Третья часть города
          this->name = CityName[0][n1] + CityName[1][n2] + CityName[2][n3]; // <- Получение название города
          TypeCity test = static_cast<TypeCity>(Randomize::GetRand(0,7));  // Рандом богатости города.
-         this->type = test;//
+         this->type = test;
          int ChanceINC[7];
         switch (type)
         {
@@ -156,6 +156,10 @@ public:
         }
 
         }
+        switch (type)
+        {
+
+        }
         // TODO : Сделать определение зданий.
 
     void Show()
@@ -166,9 +170,9 @@ public:
     }; // <- Класс города( Тут всё про город ).
 class Dungeon {
 private:
-    string name;
-    int type;
-     list<int> shagi;
+    string name; // Название данжа
+    int type; // Тип данжа(См ниже)
+     list<int> shagi; // <- Последовательность ходов в данже
     int chdun[20] = {1,1,1,1,1,1,1,1,1,2,2,2,2,2,3,3,3,4,4,5}; // <- Возможность выпадения данжа
     // 1 - Gaybar (легко),
     // 2 - Leatherclub (средне),
@@ -176,7 +180,8 @@ private:
     // 4 - MPT(Очень сложно),
     // 5 - Vangeon(Боссфайт).
 public:
-   const string DungeonName [3][10] = {
+    const   int ChanceDungeon[30] =  {0,0,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4}; // Шанс выпадения типа комнаты(см ниже).
+    const string DungeonName [3][10] = {
             {"Чёрный  ", "Зловещий ", "Скверный ", "Забытый ", "Замшелый ", "Мрачный ", "Чудовищный ", "Величавый ", "Заброшенный ", "Богом забытый "},
             {"gym ", "dungeon ", "техникум имени ", "leatherclub ", "gay bar ", "притон ", "склеп ", "погост ", "некрополь ", "bondage gay web-site "},
             {"Тёмного cum'a", "Даркохльма", "Районного прокурора", "Фистинг клаба", "fucking'х slaves", "horny dicks", "брошенных jabhronies", "унылых гачи-треков", "ВО РЭУ им. Г.В.Плеханова", "of latex gloves"}};
@@ -187,7 +192,7 @@ public:
         int n2 = Randomize::GetRand(0,9) ; //Вторая часть названия данжа
         int n3 = Randomize::GetRand(0,9) ; //Третья часть названия данжа
         this->name = DungeonName[0][n1] + DungeonName[1][n2] + DungeonName[2][n3]; // <- Получение название города
-        this->type = chdun[Randomize::GetRand(0,19)];
+        this->type = chdun[Randomize::GetRand(0,19)]; // <- Метод выдачи данжу сложности(см выше)
         switch (type)
         {
             // 1 - Gaybar (легко),
@@ -197,61 +202,66 @@ public:
             // 5 - Vangeon(Боссфайт).
             // Задание последовательности и длительности прохождения данжа
             // Маркировка проходов.
-            // 0 - Пустой проход. (Средний шанс)
-            // 1 - Выход на улицу. (Маленький шанс)
-            // 2 - Темная комната. (Маленький шанс)
+            // 404 - Пустой проход. (Средний шанс)
+            // 0 - Выход на улицу. (Маленький шанс)
+            // 1 - Темная комната. (Маленький шанс)
             // После темной комнаты обязательно спавнится одна из следующих комнат!!!
-            // 20 - Темная комната -> пустая комната. (Высокий шанс).
-            // 21 -  Темная комната -> комната с ловушкой. (Средний шанс).
-            // 22 -  Темная комната -> комната со средней наградой. (Средний шанс).
-            // 23 -  Темная комната -> комната с  большой наградой. (маленький шанс).
-            // 24 -  Темная комната -> комната со смертносной ловушкой. (очень маленький шанс).
-            // 3 - Ловушка (маленький шанс) (Потеря одного из артефактов(средний шанс) ИЛИ потеря части юнитов (средний шанс) ИЛИ смерть гг(очень маленький шанс))
-            // 4 - Вражеские юниты (средний шанс) Внимание! Градация идет от уровня данжа. (Слабые (Маленький шанс), Средние - (Высокий шанс), Сложые (маленький шанс).
-            // 5 - Сундук (низкий шанс) (Маленькая награда (Высокий шанс), Средняя награда (маленький шанс), Большая награда (очень маленький шанс))
-            // 6 - Босс данжа (СМ Поле Type).
+            // 10 - Темная комната -> пустая комната. (Высокий шанс).
+            // 11 -  Темная комната -> комната с ловушкой. (Средний шанс).
+            // 12 -  Темная комната -> комната со средней наградой. (Средний шанс).
+            // 13 -  Темная комната -> комната с  большой наградой. (маленький шанс).
+            // 14 -  Темная комната -> комната со смертносной ловушкой. (очень маленький шанс).
+            // 2 - Ловушка (маленький шанс) (Потеря одного из артефактов(средний шанс) ИЛИ потеря части юнитов (средний шанс) ИЛИ смерть гг(очень маленький шанс))
+            // 3 - Вражеские юниты (средний шанс) Внимание! Градация идет от уровня данжа. (Слабые (Маленький шанс), Средние - (Высокий шанс), Сложые (маленький шанс).
+            // 4 - Сундук (низкий шанс) (Маленькая награда (Высокий шанс), Средняя награда (маленький шанс), Большая награда (очень маленький шанс))
+            // 5 - Босс данжа (СМ Поле Type).
             case 1:
             {
-                bool Chance [6][10] = {
-                        {true, true, true, true, true, true, false, false, false, false}, /*  Шанс пустой комнаты. */
+                int lengthshag = Randomize::GetRand(3,5);
+                int Droomchance[30] = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 12, 12, 11, 11, 12, 12, 11, 11 };
+                bool Chance [5][10] = {
                         {true, false, false, false, false, false, false, false, false, false}, /*  Шанс Выхода на улицу */
                         {true, false, false, false, false, false, false, false, false, false}, /*  Шанс Тёмной комнаты */
                         {true, true, true, true, false, false, false, false, false, false}, /* Шанс ловушки */
                         {true, true, true, true, true, true, false, false, false, false}, /*  Шанс врагов */
                         {true, true, true, false, false, false, false, false, false, false} /* Шанс сундук */
                          };
+                SetChanсes(lengthshag, Chance, Droomchance);
 
-                int j = Randomize::GetRand(3,5);
 
             }
             case 2:
             {
-                bool Chance [6][10] = {
-                        {true, true, true, false, false, false, false, false, false, false}, /*  Шанс пустой комнаты. */
+                int lengthshag = Randomize::GetRand(4,8);
+                int Droomchance[30] = { 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 11, 11, 11, 13, 13, 14 };
+                bool Chance [5][10] = {
                         {true, false, false, false, false, false, false, false, false, false}, /*  Шанс Выхода на улицу */
                         {true, true, true, false, false, false, false, false, false, false}, /*  Шанс Тёмной комнаты */
                         {true, true, true, true, true, true, false, false, false, false}, /* Шанс ловушки */
                         {true, true, true, true, true, true, true, false, false, false}, /*  Шанс врагов */
                         {true, true, true, true, false, false, false, false, false, false} /* Шанс сундук */
                 };
-                int j = Randomize::GetRand(4,6);
+                SetChanсes(lengthshag, Chance, Droomchance);
             }
             case 3:
             {
-                bool Chance [6][10] = {
-                        {true, true, false, false, false, false, false, false, false, false}, /*  Шанс пустой комнаты. */
+                int lengthshag = Randomize::GetRand(6,10);
+                int Droomchance[30] = { 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 11, 13, 13, 13, 14, 14 };
+                bool Chance [5][10] = {
                         {true, false, false, false, false, false, false, false, false, false}, /*  Шанс Выхода на улицу */
                         {true, true, true, true, true, false, false, false, false, false}, /*  Шанс Тёмной комнаты */
                         {true, true, true, true, true, true, false, false, false, false}, /* Шанс ловушки */
                         {true, true, true, true, true, true, true, true, true, false}, /*  Шанс врагов */
                         {true, true, true, true, true, true, true, true, false, false} /* Шанс сундук */
                 };
-                int j = Randomize::GetRand(6,10);
+                SetChanсes(lengthshag, Chance, Droomchance);
+
             }
             case 4:
             {
-                bool Chance [6][10] = {
-                        {true, false, false, false, false, false, false, false, false, false}, /*  Шанс пустой комнаты. */
+                int lengthshag = Randomize::GetRand(10,13);
+                int Droomchance[30] = { 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14, 14, 14, 14, 14, 14 };
+                bool Chance [5][10] = {
                         {true, false, false, false, false, false, false, false, false, false}, /*  Шанс Выхода на улицу */
                         {true, true, true, true, true, true, true, true, false, false}, /*  Шанс Тёмной комнаты */
                         {true, true, true, true, true, true, true, true, true, false}, /* Шанс ловушки */
@@ -262,11 +272,27 @@ public:
             }
             case 5:
             {
-
-                //20
+               // TODO Доделать Босс-данж
             }
         }
+
     };
+    void SetChanсes(int lengthshag, bool Chance[5][10], int Droomchance[30]) // Метод, определяющий тип и порядок комнат в данжоне.
+    {
+        for (int i = 0; i<lengthshag-1; i++) // Для всей длины листа(данжона) создается цикл
+        {
+            int j = ChanceDungeon[Randomize::GetRand(0,30)]; // Определение комнаты
+            bool ch = Chance[j][Randomize::GetRand(0,9)];    // Определение выпадание непустой комнаты
+            if (ch!=false)
+                if (j == 1) // Если выпала темная комната
+                    this->shagi.push_back(Droomchance[Randomize::GetRand(0,29)]); // Запускаем рандом темной комнаты
+                else
+                    this->shagi.push_back(j); // Иначе даем в лист обычную комнату(не пустую)
+            else
+                this->shagi.push_back(404); // Пустая комната выпала
+        }
+        this->shagi.push_back(5); // Выдача босса данжа в конец.
+    } //
 
 
 
