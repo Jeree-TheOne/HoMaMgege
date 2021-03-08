@@ -4,36 +4,44 @@
 
 #ifndef UNTITLED3_PERKS_H
 #define UNTITLED3_PERKS_H
-
 #include <iostream>
+#include "Randomize.h"
+#include "Format.h"
+using namespace std;
 
 class Perks {
 private:
-    std::string Name;
-    std::string Action;
+    string Action;
     int Stage;
-    int Chance;
-    std::string perks [11][2] = {
-            {"Стрельба",""},
-            {"Удача",""},
-            {"Уклонение",""},
-            {"Нападение",""},
-            {"Доспехи",""},
-            {"Мистицизм",""},
-            {"Атака",""},
-            {"Разум",""},
-            {"Волшебство",""},
-            {"Сопротивление магии",""},
-            {"Артилерия",""}
+    string perks [10][3] = {
+            {"Стрельба","RD10","1"},
+            {"Удача","C10","1"},
+            {"Уклонение","E10","1"},
+            {"Нападение","AD10","1"},
+            {"Доспехи","A10","1"},
+            {"Мистицизм","M10","1"},
+            {"Атака","AD10","1"},
+            {"Разум","I25","1"},
+            {"Волшебство","MD10","1"},
+            {"Сопротивление магии","MR10","1"}
     };
 
-    //BATYGINA OTRABOTIVAI
 public:
-    void AddPerk(std::string name) {
-        
+    string Name;
+    Perks(){
+        int index = Randomize::GetRand(0,9);
+        Name = perks[index][0];
+        Action = perks[index][1];
+        Stage = 1;
     }
-    void UpgradePerk(std::string name, std::string action, int stage){
-
+    void UpgradePerk(){
+        if (Stage == 3)
+        {
+            cout << "Навык уже максимального уровня";
+            return;
+        }
+        Format::UpPerk(Action, Stage);
+        ++Stage;
     }
 };
 

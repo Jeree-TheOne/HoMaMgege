@@ -39,6 +39,17 @@ public:
         return res;
 
     }
+    static string UpPerk(string action, int stage){
+        string num,act;
+        for(int i = 0; i < action.length(); i++){
+            if (isdigit(action[i]))
+                num += action[i];
+            else
+                act += action[i];
+        }
+        num = to_string(stoi(num) / stage * (stage + 1));
+        return act + num;
+    }
 };
 
 
