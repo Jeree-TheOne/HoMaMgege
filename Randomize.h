@@ -13,11 +13,10 @@ class Randomize {
 public:
     static int GetRand(int min, int max)
     {
-        std::random_device RandomDevice;
-        std::mt19937 generator(RandomDevice());
-        std::uniform_int_distribution<> distribution(min, max);
-        int x = distribution(generator);
-        return x;
+        _sleep(500);
+        srand(_time64(NULL));
+
+        return min + (rand() % ((max - min) + 1));;
     }
 };
 
