@@ -4,6 +4,7 @@
 #include "Equipment.h"
 #include "Randomize.h"
 #include "Hero.h"
+#include "Locations.h"
 using namespace std;
 int main() {
     SetConsoleOutputCP(CP_UTF8);
@@ -37,5 +38,9 @@ int main() {
     Format::DeFormat("0_0_0_0");
 
     cout << Format::UpPerk("AD10",2);
+  /* Dungeon *DUNJ = new Dungeon();
+    DUNJ->Show();
+    City *DUNJJ = new City();
+    DUNJJ->Show();*/
     return 0;
 }

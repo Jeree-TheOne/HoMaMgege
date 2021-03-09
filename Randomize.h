@@ -13,9 +13,8 @@ class Randomize {
 public:
     static int GetRand(int min, int max)
     {
-        _sleep(500);
+        _sleep(400);
         srand(_time64(NULL));
-
         return min + (rand() % ((max - min) + 1));;
     }
 };
