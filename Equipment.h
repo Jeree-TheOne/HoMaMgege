@@ -5,147 +5,98 @@
 #ifndef UNTITLED3_EQUIPMENT_H
 #define UNTITLED3_EQUIPMENT_H
 #include <iostream>
-
-
+#include <vector>
+#include <list>
+#include "Format.h"
+#include "Randomize.h"
 using namespace std;
-template<typename T>
+
+enum Type{
+    Helmet = 1,
+    Amulet,
+    ChestArmor,
+    LeftHand,       //shit
+    RightHand,      //morgenshtern
+    Ring,
+    Nogi,
+    Pet,
+    Access
+};
+
+
+class In;
+
 class Equipment {
 private:
-
     string Name;
-    int Damage;
-    int HP;
-    int Armor;
-    int Intellect;
-    int MagicStrength;
-    int ekipirovka;
-    int helmet=0; //переменные в которых написано одет пользователь или нет, если да, то во что
-    int breastplace=0; //НОРМАЛЬНЫЙ НЕЙМИНГ ЧЁ ТЕБЕ НЕ НРАВИТСЯ?
-    int lefthand=0;
-    int righthand=0;
-    int legs=0;
-    void CreateEquipment(string name, int damage, int hp, int armor, int intellect, int magicstrength) {
-        int i;
-        int y;//переменная которая будет коннектиться с рандомом
-        list<int> inventar; //объявление листа
-        for (auto inv = inventar.begin(); inv!=inventar.end();inv++) //перебирание всех элементов листа
-        if (*inv == y) //проверка на существование этого элемента в листа, то есть в инвентаре, если такой предмет есть тебя шлют нахуй
-        cout<<"К сожалению у вас есть уже такой инвентарь";
-        else //далее идёт запись в лист и разговор с пользователем
-        {
-        cout << "Вам выпал: ";
-        if (ekipirovka == 1) //ар это оружие, сейчас переименую, каждому предмету присваивается своё число
-            cout << "Шлем белого единорога" << endl;
-        else if (ekipirovka == 2)
-            cout << "Шлем Хаоса" << endl;
-        else if (ekipirovka == 3)
-            cout << "Шлем небесного грома" << endl;
+    string Type;
+    string Stats;
+public:
+    string equipment[36][3] = {
+            {"Ведро ","Helmet","1_0_4_0_0_200"}, // Damage_HP_Armor_Intellect_MagicStrength_Gold
+            {"Шлем варваров ","Helmet","12_0_14_0_0_1500"},
+            {"Шапка-ушанка ","Helmet","20_0_30_10_5_5000"},
+            {"Резиновый *** ","Helmet","100_0_200_50_50_25000"},
+            {"Кандалы ","Amulet","4_0_0_0_0_200"},
+            {"Ошейник Дьявола ","Amulet","25_0_6_5_10_1500"},
+            {"Цепь Сигурда ","Amulet","25_0_20_0_10_5000"},
+            {"Чокер ","Amulet","80_0_150_0_0_1500"},
+            {"Алмазный нагрудник ","ChestArmor","0_0_10_0_1_300"},
+            {"\"Ребра\" ","ChestArmor","20_0_20_0_0_2000"},
+            {"Кожак ","ChestArmor","30_0_50_10_10_5500"},
+            {"Худи с Мадарой ","ChestArmor","200_0_350_30_30_35000"},
+            {"Дверь с ручкой ","LeftHand","1_0_6_0_0_250"},
+            {"Стальной щит ","LeftHand","10_0_30_3_3_2500"},
+            {"Щит героя ","LeftHand","15_0_50_20_15_6000"},
+            {"Настоящий SHIT ","LeftHand","50_0_300_30_30_2000"},
+            {"Дубинка \"bonk\" ","RightHand","5_0_1_0_0_300"},
+            {"Меч Сияние ","RightHand","10_0_5_0_0_2500"},
+            {"Лазерный меч ","RightHand","50_0_20_0_0_5500"},
+            {"Latex Glove ","RightHand","250_0_100_0_0_25000"},
+            {"Кольцо лоха ","Ring","2_0_3_2_2_400"},
+            {"Кольцо жизненной силы ","Ring","3_0_6_6_6_1700"},
+            {"Перстень колдуна ","Ring","5_0_15_15_15_5650"},
+            {"Кольцо Всевластия " ,"Ring","10_0_50_65_65_19500"},
+            {"Портянки ","Nogi","2_0_2_0_0_150"},
+            {"Сандали с носками ","Nogi","4_0_6_-5_0_1200"},
+            {"Air Force 1 ","Nogi","10_0_20_10_5_4800"},
+            {"Ботинки Саника ","Nogi","40_0_150_15_15_19000"},
+            {"Кошка ","Pet","4_0_0_2_2_350"},
+            {"Уитли ","Pet","10_0_0_8_8_1700"},
+            {"Билл Шифр ","Pet","15_0_5_20_20_3500"},
+            {"Плотва ","Pet","50_0_50_150_150_22000"},
+            {"Грязная тряпка ","Access","2_0_2_0_0_200"},
+            {"Повязка Тупака ","Access","10_0_8_5_8_1450"},
+            {"Bondage ","Access","25_0_35_10_10_3500"},
+            {"Повязка Рикардо Милоса ","Access","150_0_200_100_100_27000"}
+    };
 
-        if (ekipirovka == 4)
-            cout << "Туника короля циклопов" << endl;
-        else if (ekipirovka == 5)
-            cout << "Доспех из чешуи дракона" << endl;
-        else if (ekipirovka == 6)
-            cout << "Кираса титана" << endl;
-
-        if (ekipirovka == 7)
-            cout << "Щит короля гномов" << endl;
-        else if (ekipirovka = 8)
-            cout << "Щит тоскующих мертвецов" << endl;
-        else if (ekipirovka == 9)
-            cout << "Щит из чешуи дракона" << endl;
-
-        if (ekipirovka == 10)
-            cout << "Гладиус титана" << endl;
-        else if (ekipirovka == 11)
-            cout << "Карающая дубина огра" << endl;
-        else if (ekipirovka == 12)
-            cout << "Секира кентавра" << endl;
-
-        if (ekipirovka == 13)
-            cout << "Сапоги левитации" << endl;
-        else if (ekipirovka == 14)
-            cout << "Башмаки мертвеца" << endl;
-        else if (ekipirovka == 15)
-            cout << "Сандалии святого" << endl;
-
-
-        inventar.push_back(ekipirovka);//Записывает полученную вещь (если её там нет) в конец листа
+    Equipment(){
+        int index = Randomize::GetRand(0,35);
+        Name = equipment[index][0];
+        Type = equipment[index][1];
+        Stats = equipment[index][2];
     }
-        if (ekipirovka==1||ekipirovka==2||ekipirovka==3) //предоставляет выбор надеть полученную броню или нет
-        {
-            cout << "Желаете надеть шлем?" << endl;
-            cout << "1)Да" << endl;
-            cout << "2)Нет" << endl;
-            cin >> i;
-            switch (i) {
-                case 1:
-                    helmet = ekipirovka; //если да, вещи меняются
-                    break;
-                case 2:
-                    helmet = helmet; //если нет вещь остаётся на месте
-                    break;
-            }
-        }
-        else if (ekipirovka==4||ekipirovka==5||ekipirovka==6){
-            cout << "Желаете надеть нагрудник?" << endl;
-            cout << "1)Да" << endl;
-            cout << "2)Нет" << endl;
-            cin >> i;
-            switch (i) {
-                case 1:
-                    breastplace = ekipirovka;
-                    break;
-                case 2:
-                    breastplace = breastplace;
-                    break;
-            }
-        }
-        else if (ekipirovka==7||ekipirovka==8||ekipirovka==9){
-            cout << "Желаете надеть щит?" << endl;
-            cout << "1)Да" << endl;
-            cout << "2)Нет" << endl;
-            cin >> i;
-            switch (i) {
-                case 1:
-                    lefthand = ekipirovka;
-                    break;
-                case 2:
-                    lefthand = lefthand;
-                    break;
-            }
-        }
-        else if (ekipirovka==10||ekipirovka==11||ekipirovka==12){
-            cout << "Желаете взять оружие?" << endl;
-            cout << "1)Да" << endl;
-            cout << "2)Нет" << endl;
-            cin >> i;
-            switch (i) {
-                case 1:
-                    righthand = ekipirovka;
-                    break;
-                case 2:
-                    righthand = righthand;
-                    break;
-            }
-        }
-        else if (ekipirovka==13||ekipirovka==14||ekipirovka==15){
-            cout << "Желаете надеть обувь?" << endl;
-            cout << "1)Да" << endl;
-            cout << "2)Нет" << endl;
-            cin >> i;
-            switch (i) {
-                case 1:
-                    legs = ekipirovka;
-                    break;
-                case 2:
-                    legs = legs;
-                    break;
-            }
+
+    int DropEquipment(){
+        cout << "Вам выпал новый предмет: " << Name <<endl;
+        cout << "Слот: " << Type <<endl;
+        cout << "Его характеристики: \n" << Format::DeFormat(Stats) << "\n";
+        ch:
+        cout << "Ваши действия: \n1) Надеть новый предмет \n2) Положить в инвентарь\nВыберите действие: ";
+        int action;
+        cin >> action;
+        if (action == 1)
+            return 1;
+        else if (action == 2)
+            return 2;
+        else{
+            cout<<"Введено неверное значение\n";
+            goto ch;
         }
     }
-    void EquipEquipment(string name, int damage, int hp, int armor, int intellect, int magicstrength){
-
+    string GetType(){
+        return Type;
     }
 };
 

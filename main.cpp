@@ -1,13 +1,14 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
+#include "Equipment.h"
 #include "Randomize.h"
-
+#include "Hero.h"
 using namespace std;
-int main() {
 
-   /* SetConsoleOutputCP(CP_UTF8);
-    start:
+int main() {
+    SetConsoleOutputCP(CP_UTF8);
+    /*start:
     system("cls");
     Sleep(1000);
     cout << "1" << endl;
@@ -26,11 +27,19 @@ int main() {
         cout << "Ну ты че, давай нормально" << endl;
         goto start;
     }*/
-    Randomize dd;
-    dd.GetRand(1,6);
-    int s = dd.GetRand(1,6);
-    cout << s;
+    st:
+    cout << "Введите класс персонажа: \n1) Лучник\n2) Воин\n3) Волшебник\n" ;
+    int index;
+    cin >> index;
+    if (index > 3 || index < 1) goto st;
+    Hero *MainHero = new Hero(index);
+
+    Equipment *q = new Equipment();
+    if (q->DropEquipment() == 1)
+        MainHero.Equip(q);
+    else
+        MainHero->AddToInventory(*q);
+    cout << size(MainHero->Inventory) << endl;
+    cout << "Персонаж успешно создан";
     return 0;
-
-
 }
