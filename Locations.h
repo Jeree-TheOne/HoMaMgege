@@ -10,6 +10,7 @@
 #include <list>
 #include "Perks.h"
 #include "Randomize.h"
+#include "Hero.h"
 using namespace std;
 class City {
 private:
@@ -37,9 +38,12 @@ public:
     City()
     {
          int n1 = Randomize::GetRand(0,9) ; //Первая часть города
-         int n2 = Randomize::GetRand(0,9) ; //Вторая часть города  Доделать рандом
-         int n3 = Randomize::GetRand(0,9) ; //Третья часть города
-         this->name = CityName[0][n1] + CityName[1][n2] + CityName[2][n3]; // <- Получение название города
+        Sleep(100);
+        int n2 = Randomize::GetRand(0,9) ; //Вторая часть города  Доделать рандом
+        Sleep(100);
+        int n3 = Randomize::GetRand(0,9) ; //Третья часть города
+        Sleep(100);
+        this->name = CityName[0][n1] + CityName[1][n2] + CityName[2][n3]; // <- Получение название города
          TypeCity test = static_cast<TypeCity>(Randomize::GetRand(0,7));  // Рандом богатости города.
          this->type = test;
          int ChanceINC[7];
@@ -156,17 +160,51 @@ public:
         }
 
         }
-        /*switch (type)
+        void EnterTheCity(Hero hero)
         {
-            // Тут switch ни в классе, я хз че, у меня из-за этого не запускалось, закоментил
-        }*/
+        cout<< "Вы прибываете в " << this->name << " \n";
+            switch (this->type)
+            {
+                case 0:
+                    {
+                        cout << "Слегка терясь в оживленных улицах,  вы выходите на главную площадь этого прекрасного города. \n";
+                        cout << "Дороги в этом городе были облагороженны вырезанным вручную камнем, который служил гарниром изысканным цветам богатых оттенков, стоявших в расписных горшках у двухэтажных дворцов, что прямо по улице создавали ряды, словно грядки на картине модерниста. \n";
+                        cout << "Вы не смогли не оценить ухоженности и благосостояния людей, которые, как бы намекали вам, что вы не из тех, кому дозволено отдыхать здесь\n";
+                        cout << "Однако, несмотря на факты вашей неуместности," << this->name << " принимает вас и дает возможность посетить лучшие заведения этой земли";
+                        break;
+                    }
+                case 1:
+                    {
+                        cout << "Этот город находится, возможно, на пике своего развития, въехав в него, вы понимаете, что вам следует остаться хотя бы на минуту дольше, чем запланированно \n";
+                        cout << "Оказавшись на одном из мостов " << this->name << "вам открывается вид плотного траффика улиц, уставших лиц рабочих и занятых дам, которые будто специально настолько фальшиво изображают работу \n";
+                        cout << "С каждой секундой становится яснее - городу с несломимой экономикой, армией и мудрым правителем вы не нужны, если не сможете купить здесь что-либо.";
+                        cout << "Почувствовав, что вы стоите на мосту уже лишний час, вы жалеете, что выбрали не тот жизненный путь";
+                    }
+                case 2:
+                {
+                    cout << "Неуспели вы въехать в "<< this->name <<", как встали в огромную очередь из других повозок купцов, которые приезжают сюда \n";
+                    cout << "Между каретами редко мельтешат краснолицие рабочие, невольно становившиеся целью ругательств кучеров \n";
+                    cout << "Вскоре вы останавливаетесь в центре города - Кучи строительных материалов, потных лиц в перемешку с крупными бочками заполоняли полудостроенные дома \n";
+                    cout << "Очевидно, "<<this->name <<" вскоре будет цвести и пахнуть, а пока он пыхтит и суетится - идеальное место для капиталовложения \n";
+                }
+                case 3:
+                    {
+                        cout << "Ничего особенного, "<< this->name << " - самый обкновенный город из самых обычных \n";
+                        cout << "Здесь нет суеты, как в крупных городах, люди живут спокойной, честной жизнью, женщины прядут, а мужики напивыаются в кабаке \n";
+                        cout << "В основном, в этом городе преобладают рабочие - улицы не чистые, но и не грязные, стекла слегка желтоваты, а некоторые цветы вянут из-за плохой хозяйки \n";
+                    }
+            }
+        }
         // TODO : Сделать определение зданий.
+        void Show()
+        {
+            cout << " Тип города: " << this->type ;
+            cout  << " Имя города: " <<  this->name << "\n";
+            for (int i = 0; i<7; i++)
+                cout  << " Предприятие номер " << i << "есть(1) или нет(0) : " << this->inc[i] << "\n";
 
-    void Show()
-    {
+        };
 
-
-    }
     }; // <- Класс города( Тут всё про город ).
 class Dungeon {
 private:
@@ -182,8 +220,8 @@ private:
 public:
     const   int ChanceDungeon[30] =  {0,0,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4}; // Шанс выпадения типа комнаты(см ниже).
     const string DungeonName [3][10] = {
-            {"Чёрный  ", "Зловещий ", "Скверный ", "Забытый ", "Замшелый ", "Мрачный ", "Чудовищный ", "Величавый ", "Заброшенный ", "Богом забытый "},
-            {"gym ", "dungeon ", "техникум имени ", "leatherclub ", "gay bar ", "притон ", "склеп ", "погост ", "некрополь ", "bondage gay web-site "},
+            {"Побитый  ", "Зловещий ", "Скверный ", "Забытый ", "Замшелый ", "Мрачный ", "Чудовищный ", "Величавый ", "Заброшенный ", "Богом забытый "},
+            {"gym ", "dungeon ", "техникум имени ", "leatherroom ", "gay bar ", "притон ", "склеп ", "погост ", "некрополь ", "bondage gay web-site "},
             {"Тёмного cum'a", "Даркохльма", "Районного прокурора", "Фистинг клаба", "fucking'х slaves", "horny dicks", "брошенных jabhronies", "унылых гачи-треков", "ВО РЭУ им. Г.В.Плеханова", "of latex gloves"}};
 
    Dungeon()
@@ -193,7 +231,7 @@ public:
         int n3 = Randomize::GetRand(0,9) ; //Третья часть названия данжа
         this->name = DungeonName[0][n1] + DungeonName[1][n2] + DungeonName[2][n3]; // <- Получение название города
         this->type = chdun[Randomize::GetRand(0,19)]; // <- Метод выдачи данжу сложности(см выше)
-        switch (type)
+        switch (this->type)
         {
             // 1 - Gaybar (легко),
             // 2 - Leatherclub (средне),
@@ -202,7 +240,7 @@ public:
             // 5 - Vangeon(Боссфайт).
             // Задание последовательности и длительности прохождения данжа
             // Маркировка проходов.
-            // 404 - Пустой проход. (Средний шанс)
+            // 9 - Пустой проход. (Средний шанс)
             // 0 - Выход на улицу. (Маленький шанс)
             // 1 - Темная комната. (Маленький шанс)
             // После темной комнаты обязательно спавнится одна из следующих комнат!!!
@@ -226,7 +264,8 @@ public:
                         {true, true, true, true, true, true, false, false, false, false}, /*  Шанс врагов */
                         {true, true, true, false, false, false, false, false, false, false} /* Шанс сундук */
                          };
-                SetChanсes(lengthshag, Chance, Droomchance);
+                SetChances(lengthshag, Chance, Droomchance);
+                break;
 
 
             }
@@ -241,7 +280,8 @@ public:
                         {true, true, true, true, true, true, true, false, false, false}, /*  Шанс врагов */
                         {true, true, true, true, false, false, false, false, false, false} /* Шанс сундук */
                 };
-                SetChanсes(lengthshag, Chance, Droomchance);
+                SetChances(lengthshag, Chance, Droomchance);
+                break;
             }
             case 3:
             {
@@ -254,22 +294,25 @@ public:
                         {true, true, true, true, true, true, true, true, true, false}, /*  Шанс врагов */
                         {true, true, true, true, true, true, true, true, false, false} /* Шанс сундук */
                 };
-                SetChanсes(lengthshag, Chance, Droomchance);
+                SetChances(lengthshag, Chance, Droomchance);
+                break;
 
             }
-            case 4:
-            {
-                int lengthshag = Randomize::GetRand(10,13);
-                int Droomchance[30] = { 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14, 14, 14, 14, 14, 14 };
-                bool Chance [5][10] = {
-                        {true, false, false, false, false, false, false, false, false, false}, /*  Шанс Выхода на улицу */
+                 case 4:
+                 {
+                     int lengthshag = Randomize::GetRand(10,13);
+                     int Droomchance[30] = { 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 13, 13, 13, 13, 13, 13, 13, 13, 13, 14, 14, 14, 14, 14, 14 };
+                     bool Chance [5][10] = {
+                             {true, false, false, false, false, false, false, false, false, false}, /*  Шанс Выхода на улицу */
                         {true, true, true, true, true, true, true, true, false, false}, /*  Шанс Тёмной комнаты */
                         {true, true, true, true, true, true, true, true, true, false}, /* Шанс ловушки */
                         {true, true, true, true, true, true, true, true, true, false}, /*  Шанс врагов */
                         {true, true, true, true, true, true, true, true, true, false} /* Шанс сундук */
                 };
-                int j = Randomize::GetRand(10,15);
-            }
+                SetChances(lengthshag, Chance, Droomchance);
+                     break;
+
+                 }
             case 5:
             {
                // TODO Доделать Босс-данж
@@ -277,28 +320,45 @@ public:
         }
 
     };
-    void SetChanсes(int lengthshag, bool Chance[5][10], int Droomchance[30]) // Метод, определяющий тип и порядок комнат в данжоне.
+    void SetChances(int lengthshag, bool Chance[5][10], int Droomchance[30]) // Метод, определяющий тип и порядок комнат в данжоне.
     {
         for (int i = 0; i<lengthshag-1; i++) // Для всей длины листа(данжона) создается цикл
         {
             int j = ChanceDungeon[Randomize::GetRand(0,30)]; // Определение комнаты
+
             bool ch = Chance[j][Randomize::GetRand(0,9)];    // Определение выпадание непустой комнаты
-            if (ch!=false)
+
+
+            if (ch == true)
                 if (j == 1) // Если выпала темная комната
-                    this->shagi.push_back(Droomchance[Randomize::GetRand(0,29)]); // Запускаем рандом темной комнаты
+                {
+                    this->shagi.push_back(Droomchance[Randomize::GetRand(0, 29)]); // Запускаем рандом темной комнаты
+
+                }
                 else
                     this->shagi.push_back(j); // Иначе даем в лист обычную комнату(не пустую)
             else
-                this->shagi.push_back(404); // Пустая комната выпала
+                this->shagi.push_back(9); // Пустая комната выпала
         }
         this->shagi.push_back(5); // Выдача босса данжа в конец.
-    } //
+    }
+    void Show()
+    {
+        cout << "Имя данжа :" << this->name << "\n";
+        cout << "Тип данжа:" << this->type << "\n";
+        int i = 0;
+        for (int n:this->shagi)
+            cout << "Шаг номер " << i++ << ": " << n << "\n";
+    }
+
 
 
 
 }; // <- Класс Данжена( Тут всё про данж ).
 class Outside {
 private:
+    int type;
+    string name;
 }; // <- Класс Аутсайда( Тут всё про пересеченную местность ).
 
 
