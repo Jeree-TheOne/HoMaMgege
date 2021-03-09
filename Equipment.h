@@ -5,13 +5,14 @@
 #ifndef UNTITLED3_EQUIPMENT_H
 #define UNTITLED3_EQUIPMENT_H
 #include <iostream>
+#include <vector>
 #include <list>
 #include "Format.h"
-
+#include "Randomize.h"
 using namespace std;
 
 enum Type{
-    Helmet,
+    Helmet = 1,
     Amulet,
     ChestArmor,
     LeftHand,       //shit
@@ -23,6 +24,7 @@ enum Type{
 };
 
 
+class In;
 
 class Equipment {
 private:
@@ -30,8 +32,7 @@ private:
     string Type;
     string Stats;
 public:
-
-    const string equipment[36][3] = {
+    string equipment[36][3] = {
             {"Ведро ","Helmet","1_0_4_0_0_200"}, // Damage_HP_Armor_Intellect_MagicStrength_Gold
             {"Шлем варваров ","Helmet","12_0_14_0_0_1500"},
             {"Шапка-ушанка ","Helmet","20_0_30_10_5_5000"},
@@ -70,29 +71,32 @@ public:
             {"Повязка Рикардо Милоса ","Access","150_0_200_100_100_27000"}
     };
 
-    void DropEquipment(int index){
-        cout << "Вам выпал новый предмет: " << equipment[index][0]<<endl;
-        cout << "Его характеристики: \n" << Format::DeFormat(equipment[index][2]) << "\n";
+    Equipment(){
+        int index = Randomize::GetRand(0,35);
+        Name = equipment[index][0];
+        Type = equipment[index][1];
+        Stats = equipment[index][2];
+    }
+
+    int DropEquipment(){
+        cout << "Вам выпал новый предмет: " << Name <<endl;
+        cout << "Слот: " << Type <<endl;
+        cout << "Его характеристики: \n" << Format::DeFormat(Stats) << "\n";
         ch:
         cout << "Ваши действия: \n1) Надеть новый предмет \n2) Положить в инвентарь\nВыберите действие: ";
         int action;
         cin >> action;
         if (action == 1)
-            EquipEquipment(equipment[index][0]);
+            return 1;
         else if (action == 2)
-            AddToInventory(equipment[index][0]);
+            return 2;
         else{
             cout<<"Введено неверное значение\n";
             goto ch;
         }
     }
-
-    void EquipEquipment(string name){
-
-    }
-
-    void AddToInventory(string name){
-
+    string GetType(){
+        return Type;
     }
 };
 

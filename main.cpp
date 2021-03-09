@@ -5,9 +5,10 @@
 #include "Randomize.h"
 #include "Hero.h"
 using namespace std;
+
 int main() {
     SetConsoleOutputCP(CP_UTF8);
-    start:
+    /*start:
     system("cls");
     Sleep(1000);
     cout << "1" << endl;
@@ -25,17 +26,20 @@ int main() {
     if (a != "WE-WE POWER") {
         cout << "Ну ты че, давай нормально" << endl;
         goto start;
-    }
+    }*/
     st:
     cout << "Введите класс персонажа: \n1) Лучник\n2) Воин\n3) Волшебник\n" ;
     int index;
     cin >> index;
     if (index > 3 || index < 1) goto st;
     Hero *MainHero = new Hero(index);
+
+    Equipment *q = new Equipment();
+    if (q->DropEquipment() == 1)
+        MainHero.Equip(q);
+    else
+        MainHero->AddToInventory(*q);
+    cout << size(MainHero->Inventory) << endl;
     cout << "Персонаж успешно создан";
-
-    Format::DeFormat("0_0_0_0");
-
-    cout << Format::UpPerk("AD10",2);
     return 0;
 }
