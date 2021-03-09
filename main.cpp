@@ -35,11 +35,6 @@ int main() {
     Hero *MainHero = new Hero(index);
 
     Equipment *q = new Equipment();
-    if (q->DropEquipment() == 1)
-        MainHero.Equip(q);
-    else
-        MainHero->AddToInventory(*q);
-    cout << size(MainHero->Inventory) << endl;
-    cout << "Персонаж успешно создан";
+    cout << q->DropEquipment();
     return 0;
 }
