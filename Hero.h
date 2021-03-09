@@ -8,6 +8,8 @@
 #include <string>
 #include <iostream>
 #include <list>
+#include <vector>
+#include <array>
 #include "Perks.h"
 #include "Equipment.h"
 #include "Spells.h"
@@ -19,6 +21,7 @@ enum Types{
     Warrior,
     Mag
 };
+
 
 class Hero {
 private:
@@ -32,10 +35,11 @@ private:
     int Xp = 0;
     int Lvl = 1;
 public: //todo: Изменить массивы на векторы
-    string EquipInventory[10]; // Слоты инвенторя Helmet, Amulet, ChestArmor, LeftHand, RightHand, Ring, Nogi, Pet, Access
+    int a;
+    array<Equipment, 10> Equiped;// Слоты инвенторя Helmet, Amulet, ChestArmor, LeftHand, RightHand, Ring, Nogi, Pet, Access
     vector<Perks> perks; //Перки изначально дается 2 рандомных, не повторяются
     //string SpellBook[10]; Книжка спеллов, хз какой у нее размер, мб можно листом сделать
-    list<string> Inventory;
+    vector<Equipment> Inventory;
     Hero(int type)
     {
         switch (type) {
@@ -89,7 +93,7 @@ public: //todo: Изменить массивы на векторы
     void GetXp(int xp){
         Xp += xp;
         if (Xp >= Lvl*10){
-            Xp = Lvl*10 - Xp;
+            Xp -= Lvl*10;
             ++Lvl;
             Damage += 1 + Randomize::GetRand(0,1);
             HP += 1 + Randomize::GetRand(0,1);
@@ -100,6 +104,37 @@ public: //todo: Изменить массивы на векторы
             // Todo: Реализовать выпадения 2-3 перков
         }
         return;
+    }
+    void AddToInventory(Equipment item){
+        Inventory.push_back(item);
+    }
+    void Equip(Equipment item){
+        if (item.GetType() == "Helmet")
+            Equiped.at(0) = item;
+        else if (item.GetType() == "Amulet")
+            Equiped.at(1) = item;
+        else if (item.GetType() == "ChestArmor")
+            Equiped.at(2) = item;
+        else if (item.GetType() == "LeftHand")
+            Equiped.at(3) = item;
+        else if (item.GetType() == "RightHand")
+            Equiped.at(4) = item;
+        else if (item.GetType() == "Ring")
+            Equiped.at(5) = item;
+        else if (item.GetType() == "Nogi")
+            Equiped.at(6) = item;
+        else if (item.GetType() == "Pet")
+            Equiped.at(7) = item;
+        else if (item.GetType() == "Access") {
+            cout << "Какой слот акксессуара поменять 1 или 2? \n";
+            int num;
+            cin >> num;
+            if (num == 1)
+                Equiped.at(8) = item;
+            else
+                Equiped.at(9) = item;
+        }
+        cout << "Предмет надет успешно!\n";
     }
 };
 
