@@ -7,9 +7,10 @@
 #include <windows.h>
 #include <string>
 #include <iostream>
-#include <list>
+#include <vector>
 #include "Perks.h"
 #include "Randomize.h"
+#include "Enterprises.h"
 #include "Hero.h"
 using namespace std;
 class City {
@@ -17,12 +18,13 @@ private:
     string name;
     int type;
     bool inc[7]; // <- Возможность возникновения в городе предприятий.
+    vector<Enterpise*> enterprises; // сами предприятия
 
 public:
       string CityName [3][10] = {
-            {"Кёл", "Бер", "Ан", "Што", "Дал", "Бор", "Стар", "Лун", "Шат", "Мюн"},
-            {"нинг", "дал", "ран", "бен", "лун", "мен", "арров", "страх", "кук", "муд"},
-            {"град", "берг", "цин", "дор", "стан", "ленд", "пуль", "аббад", "вилль", "ока"}
+            {"Кёл", "Билли", "Ан", "Кам", "Дик", "Лезер", "Стар", "Лун", "Шат", "Мюн"},
+            {"нинг", "дал", "ран", "бен", "лун", "мен", "арров", "страх", "херинг", "муд"},
+            {"град", "берг", "цин", "дор", "стан", "ленд", "пуль", "тон", "вилль", "ока"}
     };
     enum TypeCity
     {
@@ -160,8 +162,9 @@ public:
         }
 
         }
-        void EnterTheCity(Hero hero)
+        void EnterTheCity()
         {
+
         cout<< "Вы прибываете в " << this->name << " \n";
             switch (this->type)
             {
@@ -192,10 +195,137 @@ public:
                         cout << "Ничего особенного, "<< this->name << " - самый обкновенный город из самых обычных \n";
                         cout << "Здесь нет суеты, как в крупных городах, люди живут спокойной, честной жизнью, женщины прядут, а мужики напивыаются в кабаке \n";
                         cout << "В основном, в этом городе преобладают рабочие - улицы не чистые, но и не грязные, стекла слегка желтоваты, а некоторые цветы вянут из-за плохой хозяйки \n";
+                        cout << "Вас обдал жар обычности, как бы призывающий к тому, что ваше место здесь ";
                     }
+                case 4:
+                {
+                    cout << " Оживленные улицы "<< this->name << "остались будто в прошлом - когда то по широким дорогам этого города шли непробойные вереницы торговцев со всего мира" <<  " \n" ;
+                    cout << "Одна эпидемия, другой неверный шаг правителя, третий - разбой посреди улицы и "<<this->name<<" стоит забыть о процветающем будущем"<<"\n";
+                    cout << "Люди уезжают из города, предприятия закрываются, а неудачные предпринематели - банкротятся. Не стоит здесь искать выгодных предложений \n";
+                    cout << "Случайный прохожий задел вас плечом, будто насильно вытолкнув вас из фантазий, намекая, что надо бежать из этого города, ни на секунду не сомневавшись \n";
+                }
+                case 5:
+                {
+                    cout << "Вас встретили у ворот, "<< this->name << " старые солдаты, которым уже была положена счастливая пенсия в порядочном городе \n";
+                    cout << " Однако, им сейчас приходится охранять полуразрушенные стены старого замка, который не отпускает лишних рук \n";
+                    cout << " Город борется за существование, прилавки редких купцов полупусты, а некоторые окна заколочены. \n";
+                    cout << " Вас резко пронзил запах дохлой крысы - обед местного кошачьего населения, в перспективе становившееся людской платой за существование. \n";
+                }
+                case 6:
+                {
+                    cout << "Сперва вы подумали, что попали не туда куда вам нужно, однако люди, хватавшиеся за последние нити существования, своим " << this->name <<"им акцентом переубедил вас \n";
+                    cout << "Бывшие дома господ находятся в печальном состоянии - притоны и редкие торговцы заполонили их, будто крысы на палубе тонущего корабля \n";
+                    cout << "В разбитом городском колодце вы видите что-то похожее на скелет человека и мешочек с чем-то блестящим, потрогав карманы, вы решили держать руки в них напротяжении всего пребывания в городе \n";
+                    cout << "Тем неменее суть вашего пребывания остается неизменной";
+                }
+                case 7:
+                {
+                    cout << "Перешагивая через трупы жителей " << this->name << "вы не совсем понимаете цель своего визита.  \n";
+                    cout << "Недавний рейд порешал почти все живое, раненые и скорбящие перебрались в редкие полуразрушенные здания, не преданные огню. \n";
+                    cout << "Возможно, стоит проверить эти домики на наличие выгоды. \n";
+                }
+            } // Истории городов
+            cout << "Вы решаете отправиться.. \n";
+            int j = 0;
+            // inc[0] - Таверна, inc[1] - Рынок, inc[2] - Лагерь наемников,
+            // inc[3] - Башня мага, inc[4] - Магический колодец , inc[5] - Городская площадь,
+            // inc[6] - Торговец побрякушками, inc[7] - Шатер предсказательницы.
+            for(int i = 0; i<7; i++)
+            {
+                switch (i)
+                {
+                   case 0:
+                       {
+                           if (this->inc[i] == true) {
+                               Tavern tavern;
+                               Enterpise *pEnterpise;
+                               pEnterpise = &tavern;
+                               this->enterprises.push_back(pEnterpise);
+                           }
+                           break;
+                       }
+                    case 1:
+                    {
+                        if (this->inc[i] == true) {
+                            Marketplace marketplace;
+                            Enterpise *pEnterpise;
+                            pEnterpise = &marketplace;
+                            this->enterprises.push_back(pEnterpise);
+                        }
+                        break;
+                    }
+                    case 2:
+                    {
+                        if (this->inc[i] == true){
+                            Mercenary mercenary;
+                            Enterpise *pEnterpise;
+                            pEnterpise = &mercenary;
+                            this->enterprises.push_back(pEnterpise);
+                        }
+                        break;
+                    }
+                    case 3:
+                    {
+                        if (this->inc[i] == true){
+                            MagicTower magicTower;
+                            Enterpise *pEnterpise;
+                            pEnterpise = &magicTower;
+                            this->enterprises.push_back(pEnterpise);
+                        }
+                    }
+                    case 4:
+                    {
+                        if (this->inc[i] == true)
+                        {
+                            MagicWell magicWell;
+                            Enterpise *pEnterpise;
+                            pEnterpise = &magicWell;
+                            this->enterprises.push_back(pEnterpise);
+                        }
+                        break;
+                    }
+                    case 5:{
+                        if (this->inc[i] == true)
+                        {
+                            KallTraider kallTraider;
+                            Enterpise *pEnterpise;
+                            pEnterpise = &kallTraider;
+                            this->enterprises.push_back(pEnterpise);
+                        }
+
+                    }
+                    case 6:
+                    {
+                        if (this->inc[i] == true)
+                        {
+                            CityHall cityHall;
+                            Enterpise *pEnterpise;
+                            pEnterpise = &cityHall;
+                            this->enterprises.push_back(pEnterpise);
+                        }
+                       break;
+                    }
+                    case 7:
+                    {
+                        if (this->inc[i] == true)
+                        {
+                            Predict predict;
+                            Enterpise *pEnterpise;
+                            pEnterpise = &predict;
+                            this->enterprises.push_back(pEnterpise);
+                        }
+                        break;
+                    }
+                }
             }
+            cin >> j;
+
         }
-        // TODO : Сделать определение зданий.
+        int GetType()
+        {
+            return this->type;
+        };
+
         void Show()
         {
             cout << " Тип города: " << this->type ;
@@ -205,7 +335,10 @@ public:
 
         };
 
-    }; // <- Класс города( Тут всё про город ).
+    }; // <- Класс города( Тут всё про город )
+
+
+
 class Dungeon {
 private:
     string name; // Название данжа
@@ -222,7 +355,7 @@ public:
     const string DungeonName [3][10] = {
             {"Побитый  ", "Зловещий ", "Скверный ", "Забытый ", "Замшелый ", "Мрачный ", "Чудовищный ", "Величавый ", "Заброшенный ", "Богом забытый "},
             {"gym ", "dungeon ", "техникум имени ", "leatherroom ", "gay bar ", "притон ", "склеп ", "погост ", "некрополь ", "bondage gay web-site "},
-            {"Тёмного cum'a", "Даркохльма", "Районного прокурора", "Фистинг клаба", "fucking'х slaves", "horny dicks", "брошенных jabhronies", "унылых гачи-треков", "ВО РЭУ им. Г.В.Плеханова", "of latex gloves"}};
+            {"тёмного cum'a", "даркохльма", "районного прокурора", "фистинг клаба", "fucking'х slaves", "horny dicks", "брошенных jabhronies", "унылых гачи-треков", "ВО РЭУ им. Г.В.Плеханова", "of latex gloves"}};
 
    Dungeon()
     {
