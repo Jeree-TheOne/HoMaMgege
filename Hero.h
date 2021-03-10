@@ -205,6 +205,7 @@ public: //todo: Изменить массивы на векторы
         cout << "\nПредмет надет успешно\n\n";
     }
 
+
     void MoveFromInventoryToEquiped(int index){
         Equip(Inventory[index - 1]);
         Inventory.erase(Inventory.begin() + index - 1);
