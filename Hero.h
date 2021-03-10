@@ -215,9 +215,6 @@ public: //todo: Изменить массивы на векторы
             cout << "\nВ данном слоте нет никакой шмотки\n";
             return;
         }
-        Inventory.push_back(Equiped[index - 1]);// Если шмотки нет, то не должно быть возможности ее заменить иначе пздц в инвентаре будет
-        Equiped[index - 1] =  Equipment();
-        system("cls");
         int* nums = new int[6];
         nums = FormatForBonusStats(Equiped[index - 1].GetStats());
         Damage -= nums[0];
@@ -225,6 +222,9 @@ public: //todo: Изменить массивы на векторы
         Armor -= nums[2];
         Intellect -= nums[3];
         MagicStrength -= nums[4];
+        Inventory.push_back(Equiped[index - 1]);// Если шмотки нет, то не должно быть возможности ее заменить иначе пздц в инвентаре будет
+        Equiped[index - 1] =  Equipment();
+        system("cls");
         cout << "\nПредмет перемещен в инвентарь\n";
     }
 
