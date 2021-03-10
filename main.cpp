@@ -4,6 +4,7 @@
 #include "Equipment.h"
 #include "Randomize.h"
 #include "Hero.h"
+#include <ctime>
 using namespace std;
 
 int main() {
@@ -32,14 +33,26 @@ int main() {
     int index;
     cin >> index;
     if (index > 3 || index < 1) goto st;
+
     Hero *MainHero = new Hero(index);
+    cout << "Персонаж успешно создан\n";
+
+    MainHero->ShowEquiped();
+    MainHero->ShowInventory();
+
 
     Equipment *q = new Equipment();
-    if (q->DropEquipment() == 1)
-        MainHero.Equip(q);
-    else
-        MainHero->AddToInventory(*q);
-    cout << size(MainHero->Inventory) << endl;
-    cout << "Персонаж успешно создан";
+    q->NewEquipment();
+    MainHero->AddToInventory(*q);
+    MainHero->MoveFromInventoryToEquiped(1);
+    MainHero->MoveFromEquipedToInventory(1);
+    /*srand(time(NULL));
+    array<int,10> a = {0,0,0,0,0,0,0,0,0,0};
+    for (int i = 0; i < 100000; i++)
+        a[rand() % 10]++;
+    for (int i = 0; i < size(a);i++)
+        cout <<i << ": " << a[i] << endl;*/
+
+
     return 0;
 }
