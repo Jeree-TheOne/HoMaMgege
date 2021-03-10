@@ -90,26 +90,54 @@ public: //todo: Изменить массивы на векторы
                 break;
         }
     }
+
+    void ShowStats(){
+        cout << "Статы: \n";
+        cout << "Урон: " << Damage << endl;
+        cout << "Здоровье: " << HP << endl;
+        cout << "Броня: " << Armor << endl;
+        cout << "Интеллект: " << Intellect << endl;
+        cout << "Магическая сила: " << MagicStrength << endl;
+        cout << "Золото: " << Gold << endl;
+        cout << "Опыта до следующего уровня: " << Lvl*10 - Xp << endl;
+    }
+
     void GetXp(int xp){
         Xp += xp;
         if (Xp >= Lvl*10){
             Xp -= Lvl*10;
             ++Lvl;
-            Damage += 1 + Randomize::GetRand(0,1);
-            HP += 1 + Randomize::GetRand(0,1);
-            Armor += 1 + Randomize::GetRand(0,1);
-            Intellect += 1 + Randomize::GetRand(0,1);
-            MagicStrength += 1 + Randomize::GetRand(0,1);
+            if (Type == "Лучник"){
+                Damage += 2 + Randomize::GetRand(0,2);
+                HP += 1 + Randomize::GetRand(0,1);
+                Armor += 1 + Randomize::GetRand(0,1);
+                Intellect +=  Randomize::GetRand(0,1);
+                MagicStrength +=  Randomize::GetRand(0,1);
+            } else if (Type == "Воин"){
+                Damage += 2 + Randomize::GetRand(0,1);
+                HP += 2 + Randomize::GetRand(0,2);
+                Armor += 2 + Randomize::GetRand(0,2);
+                Intellect +=  Randomize::GetRand(0,1);
+                MagicStrength +=  Randomize::GetRand(0,1);
+            } else if (Type == "Волшебник"){
+                Damage += 1 + Randomize::GetRand(0,1);
+                HP += 1 + Randomize::GetRand(0,1);
+                Armor += Randomize::GetRand(0,1);
+                Intellect += 2 + Randomize::GetRand(0,2);
+                MagicStrength += 2 + Randomize::GetRand(0,2);
+            }
             cout << "Вы получили новый уровень!! Текущий уровень - " << Lvl;
             // Todo: Реализовать выпадения 2-3 перков
         }
         return;
     }
+
     void AddToInventory(Equipment item){
         Inventory.push_back(item);
         system("cls");
         cout << "\nПредмет добавлен в инвентарь\n\n";
     }
+
     void Equip(Equipment item){
         if (item.GetType() == "Шлем"){
             if (Equiped[0].GetName() != "")
@@ -167,12 +195,21 @@ public: //todo: Изменить массивы на векторы
             }
         }
         system("cls");
+        int* nums = new int[6];
+        nums = FormatForBonusStats(item.GetStats());
+        Damage += nums[0];
+        HP += nums[1];
+        Armor += nums[2];
+        Intellect += nums[3];
+        MagicStrength += nums[4];
         cout << "\nПредмет надет успешно\n\n";
     }
+
     void MoveFromInventoryToEquiped(int index){
         Equip(Inventory[index - 1]);
         Inventory.erase(Inventory.begin() + index - 1);
     }
+
     void MoveFromEquipedToInventory(int index){
         if (Equiped[index - 1].GetName() == ""){
             cout << "\nВ данном слоте нет никакой шмотки\n";
@@ -181,8 +218,16 @@ public: //todo: Изменить массивы на векторы
         Inventory.push_back(Equiped[index - 1]);// Если шмотки нет, то не должно быть возможности ее заменить иначе пздц в инвентаре будет
         Equiped[index - 1] =  Equipment();
         system("cls");
+        int* nums = new int[6];
+        nums = FormatForBonusStats(Equiped[index - 1].GetStats());
+        Damage -= nums[0];
+        HP -= nums[1];
+        Armor -= nums[2];
+        Intellect -= nums[3];
+        MagicStrength -= nums[4];
         cout << "\nПредмет перемещен в инвентарь\n";
     }
+
     void ShowInventory(){
         for (int i = 0; i < size(Inventory); i++) {
             cout << i + 1 << ") " << Inventory[i].GetName() << endl;
@@ -236,6 +281,7 @@ public: //todo: Изменить массивы на векторы
         }
 
     }
+
     void ShowEquiped(){
         for(int i = 0; i < size(Equiped); i++ ) {
             if (Equiped[i].GetName() != "")
@@ -286,6 +332,7 @@ public: //todo: Изменить массивы на векторы
                 goto st;
         }
     }
+
 };
 
 

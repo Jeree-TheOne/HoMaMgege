@@ -40,12 +40,17 @@ int main() {
 
     Equipment *q = new Equipment();
     q->NewEquipment();
+
+    MainHero->ShowStats();
+
     MainHero->AddToInventory(*q);
     MainHero->ShowInventory();
+
+    MainHero->ShowStats();
+
     MainHero->ShowEquiped();
-    MainHero->ShowInventory();
-    MainHero->ShowEquiped();
-    MainHero->ShowInventory();
+
+    MainHero->ShowStats();
     /*srand(time(NULL));
     array<int,10> a = {0,0,0,0,0,0,0,0,0,0};
     for (int i = 0; i < 100000; i++)
