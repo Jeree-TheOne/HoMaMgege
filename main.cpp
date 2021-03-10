@@ -37,15 +37,15 @@ int main() {
     Hero *MainHero = new Hero(index);
     cout << "Персонаж успешно создан\n";
 
-    MainHero->ShowEquiped();
-    MainHero->ShowInventory();
-
 
     Equipment *q = new Equipment();
     q->NewEquipment();
     MainHero->AddToInventory(*q);
-    MainHero->MoveFromInventoryToEquiped(1);
-    MainHero->MoveFromEquipedToInventory(1);
+    MainHero->ShowInventory();
+    MainHero->ShowEquiped();
+    MainHero->ShowInventory();
+    MainHero->ShowEquiped();
+    MainHero->ShowInventory();
     /*srand(time(NULL));
     array<int,10> a = {0,0,0,0,0,0,0,0,0,0};
     for (int i = 0; i < 100000; i++)

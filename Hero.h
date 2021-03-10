@@ -107,7 +107,8 @@ public: //todo: Изменить массивы на векторы
     }
     void AddToInventory(Equipment item){
         Inventory.push_back(item);
-        cout << "\nПредмет добавлен в инвентарь\n";
+        system("cls");
+        cout << "\nПредмет добавлен в инвентарь\n\n";
     }
     void Equip(Equipment item){
         if (item.GetType() == "Шлем"){
@@ -165,7 +166,8 @@ public: //todo: Изменить массивы на векторы
                 Equiped.at(9) = item;
             }
         }
-        cout << "\nПредмет надет успешно\n";
+        system("cls");
+        cout << "\nПредмет надет успешно\n\n";
     }
     void MoveFromInventoryToEquiped(int index){
         Equip(Inventory[index - 1]);
@@ -178,24 +180,111 @@ public: //todo: Изменить массивы на векторы
         }
         Inventory.push_back(Equiped[index - 1]);// Если шмотки нет, то не должно быть возможности ее заменить иначе пздц в инвентаре будет
         Equiped[index - 1] =  Equipment();
+        system("cls");
         cout << "\nПредмет перемещен в инвентарь\n";
     }
     void ShowInventory(){
         for (int i = 0; i < size(Inventory); i++) {
             cout << i + 1 << ") " << Inventory[i].GetName() << endl;
-            cout << "Статы: "<< endl;
-            cout << Format::DeFormat(Inventory[i].GetStats());
         }
+        if (size(Inventory) == 0){
+            system("cls");
+            cout <<"\nИнвентарь пуст\n";
+            return;
+        }
+        st:
+        cout << "\nВыберите действие: \n1) Выбрать предмет\n2) Выйти из инвентаря\n";
+        int ch;
+        cin >> ch;
+        switch (ch) {
+            case 1:
+                st2:
+                cout << "\nВведите номер предмета: ";
+                int index;
+                cin >> index;
+                if (index < 1 || index > size(Inventory)) {
+                    cout << "\nПредмета с таким номером у вас нет\n";
+                    goto st2;
+                }
+                st3:
+                cout << "\nПредмет: " << Inventory[index - 1].GetName();
+                cout << "\nСтаты: "<< endl;
+                cout << Format::DeFormat(Inventory[index - 1].GetStats()) << endl;
+                cout << "Что вы хотите сделать с этим предметом?\n1) Надеть\n2) Удалить\n3) Выйти из инвентаря\n";
+                cin >> ch;
+                switch (ch) {
+                    case 1:
+                        MoveFromInventoryToEquiped(index);
+                        break;
+                    case 2:
+                        Inventory.erase(Inventory.begin() + index - 1);
+                        break;
+                    case 3:
+                        system("cls");
+                        return;
+                    default:
+                        cout << "\nВы ввели неправильное значение\n";
+                        goto st3;
+                }
+                break;
+            case 2:
+                system("cls");
+                return;
+            default:
+                cout << "\nВы ввели неправильное значение\n";
+                goto st;
+        }
+
     }
     void ShowEquiped(){
-        for(int i = 0; i < size(Equiped); i++ )
-            if ( Equiped[i].GetName() != "") {
-                cout << i+1 << ": "<< Equiped[i].GetType() << " - " << Equiped[i].GetName() << endl;
-                cout << "Статы: "<< endl;
-                cout << Format::DeFormat(Equiped[i].GetStats());
-            }
+        for(int i = 0; i < size(Equiped); i++ ) {
+            if (Equiped[i].GetName() != "")
+                cout << i + 1 << ": " << Equiped[i].GetType() << " - " << Equiped[i].GetName() << endl;
             else
-                cout << i+1 << ": Пусто\n";
+                cout << i + 1 << ": Пусто\n";
+        }
+        st:
+        cout << "\nВыберите действие: \n1) Выбрать предмет\n2) Выйти из экипировки\n";
+        int ch;
+        cin >> ch;
+        switch (ch) {
+            case 1:
+                cout << "\nВведите номер предмета: \n";
+                int index;
+                cin >> index;
+                if (index < 1 || index > 10) {
+                    cout << "\nНеверно введено значение\n";
+                    goto st;
+                }
+                else if (Equiped[index - 1].GetName() == ""){
+                    cout << "Данный слот пустой\n";
+                    goto st;
+                }
+                st3:
+                cout << "\nПредмет: " << Equiped[index - 1].GetName();
+                cout << "\nСтаты: "<< endl;
+                cout << Format::DeFormat(Equiped[index - 1].GetStats()) << endl;
+                cout << "Что вы хотите сделать с этим предметом?\n1) Поместить в инвентарь\n2) Выйти из экипировки\n";
+                cin >> ch;
+                switch (ch) {
+                    case 1:
+                        MoveFromEquipedToInventory(index);
+                        break;
+                    case 2:
+                        system("cls");
+                        return;
+                    default:
+                        cout << "\nВы ввели неправильное значение\n";
+                        goto st3;
+                }
+                break;
+            case 2:
+                system("cls");
+                break;
+            default:
+                cout << "\nВы ввели неправильное значение\n";
+                goto st;
+        }
     }
 };
 
