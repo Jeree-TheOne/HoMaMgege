@@ -51,6 +51,32 @@ public:
         return act + num;
     }
 };
+static int* FormatForBonusStats(string format){
+    string stats[6] = {"Урон","Здоровье","Броня","Интеллект","Магическая сила","Стоимость"};
+    int nums[6] = {0,0,0,0,0,0};
+    vector<string> arr;
+    string delim("_");
+    size_t prev = 0;
+    size_t next;
+    size_t delta = delim.length();
+    int index = 0;
+    string res;
+    while( ( next = format.find( delim, prev ) ) != string::npos ){
+        string tmp = format.substr( prev, next-prev );
+        if (stoi(tmp) != 0)
+            nums[index] = stoi(tmp);
+        ++index;
+        arr.push_back( format.substr( prev, next-prev ) );
+        prev = next + delta;
+    }
+    string tmp = format.substr( prev );
+    if (stoi(tmp) != 0)
+        res += stats[index] + ": " + tmp + "\n";
+    arr.push_back( format.substr( prev ) );
+
+    return nums;
+
+}
 
 
 #endif //MAIN_CPP_FORMAT_H
