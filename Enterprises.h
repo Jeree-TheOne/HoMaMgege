@@ -9,7 +9,9 @@
 #include <iostream>
 #include <vector>
 #include "Randomize.h"
+#include "Equipment.h"
 #include "Hero.h"
+#include "Format.h"
 
 class Enterprise
 {
@@ -297,25 +299,116 @@ public:
 class Marketplace : public Enterprise
 {
 private:
-    int Slots;
-    int pSlots[];
+    vector<string>Slots;
 public:
     Marketplace()
     {
-        int num;
+        int SlotsSize;
         switch(this->type)
                 {
-            case 0: num = Randomize::GetRand(10,15); break;
-            case 1: num = Randomize::GetRand(8,13); break;
-            case 2: num = Randomize::GetRand(6,11); break;
-            case 3: num = Randomize::GetRand(6,8); break;
-            case 4: num = Randomize::GetRand(4,7); break;
-            case 5: num = Randomize::GetRand(3,6); break;
-            case 6: num = Randomize::GetRand(1,3); break;
-            case 7: num = 1;
+            case 0: SlotsSize = Randomize::GetRand(10,15); break;
+            case 1: SlotsSize = Randomize::GetRand(8,13); break;
+            case 2: SlotsSize = Randomize::GetRand(6,11); break;
+            case 3: SlotsSize = Randomize::GetRand(6,8); break;
+            case 4: SlotsSize = Randomize::GetRand(4,7); break;
+            case 5: SlotsSize = Randomize::GetRand(3,6); break;
+            case 6: SlotsSize = Randomize::GetRand(1,3); break;
+            case 7: SlotsSize = 1;
                 };
-       // *pSlots = new int[num];
+        Equipment eqipirovka;
+        for (int i = 0; i<SlotsSize; i++)
+        {
+            eqipirovka.NewEquipment();
+            this->Slots.push_back(eqipirovka.GetName()); // Слот Имени.
+            this->Slots.push_back(eqipirovka.GetType()); // Слот Типа.
+            this->Slots.push_back(eqipirovka.GetStats()); // Слот Статистики.*/
+        }
+    }
+    void EnterTheMarketPlace(Hero hero)
+    {
+        cout << "Вы прибываете на рынок местного города, вы решаете..";
+        centrmarket:
+        cout << "\n";
+        cout << "1) Просмотреть ассортимент \n";
+        cout << "2) Уйти \n";
+        cout << "\n";
+        int h = 0;
+        cin >> h;
+        if (h == 1)
+        {
+            povtor:
+            system("cls");
+            int predmetiTORG = 0;
+            cout << "У вас есть сейчас " << hero.GetGold() << "золотых с собой \n";
+            cout << "Инвентарь торговца: \n";
+            for (int i = 0; i<this->Slots.size(); i = i + 3)
+            {
+               cout << predmetiTORG++ << ") " << Slots[i] << "вида  " << Slots[i+1] << " " << Format::DeFormat(Slots[i+2]) << "\n";
+               cout << "\n";
+            }
 
+            if(hero.Inventory.size()!=0)
+                cout << "Ваш инвентарь: \n";
+            int predmetiVASHI = 0;
+            for (int i = 0; i<hero.Inventory.size(); i++)
+            {
+                cout << predmetiVASHI++ << ") " << hero.Inventory[i].GetName() << "вида  " << hero.Inventory[i].GetType() << " " << Format::DeFormat(hero.Inventory[i].GetStats()) << "\n";
+                cout << "\n";
+            }
+            cout << "\n";
+
+            cout << "Вы желаете.. \n 1) Купить предмет. \n 2) Продать предмет. \n 3) Вернуться на рыночную площадь \n";
+            int DEJSTVIJE;
+            if (DEJSTVIJE == 3)
+                goto centrmarket;
+            else if (DEJSTVIJE == 1)
+            {
+                cout << "Введите номер предмета продавца, который необходимо купить \n";
+                int nomerpredmetaTORG;
+                cin >> nomerpredmetaTORG;
+                if (FormatForBonusStats(Slots[nomerpredmetaTORG*3-1])[5]>hero.GetGold()) {
+                    cout << "Вы не можете позволить себе приобретение этого предмета\n";
+                    Sleep(1000);
+                    goto povtor;
+                }
+                else
+                {
+                    hero.SetGold(hero.GetGold()-FormatForBonusStats(Slots[nomerpredmetaTORG*3-1])[5]);
+                Equipment equipment;
+                equipment.AddEquipment(Slots[nomerpredmetaTORG*3-3],Slots[nomerpredmetaTORG*3-2], Slots[nomerpredmetaTORG*3-1]);
+                hero.Inventory.push_back(equipment);
+                    goto  povtor;
+                }
+
+            }
+            else if (DEJSTVIJE == 2){
+                cout << "Введите номер вашего, который необходимо продать \n";
+                int nomerpredmetaTORG;
+                cin >> nomerpredmetaTORG;
+                this->Slots.push_back(hero.Inventory[nomerpredmetaTORG].GetName());
+                this->Slots.push_back(hero.Inventory[nomerpredmetaTORG].GetType());
+                this->Slots.push_back(hero.Inventory[nomerpredmetaTORG].GetStats());
+                hero.Inventory.erase(hero.Inventory.begin() + nomerpredmetaTORG);
+                hero.SetGold(hero.GetGold()+FormatForBonusStats(hero.Inventory[nomerpredmetaTORG].GetStats())[5]);
+                goto povtor;
+            }
+           /* cout << j << ") Вернуться на центр рынка";
+            int jj;
+            cin >> jj;
+            if (jj == j)
+                goto centrmarket;
+            else
+            {
+                cout << "Вы собираетесь приобрести" << Slots[jj-1] << "вида " << Slots[jj] << " " <<  Format::DeFormat(Slots[jj+1]) << "\n";
+                cout << "В данный момент вы имеете на руках " << hero.GetGold() << " золотых";
+                cout << "1) Да, я хочу купить этот предмет \n 2) Нет, вернуться к списку просмотра предметов";
+                int jjj;
+                cin >> jjj;
+                if (jjj == 2)
+                    goto prosmotrmagaza;
+            }*/
+
+        }
     }
 };
 class Mercenary : public Enterprise

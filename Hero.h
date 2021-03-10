@@ -293,6 +293,10 @@ public: //todo: Изменить массивы на векторы
     {
         return this->Gold;
     }
+    void Prodaja() // <- Создал метод для осуществления продажи на рынке.
+    {
+
+    }
     void SetGold(int Gold)
     {
         this->Gold = Gold;

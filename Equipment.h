@@ -73,6 +73,12 @@ public:
     Equipment(){
 
     };
+    void AddEquipment(string Name, string Type, string Stats)
+    {
+        this->Name = Name;
+        this->Type = Type;
+        this->Stats = Stats;
+    }
     void NewEquipment(){
         int rare;
         int index = Randomize::GetRand(1,100);
