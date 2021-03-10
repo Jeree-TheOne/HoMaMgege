@@ -18,7 +18,7 @@ private:
     string name;
     int type;
     bool inc[7]; // <- Возможность возникновения в городе предприятий.
-    vector<Enterpise*> enterprises; // сами предприятия
+    vector<Enterprise> enterprises; // сами предприятия
 
 public:
       string CityName [3][10] = {
@@ -238,9 +238,9 @@ public:
                        {
                            if (this->inc[i] == true) {
                                Tavern tavern;
-                               Enterpise *pEnterpise;
-                               pEnterpise = &tavern;
-                               this->enterprises.push_back(pEnterpise);
+                               Enterprise *pEnterprise;
+                               pEnterprise = &tavern;
+                               enterprises.push_back(*pEnterprise);
                            }
                            break;
                        }
@@ -248,9 +248,9 @@ public:
                     {
                         if (this->inc[i] == true) {
                             Marketplace marketplace;
-                            Enterpise *pEnterpise;
-                            pEnterpise = &marketplace;
-                            this->enterprises.push_back(pEnterpise);
+                            Enterprise *pEnterprise;
+                            pEnterprise = &marketplace;
+                            enterprises.push_back(*pEnterprise);
                         }
                         break;
                     }
@@ -258,9 +258,9 @@ public:
                     {
                         if (this->inc[i] == true){
                             Mercenary mercenary;
-                            Enterpise *pEnterpise;
-                            pEnterpise = &mercenary;
-                            this->enterprises.push_back(pEnterpise);
+                            Enterprise *pEnterprise;
+                            pEnterprise = &mercenary;
+                            enterprises.push_back(*pEnterprise);
                         }
                         break;
                     }
@@ -268,9 +268,9 @@ public:
                     {
                         if (this->inc[i] == true){
                             MagicTower magicTower;
-                            Enterpise *pEnterpise;
-                            pEnterpise = &magicTower;
-                            this->enterprises.push_back(pEnterpise);
+                            Enterprise *pEnterprise;
+                            pEnterprise = &magicTower;
+                            enterprises.push_back(*pEnterprise);
                         }
                     }
                     case 4:
@@ -278,9 +278,9 @@ public:
                         if (this->inc[i] == true)
                         {
                             MagicWell magicWell;
-                            Enterpise *pEnterpise;
-                            pEnterpise = &magicWell;
-                            this->enterprises.push_back(pEnterpise);
+                            Enterprise *pEnterprise;
+                            pEnterprise = &magicWell;
+                            enterprises.push_back(*pEnterprise);
                         }
                         break;
                     }
@@ -288,9 +288,9 @@ public:
                         if (this->inc[i] == true)
                         {
                             KallTraider kallTraider;
-                            Enterpise *pEnterpise;
-                            pEnterpise = &kallTraider;
-                            this->enterprises.push_back(pEnterpise);
+                            Enterprise *pEnterprise;
+                            pEnterprise = &kallTraider;
+                            enterprises.push_back(*pEnterprise);
                         }
 
                     }
@@ -299,9 +299,9 @@ public:
                         if (this->inc[i] == true)
                         {
                             CityHall cityHall;
-                            Enterpise *pEnterpise;
-                            pEnterpise = &cityHall;
-                            this->enterprises.push_back(pEnterpise);
+                            Enterprise *pEnterprise;
+                            pEnterprise = &cityHall;
+                            enterprises.push_back(*pEnterprise);
                         }
                        break;
                     }
@@ -310,9 +310,9 @@ public:
                         if (this->inc[i] == true)
                         {
                             Predict predict;
-                            Enterpise *pEnterpise;
-                            pEnterpise = &predict;
-                            this->enterprises.push_back(pEnterpise);
+                            Enterprise *pEnterprise;
+                            pEnterprise = &predict;
+                            enterprises.push_back(*pEnterprise);
                         }
                         break;
                     }

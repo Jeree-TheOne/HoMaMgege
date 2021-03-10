@@ -35,20 +35,14 @@ int main() {
     if (index > 3 || index < 1) goto st;
     Hero *MainHero = new Hero(index);
 
-<<<<<<<<< Temporary merge branch 1
-    Format::DeFormat("0_0_0_0");
+    Equipment q;
+    q.NewEquipment();
+    MainHero->AddToInventory(q);
 
-    cout << Format::UpPerk("AD10",2);
-
-
-=========
-    Equipment *q = new Equipment();
-    if (q->DropEquipment() == 1)
-        MainHero.Equip(q);
-    else
-        MainHero->AddToInventory(*q);
-    cout << size(MainHero->Inventory) << endl;
+    MainHero->ShowInventory();
+    MainHero->ShowEquiped();
+    MainHero->ShowInventory();
+    MainHero->ShowEquiped();
     cout << "Персонаж успешно создан";
->>>>>>>>> Temporary merge branch 2
     return 0;
 }

@@ -32,6 +32,8 @@ private:
     int Intellect;
     int MagicStrength;
     int Gold = 2500;
+    int MAXmana = 10;
+    int Mana = MAXmana;
     int Xp = 0;
     int Lvl = 1;
 public: //todo: Изменить массивы на векторы
@@ -99,6 +101,7 @@ public: //todo: Изменить массивы на векторы
             HP += 1 + Randomize::GetRand(0,1);
             Armor += 1 + Randomize::GetRand(0,1);
             Intellect += 1 + Randomize::GetRand(0,1);
+            // Мб стоит сделать, чтобы Интеллект и Магия при увелечении уровня падала ток магам, а атака и защита - лукарям и мечникам?
             MagicStrength += 1 + Randomize::GetRand(0,1);
             cout << "Вы получили новый уровень!! Текущий уровень - " << Lvl;
             // Todo: Реализовать выпадения 2-3 перков
@@ -286,6 +289,35 @@ public: //todo: Изменить массивы на векторы
                 goto st;
         }
     }
+    int GetGold()
+    {
+        return this->Gold;
+    }
+    void SetGold(int Gold)
+    {
+        this->Gold = Gold;
+    }
+    int GetMAXmana()
+    {
+        return this->MAXmana;
+    }
+    int GetMana()
+    {
+        return this->Mana;
+    }
+    int SetMana(int Mana)
+    {
+        this->Mana = Mana;
+    }
+    int GetIntellect()
+    {
+        return this->Intellect;
+    }
+    int GetStrength()
+            {
+        return this->Damage;
+            };
+
 };
 
 

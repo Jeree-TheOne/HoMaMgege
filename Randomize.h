@@ -6,16 +6,14 @@
 #define MAIN_CPP_RANDOMIZE_H
 #include <iostream>
 #include <random>
-#include <time.h>
+#include <ctime>
 using namespace std;
 
 class Randomize {
 public:
     static int GetRand(int min, int max)
     {
-        _sleep(500);
         srand(_time64(NULL));
-
         return min + (rand() % ((max - min) + 1));;
     }
 };
