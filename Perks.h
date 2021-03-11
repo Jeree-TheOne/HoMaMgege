@@ -11,37 +11,47 @@ using namespace std;
 
 class Perks {
 private:
+    string Name;
     string Action;
     int Stage;
     string perks [10][3] = {
-            {"Стрельба","RD10","1"},
-            {"Удача","C10","1"},
-            {"Уклонение","E10","1"},
-            {"Нападение","AD10","1"},
-            {"Доспехи","A10","1"},
-            {"Мистицизм","M10","1"},
-            {"Атака","AD10","1"},
-            {"Разум","I25","1"},
-            {"Волшебство","MD10","1"},
-            {"Сопротивление магии","MR10","1"}
+            {"Стрельба","D5","1"},
+            {"Ученый","E2","1"},
+            {"Уклонение","A5","1"},
+            {"Нападение","D5","1"},
+            {"Доспехи","A5","1"},
+            {"Мистицизм","MS5","1"},
+            {"Атака","D5","1"},
+            {"Разум","I5","1"},
+            {"Волшебство","MS5","1"},
+            {"Золотое косание","G50","1"}
     };
 
 public:
-    string Name;
     Perks(){
+        Name = "";
+        Action = "";
+        Stage = 0;
+    }
+    void NewPerk(){
         int index = Randomize::GetRand(0,9);
         Name = perks[index][0];
         Action = perks[index][1];
         Stage = 1;
     }
+
     void UpgradePerk(){
-        if (Stage == 3)
-        {
-            cout << "Навык уже максимального уровня";
-            return;
-        }
-        Format::UpPerk(Action, Stage);
+        Action = Format::UpPerk(Action, Stage);
         ++Stage;
+    }
+    string GetName(){
+        return Name;
+    }
+    string GetAction(){
+        return Action;
+    }
+    int GetStage(){
+        return Stage;
     }
 };
 

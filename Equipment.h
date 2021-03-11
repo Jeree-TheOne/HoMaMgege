@@ -97,6 +97,7 @@ public:
     }
 
     int DropEquipment(){
+        NewEquipment();
         cout << "Вам выпал новый предмет: " << Name <<endl;
         cout << "Слот: " << Type <<endl;
         cout << "Его характеристики: \n" << Format::DeFormat(Stats) << "\n";
