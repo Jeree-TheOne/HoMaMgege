@@ -30,6 +30,7 @@ private:
 public: //todo: Изменить массивы на векторы
     array<Equipment, 10> Equiped;// Слоты инвенторя Helmet, Amulet, ChestArmor, LeftHand, RightHand, Ring, Nogi, Pet, Access
     array<Perks, 4> perks; //Перки изначально дается 2 рандомных, не повторяются
+    array<Units, 10> army;
     //string SpellBook[10]; Книжка спеллов, хз какой у нее размер, мб можно листом сделать
     vector<Equipment> Inventory;
     Hero(int type)
