@@ -23,27 +23,7 @@ public:
     // Земля *Boom(Взрыв), *UndeadDead(Упокоить мертвецов), *StoneSkin(Каменная кожа), *DirtDefence(Защита от магии земли);
     // Воздух. *Сhainzipper(Цепная молния), *Accuracy(Точность), *Lucky(Удача), *Dimensiondoor(Дверь измерений)
      //static Spells Clone, Weakness, Waterdefence, Blind, Curse, Fireshield, UndeadDead, StoneSkin, DirtDefence, Accuracy, Lucky, Dimensiondoor, Fireball, Icearrow, boom, Chainzipper;
-
-   enum spellsname
-   {
-        NClone,
-        NWeakness,
-        NWaterdefence,
-        NBlind,
-        NCurse,
-        NFireshield,
-        NUndeadDead,
-        NStoneSkin,
-        NDirtDefence,
-        NAccuracy,
-        NLucky,
-        NDimensiondoor,
-        NFireball,
-        NIcearrow,
-        Nboom,
-        NChainzipper
-   };
-
+  //   string
 
 };
 

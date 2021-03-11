@@ -12,6 +12,7 @@
 #include "Equipment.h"
 #include "Hero.h"
 #include "Format.h"
+#include "Units.h"
 
 class Enterprise
 {
@@ -366,14 +367,14 @@ public:
                 cout << "Введите номер предмета продавца, который необходимо купить \n";
                 int nomerpredmetaTORG;
                 cin >> nomerpredmetaTORG;
-                if (FormatForBonusStats(Slots[nomerpredmetaTORG*3-1])[5]>hero.GetGold()) {
+                if (Format::FormatForBonusStats(Slots[nomerpredmetaTORG*3-1])[5]>hero.GetGold()) {
                     cout << "Вы не можете позволить себе приобретение этого предмета\n";
                     Sleep(1000);
                     goto povtor;
                 }
                 else
                 {
-                    hero.SetGold(hero.GetGold()-FormatForBonusStats(Slots[nomerpredmetaTORG*3-1])[5]);
+                    hero.SetGold(hero.GetGold()-Format::FormatForBonusStats(Slots[nomerpredmetaTORG*3-1])[5]);
                 Equipment equipment;
                 equipment.AddEquipment(Slots[nomerpredmetaTORG*3-3],Slots[nomerpredmetaTORG*3-2], Slots[nomerpredmetaTORG*3-1]);
                 hero.Inventory.push_back(equipment);
@@ -389,7 +390,7 @@ public:
                 this->Slots.push_back(hero.Inventory[nomerpredmetaTORG].GetType());
                 this->Slots.push_back(hero.Inventory[nomerpredmetaTORG].GetStats());
                 hero.Inventory.erase(hero.Inventory.begin() + nomerpredmetaTORG);
-                hero.SetGold(hero.GetGold()+FormatForBonusStats(hero.Inventory[nomerpredmetaTORG].GetStats())[5]);
+                hero.SetGold(hero.GetGold()+Format::FormatForBonusStats(hero.Inventory[nomerpredmetaTORG].GetStats())[5]);
                 goto povtor;
             }
 
@@ -398,7 +399,87 @@ public:
 };
 class Mercenary : public Enterprise // Покупка войнов TODO : Сделать после создания юнитов
 {
+private:
+    vector<Units>Slots;
+public:
+    Mercenary(vector<Units>Slots)
+    {
+        this->Slots = Slots;
+    }
+    void EnterTheMercenaryMarket(Hero hero)
+    {
+        povtorr:
+        system("cls");
+        cout << "Прогуливаясь по городу, вы замечаете палатки со флагами наемников - войнов, которые сражаются за вас, пока имеете золото \n";
+        cout << "1) Направиться к шатёрам \n";
+        cout << "2) Уйти \n";
+        int h = 0;
+        cin >> h;
+        if (h == 1)
+        {
+            povtor:
+            system("cls");
+            cout << "У вас есть сейчас " << hero.GetGold() << "золотых с собой \n";
+            cout << "Лагерь наёмников: \n";
+            for (int i = 0; i<this->Slots.size(); i++)
+            {
+                cout << i << ") " << Slots[i].GetName() << " Расса:  " << Slots[i].GetRace() << " Броня: " << Slots[i].GetArmor() << " Аттака: " << Slots[i].GetDamage() << " Здоровье: " << Slots[i].GetHP() << " Максимальное колличество в одной клетке: " << Slots[i].GetMaxAmount() << " Цена: " << Slots[i].GetCost() <<"\n";
+                cout << "\n";
+            }
+            cout << "\n";
+            cout << "\n";
+            cout << "1) Нанять челиксов \n";
+            cout << "2) Вернуться в центр лагеря \n";
+            int j;
+            cin >> j;
+            if (j == 2)
+                goto povtorr;
+            bool est = false;
+            int x = 0;
+            for(x; x<hero.army.size(); x++)
+            {
+                if (hero.army[x].GetName() == "")
+                {
+                    est = true;
+                    break;
+                }
+            }
+            if (j == 1 && est == false) {
+                cout << "Воины бы с радостью к вам присоединились, однако вам нечем прокормить их \n";
+                Sleep(5000);
+                goto povtorr;
+            }
+            else
+            {
+                cout << "Введите номер юнита, которого необходимо нанять \n";
+                int num;
+                cin >> num;
+                cout << "Введите колличество юнитов, которых необходимо нанять. \n";
+                int kolvo;
+                cin >> kolvo;
+                if (kolvo*Slots[num].GetCost()>hero.GetGold())
+                {
+                    cout << "У вас недостаточно золота! \n";
+                    Sleep(3000);
+                    goto povtor;
+                }
+                else if (kolvo > Slots[num].GetMaxAmount())
+                {
+                    cout << "Толпа не может поместиться в один обоз! Оформите покупки двумя разными чеками \n";
+                    goto povtor;
+                }
+                else
+                {
+                    Slots[num].SetAmount(kolvo);
+                    hero.army[x] = Slots[num];
+                    hero.SetGold(hero.GetGold()-kolvo*Slots[num].GetCost());
+                    goto povtor;
+                }
+            }
 
+
+        }
+    }
 };
 class MagicTower : public Enterprise // Покупка заклинаний TODO : Сделать после создания заклинаний
 {

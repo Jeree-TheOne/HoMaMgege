@@ -6,6 +6,8 @@
 #define MAIN_CPP_UNITS_H
 #include <iostream>
 #include <string>
+#include "Randomize.h"
+
 
 using namespace std;
 
@@ -31,6 +33,16 @@ public:
     Units(){
         Name = "";
     }
+    void AddUnits(string Race, string Name, string Damage, string HP, string Armor, string MaxAmount, int Cost )
+    {
+        this->Race = stoi(Race);
+        this->Name = stoi(Name);
+        this->Damage = stoi(Damage);
+        this->HP = stoi(HP);
+        this->Armor = stoi(Armor);
+        this->MaxAmount = stoi(MaxAmount);
+        this->Cost = Cost;
+    }
     void BuyUnits(string name){
         for (int i = 0; i < size(units);i++){
             if (name == units[i][1]){
@@ -52,9 +64,106 @@ public:
             }
         }
     }
+    vector<Units> FillMercenary(int type)
+    {
+        int costpercent;
+        int length;
+        bool est = false;
+        vector<Units> mercenaries;
+        switch (type)
+        {
+            case 0:
+            {
+                costpercent = 50;
+                length = Randomize::GetRand(5,15);
+            }
+            case 1:
+            {
+                costpercent = 25;
+                length = Randomize::GetRand(5,10);
+            }
+            case 2:
+            {
+                length = Randomize::GetRand(5,10);
+                costpercent = 10;
+            }
+            case 3:
+            {
+                costpercent = 0;
+                length = Randomize::GetRand(5,8);
+            }
+            case 4:
+            {
+                costpercent = -10;
+                length = Randomize::GetRand(3,5);
+            }
+            case 5:
+            {
+                costpercent = -25;
+                length = Randomize::GetRand(2,4);
+            }
+            case 6:
+            {
+                costpercent = -50;
+                length = 1;
+            }
+            case 7:
+            {
+                costpercent = -75;
+                length = 1;
+            }
+
+        }
+        for (int i = 0; i<length; i++)
+        {
+            Units unit;
+            int s = Randomize::GetRand(0,30);
+            unit.AddUnits(units[s][0], units[s][1], units[s][2], units[s][3], units[s][4], units[s][5], stoi(units[s][6])+stoi(units[s][6])*(costpercent/100));
+            for (int j = 0; j < length; j++)
+            {
+                if (mercenaries[i].GetName() == unit.GetName())
+                    est = true;
+                if (est == true)
+                    break;
+            }
+            if (est == true)
+                i--;
+            else
+                mercenaries.push_back(unit);
+        }
+        return mercenaries;
+    }
+    string GetRace(){
+        return Race;
+    }
     string GetName(){
         return Name;
     }
+    int GetHP(){
+        return HP;
+    }
+    void SetHp(int HP)
+    {
+        this->HP = HP;
+    }
+    int GetDamage(){
+        return Damage;
+    }
+    int GetArmor(){
+        return Armor;
+    }
+    int GetMaxAmount(){
+        return MaxAmount;
+    }
+    void SetAmount( int amount)
+    {
+        this->Amount = amount;
+    }
+    int GetCost(){
+        return Cost;
+    }
+
+
 };
 
 

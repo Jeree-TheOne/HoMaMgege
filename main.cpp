@@ -5,6 +5,7 @@
 #include "Randomize.h"
 #include "Hero.h"
 #include <ctime>
+#include "Units.h"
 using namespace std;
 
 int main() {
