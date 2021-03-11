@@ -232,7 +232,7 @@ public:
             // inc[6] - Торговец побрякушками, inc[7] - Шатер предсказательницы.
             for(int i = 0; i<7; i++)
             {
-                switch (i)
+               /* switch (i)
                 {
                    case 0:
                        {
@@ -317,11 +317,11 @@ public:
                         break;
                     }
                 }
-            }
-            cin >> j;
+            */}
+            //cin >> j;
 
         }
-        int GetType()
+       /* int GetType()
         {
             return this->type;
         };
@@ -333,7 +333,7 @@ public:
             for (int i = 0; i<7; i++)
                 cout  << " Предприятие номер " << i << "есть(1) или нет(0) : " << this->inc[i] << "\n";
 
-        };
+        };*/
 
     }; // <- Класс города( Тут всё про город )
 

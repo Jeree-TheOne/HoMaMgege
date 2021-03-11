@@ -15,7 +15,7 @@
 
 class Enterpise
 {
-protected:
+/*protected:
     int type;
     vector<int> eventhandler;
 public:
@@ -51,9 +51,9 @@ public:
             this->eventhandler.push_back(2); // Началась пиздилка(победа - +200 голды, поражение - минус 300 золота)
         for(i; i<35-10-j; i++)
             this->eventhandler.push_back(3); // Вы траванулись(Платите 500 за лечение)
-    }
+    }*/
 };
-class Marketplace : public Enterpise
+/*class Marketplace : public Enterpise
 {
 
 };
@@ -80,7 +80,7 @@ class KallTraider : public Enterpise
 class Predict : public Enterpise
 {
 
-};
+};*/
 
 
 #endif //MAIN_CPP_ENTERPRISES_H

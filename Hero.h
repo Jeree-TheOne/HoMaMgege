@@ -16,13 +16,6 @@
 #include "Randomize.h"
 using namespace std;
 
-enum Types{
-    Archer = 1,
-    Warrior,
-    Mag
-};
-
-
 class Hero {
 private:
     string Type;
@@ -35,13 +28,21 @@ private:
     int Xp = 0;
     int Lvl = 1;
 public: //todo: Изменить массивы на векторы
-    int a;
     array<Equipment, 10> Equiped;// Слоты инвенторя Helmet, Amulet, ChestArmor, LeftHand, RightHand, Ring, Nogi, Pet, Access
-    vector<Perks> perks; //Перки изначально дается 2 рандомных, не повторяются
+    array<Perks, 4> perks; //Перки изначально дается 2 рандомных, не повторяются
     //string SpellBook[10]; Книжка спеллов, хз какой у нее размер, мб можно листом сделать
     vector<Equipment> Inventory;
     Hero(int type)
     {
+        Perks *perks1 = new Perks();
+        perks1->NewPerk();
+        perks.at(0) = *perks1;
+        Perks *perks2 = new Perks();
+        st:
+        perks2->NewPerk();
+        perks.at(1) = *perks2;
+        if (perks[0].GetName() == perks[1].GetName())
+             goto st;
         switch (type) {
             case 1: //По номеру типа
                 Type = "Лучник";
@@ -50,13 +51,6 @@ public: //todo: Изменить массивы на векторы
                 Armor = 1 + Randomize::GetRand(0,2);
                 Intellect = 1 + Randomize::GetRand(0,1);
                 MagicStrength = 1 + Randomize::GetRand(0,1);
-                perks.push_back(Perks());
-                st:
-                perks.push_back(Perks());
-                if (perks[0].Name == perks[1].Name) {
-                    perks.pop_back();
-                    goto st;
-                }
                 break;
             case 2: //По номеру типа
                 Type = "Воин";
@@ -65,13 +59,6 @@ public: //todo: Изменить массивы на векторы
                 Armor = 4 + Randomize::GetRand(0,3);
                 Intellect = 1 + Randomize::GetRand(0,1);
                 MagicStrength = 1 + Randomize::GetRand(0,1);
-                perks.push_back(Perks());
-            st1:
-                perks.push_back(Perks());
-                if (perks[0].Name == perks[1].Name) {
-                    perks.pop_back();
-                    goto st1;
-                }
                 break;
             case 3: //По номеру типа
                 Type = "Волшебник";
@@ -80,14 +67,17 @@ public: //todo: Изменить массивы на векторы
                 Armor = 0 + Randomize::GetRand(0,1);
                 Intellect = 5 + Randomize::GetRand(0,3);
                 MagicStrength = 5 + Randomize::GetRand(0,3);
-                perks.push_back(Perks());
-            st2:
-                perks.push_back(Perks());
-                if (perks[0].Name == perks[1].Name) {
-                    perks.pop_back();
-                    goto st2;
-                }
                 break;
+        }
+        for (int i = 0; i < 4; i++){
+            if (perks[i].GetName() != "") {
+                int *nums = new int[4];
+                nums = Format::FormatForPerkBonusStats(perks[i].GetAction());
+                Damage +=nums[0];
+                Armor +=nums[1];
+                Intellect +=nums[2];
+                MagicStrength +=nums[3];
+            }
         }
     }
 
@@ -107,6 +97,16 @@ public: //todo: Изменить массивы на векторы
         if (Xp >= Lvl*10){
             Xp -= Lvl*10;
             ++Lvl;
+            for (int i = 0; i < 4; i++){
+                if (perks[i].GetName() != "") {
+                    int *nums = new int[4];
+                    nums = Format::FormatForPerkBonusStats(perks[i].GetAction());
+                    Damage -=nums[0];
+                    Armor -=nums[1];
+                    Intellect -=nums[2];
+                    MagicStrength -=nums[3];
+                }
+            }
             if (Type == "Лучник"){
                 Damage += 2 + Randomize::GetRand(0,2);
                 HP += 1 + Randomize::GetRand(0,1);
@@ -126,10 +126,126 @@ public: //todo: Изменить массивы на векторы
                 Intellect += 2 + Randomize::GetRand(0,2);
                 MagicStrength += 2 + Randomize::GetRand(0,2);
             }
-            cout << "Вы получили новый уровень!! Текущий уровень - " << Lvl;
-            // Todo: Реализовать выпадения 2-3 перков
+            cout << "Вы получили новый уровень!! Текущий уровень - " << Lvl << endl;
+            cout << "Навыки за новый уровень:\n\n";
+            if (perks[3].GetName() == "") {
+                Sleep(1000);
+                Perks *perks1 = new Perks();
+                perks1->NewPerk();
+                if (perks1->GetName() == perks[0].GetName() || perks1->GetName() == perks[1].GetName() || perks1->GetName() == perks[2].GetName() || perks1->GetName() == perks[3].GetName())
+                    cout << "1) "<<perks1->GetName() <<": улучшение\n";
+                else
+                    cout << "1) "<<perks1->GetName() <<": "<< Format::PerkDeFormat(perks1->GetAction());
+                Sleep(1000);
+                Perks *perks2 = new Perks();
+                perks2->NewPerk();
+                if (perks2->GetName() == perks[0].GetName() || perks2->GetName() == perks[1].GetName() || perks2->GetName() == perks[2].GetName() || perks2->GetName() == perks[3].GetName())
+                    cout << "2) "<<perks2->GetName() <<": улучшение\n";
+                else
+                    cout << "2) "<<perks2->GetName() <<": "<< Format::PerkDeFormat(perks2->GetAction());
+                st:
+                cout << "Выберите навык который хотите добавить: ";
+                int ch;
+                cin >> ch;
+                switch (ch) {
+                    case 1:
+                        if (perks1->GetName() == perks[0].GetName() || perks1->GetName() == perks[1].GetName() || perks1->GetName() == perks[2].GetName() || perks1->GetName() == perks[3].GetName()) {
+                            for (int i = 0; i < 4; i++)
+                                if (perks1->GetName() == perks[i].GetName()) {
+                                    if (perks[i].GetStage() == 3) {
+                                        cout << "\nНавык уже максимального уровня\n";
+                                        break;
+                                    }
+                                    perks[i].UpgradePerk();
+                                    cout << "\nНавык улучшен\n";
+                                }
+                            break;
+                        }
+                        if (perks[2].GetName() == "")
+                            perks.at(2) = *perks1;
+                        else
+                            perks.at(3) = *perks1;
+                        cout << "\nНавык "<<perks1->GetName()<< " добавлен\n";
+                        break;
+                    case 2:
+                        if (perks2->GetName() == perks[0].GetName() || perks2->GetName() == perks[1].GetName() || perks2->GetName() == perks[2].GetName() || perks2->GetName() == perks[3].GetName()) {
+                            for (int i = 0; i < 4; i++)
+                                if (perks2->GetName() == perks[i].GetName()) {
+                                    if (perks[i].GetStage() == 3) {
+                                        cout << "\nНавык уже максимального уровня\n";
+                                        break;
+                                    }
+                                    perks[i].UpgradePerk();
+                                    cout << "\nНавык улучшен\n";
+                                }
+                            break;
+                        }
+                        if (perks[2].GetName() == "")
+                            perks.at(2) = *perks2;
+                        else
+                            perks.at(3) = *perks2;
+                        cout << "\nНавык "<<perks2->GetName()<< " добавлен\n";
+                        break;
+                    default:
+                        cout << "Вы ввели неправильное значение\n";
+                        goto st;
+                }
+            }
+            else{
+                Perks *perks1 = new Perks();
+                p1:
+                Sleep(1000);
+                perks1->NewPerk();
+                if (perks1->GetName() != perks[0].GetName() && perks1->GetName() != perks[1].GetName() && perks1->GetName() != perks[2].GetName() && perks1->GetName() != perks[3].GetName())
+                    goto p1;
+                Perks *perks2 = new Perks();
+                p2:
+                Sleep(1000);
+                perks2->NewPerk();
+                if (perks2->GetName() != perks[0].GetName() && perks2->GetName() != perks[1].GetName() && perks2->GetName() != perks[2].GetName() && perks2->GetName() != perks[3].GetName())
+                    goto p2;
+                cout << "1) "<<perks1->GetName() <<": улучшение\n";
+                cout << "2) "<<perks2->GetName() <<": улучшение\n";
+                st2:
+                cout << "Выберите навык который хотите добавить: ";
+                int ch;
+                cin >> ch;
+                switch (ch) {
+                    case 1:
+                        for (int i = 0; i < 4; i++)
+                            if (perks1->GetName() == perks[i].GetName()){
+                                if (perks[i].GetStage() == 3) {
+                                    cout << "\nНавык уже максимального уровня\n";
+                                    break;
+                                }
+                                perks[i].UpgradePerk();
+                                cout << "\nНавык улучшен\n";
+                            }
+                        break;
+                    case 2:
+                        for (int i = 0; i < 4; i++)
+                            if (perks2->GetName() == perks[i].GetName()){
+                                if (perks[i].GetStage() == 3) {
+                                    cout << "\nНавык уже максимального уровня\n";
+                                    break;
+                                }
+                                perks[i].UpgradePerk();
+                                cout << "\nНавык улучшен\n";
+                            }
+                        break;
+                }
+            }
+            for (int i = 0; i < 4; i++){
+                if (perks[i].GetName() != "") {
+                    int *nums = new int[4];
+                    nums = Format::FormatForPerkBonusStats(perks[i].GetAction());
+                    Damage +=nums[0];
+                    Armor +=nums[1];
+                    Intellect +=nums[2];
+                    MagicStrength +=nums[3];
+                }
+            }
         }
-        return;
     }
 
     void AddToInventory(Equipment item){
@@ -196,7 +312,7 @@ public: //todo: Изменить массивы на векторы
         }
         system("cls");
         int* nums = new int[6];
-        nums = FormatForBonusStats(item.GetStats());
+        nums = Format::FormatForBonusStats(item.GetStats());
         Damage += nums[0];
         HP += nums[1];
         Armor += nums[2];
@@ -204,7 +320,6 @@ public: //todo: Изменить массивы на векторы
         MagicStrength += nums[4];
         cout << "\nПредмет надет успешно\n\n";
     }
-
 
     void MoveFromInventoryToEquiped(int index){
         Equip(Inventory[index - 1]);
@@ -217,7 +332,7 @@ public: //todo: Изменить массивы на векторы
             return;
         }
         int* nums = new int[6];
-        nums = FormatForBonusStats(Equiped[index - 1].GetStats());
+        nums = Format::FormatForBonusStats(Equiped[index - 1].GetStats());
         Damage -= nums[0];
         HP -= nums[1];
         Armor -= nums[2];
@@ -332,6 +447,15 @@ public: //todo: Изменить массивы на векторы
                 cout << "\nВы ввели неправильное значение\n";
                 goto st;
         }
+    }
+
+    void ShowPerks(){
+        cout<<"Навыки: \n\n";
+        for (int i = 0; i < 4; i++)
+            if (perks[i].GetName() != "")
+                cout << i+1 << ") " << perks[i].GetName()<< " : "<<Format::PerkDeFormat(perks[i].GetAction());
+            else
+                cout << i+1 << ") Пусто\n";
     }
 
 };
