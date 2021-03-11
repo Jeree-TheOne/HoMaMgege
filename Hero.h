@@ -101,7 +101,6 @@ public: //todo: Изменить массивы на векторы
             HP += 1 + Randomize::GetRand(0,1);
             Armor += 1 + Randomize::GetRand(0,1);
             Intellect += 1 + Randomize::GetRand(0,1);
-            // Мб стоит сделать, чтобы Интеллект и Магия при увелечении уровня падала ток магам, а атака и защита - лукарям и мечникам?
             MagicStrength += 1 + Randomize::GetRand(0,1);
             cout << "Вы получили новый уровень!! Текущий уровень - " << Lvl;
             // Todo: Реализовать выпадения 2-3 перков
@@ -309,7 +308,7 @@ public: //todo: Изменить массивы на векторы
     {
         return this->Mana;
     }
-    int SetMana(int Mana)
+    void SetMana(int Mana)
     {
         this->Mana = Mana;
     }
@@ -321,6 +320,17 @@ public: //todo: Изменить массивы на векторы
             {
         return this->Damage;
             };
+     /*void HeroDeath()
+    {
+        if (this->Gold == 0)
+            Endgame(0); // Заканчиваем игру на плохую концовку.
+            else
+                {
+            int GoldPercent = Randomize::GetRand(25, 75); // процент взысканий за смерть.
+                // Все юниты погибают(кроме одной клеточки рандомного).
+            this->Gold = this->Gold - this->Gold * (GoldPercent/100);
+        }
+    }*/
 
 };
 

@@ -392,48 +392,163 @@ public:
                 hero.SetGold(hero.GetGold()+FormatForBonusStats(hero.Inventory[nomerpredmetaTORG].GetStats())[5]);
                 goto povtor;
             }
-           /* cout << j << ") Вернуться на центр рынка";
-            int jj;
-            cin >> jj;
-            if (jj == j)
-                goto centrmarket;
-            else
-            {
-                cout << "Вы собираетесь приобрести" << Slots[jj-1] << "вида " << Slots[jj] << " " <<  Format::DeFormat(Slots[jj+1]) << "\n";
-                cout << "В данный момент вы имеете на руках " << hero.GetGold() << " золотых";
-                cout << "1) Да, я хочу купить этот предмет \n 2) Нет, вернуться к списку просмотра предметов";
-                int jjj;
-                cin >> jjj;
-                if (jjj == 2)
-                    goto prosmotrmagaza;
-            }*/
 
         }
     }
 };
-class Mercenary : public Enterprise
+class Mercenary : public Enterprise // Покупка войнов TODO : Сделать после создания юнитов
 {
 
 };
-class MagicTower : public Enterprise
+class MagicTower : public Enterprise // Покупка заклинаний TODO : Сделать после создания заклинаний
 {
 
 };
 class MagicWell : public Enterprise
 {
-
+private:
+    int chance;
+public:
+    MagicWell()
+    {
+        switch (type)
+        {
+            case 0: { this->chance = 80; break;}
+            case 1: { this->chance  = 70; break;}
+            case 2: { this->chance  = 60; break;}
+            case 3: { this->chance  = 50; break;}
+            case 4: { this->chance  = 40; break;}
+            case 5: { this->chance  = 30; break;}
+            case 6: { this->chance  = 20; break;}
+            case 7: { this->chance  = 10; break;}
+        }
+    }
+    void EnterTheMagicWell(Hero hero)
+    {
+        system("cln");
+        cout << "Сквозь улицы города вы находите странный, замшелый колодец \n";
+        cout << "Посмотрев внутрь его, вы замечаете, что на дне распологаются кувшинки, от которых пахнет черемухой \n";
+        cout << "Недолго думая, вы решаете... \n";
+        povtor:
+        cout << "1) Бросить монетку номиналом 50 золотых \n";
+        cout << "2) Бросить монетку номиналом 25 золотых \n";
+        cout << "3) Бросить монетку номиналом 10 золотых \n";
+        cout << "4) Плюнуть в колодец \n";
+        cout << "5) Уйти. \n";
+        int j;
+        cin >> j;
+        switch (j)
+        {
+            case 1:
+            {
+                if (hero.GetGold()<50) {
+                    cout << "У вас недостаточно золота для броска! \n";
+                    goto povtor;
+                }
+                else {
+                    int povezlo = Randomize::GetRand(1, 100);
+                    if (povezlo <= 20 )
+                    {
+                        Equipment randvesh;
+                        randvesh.NewEquipment();
+                        cout << "К вашему удивлению в ведре, опущенном в колодец что-то зашевелилось \n";
+                        cout << "Подняв ведро вы понимаете, что вам сегодня повезло, вы нашли в ведре  " << randvesh.GetType() << "\n";
+                        cout << "Пока никто не решил зафиксировать акт вандализма, вы в спешке кладете его в свой инвентарь \n \n ";
+                        hero.Inventory.push_back(randvesh);
+                        goto povtor;
+                    }
+                    else
+                        cout << "Но ничего не произошло..";
+                    goto povtor;
+                }
+                break;
+            }
+            case 2:
+            {
+                if (hero.GetGold()<25) {
+                    cout << "У вас недостаточно золота для броска! \n";
+                    goto povtor;
+                }
+                else {
+                    int povezlo = Randomize::GetRand(1, 100);
+                    if (povezlo <= 10 )
+                    {
+                        Equipment randvesh;
+                        randvesh.NewEquipment();
+                        cout << "К вашему удивлению в ведре, опущенном в колодец что-то зашевелилось \n";
+                        cout << "Подняв ведро вы понимаете, что вам сегодня повезло, вы нашли в ведре  " << randvesh.GetType() << "\n";
+                        cout << "Пока никто не решил зафиксировать акт вандализма, вы в спешке кладете его в свой инвентарь \n \n ";
+                        hero.Inventory.push_back(randvesh);
+                    }
+                    else
+                        cout << "Но ничего не произошло..";
+                    goto povtor;
+                }
+                break;
+            }
+            case 3:
+            {
+                if (hero.GetGold()<10) {
+                    cout << "У вас недостаточно золота для броска! \n";
+                    goto povtor;
+                }
+                else {
+                    int povezlo = Randomize::GetRand(1, 100);
+                    if (povezlo <= 5 )
+                    {
+                        Equipment randvesh;
+                        randvesh.NewEquipment();
+                        cout << "К вашему удивлению в ведре, опущенном в колодец что-то зашевелилось \n";
+                        cout << "Подняв ведро вы понимаете, что вам сегодня повезло, вы нашли в ведре  " << randvesh.GetType() << "\n";
+                        cout << "Пока никто не решил зафиксировать акт вандализма, вы в спешке кладете его в свой инвентарь \n \n ";
+                        hero.Inventory.push_back(randvesh);
+                    }
+                    else
+                        cout << "Но ничего не произошло..";
+                    goto povtor;
+                }
+                break;
+            }
+            case 4:
+                {
+                    cout << "Вы делаете смачный плевок в самую глубь колодца";
+                    int povezlo = Randomize::GetRand(1, 100);
+                    if (povezlo <= 30 )
+                    {
+                        cout << "Совершая прицельный выстрел изо рта, вы не заметили как какой-то зеленый коротышка пробрался к вам в кошель и";
+                        if (hero.GetGold() != 0)
+                        {
+                            hero.SetGold(hero.GetGold()/3);
+                            cout << " забрал целых " << hero.GetGold() << " золотых! \n";
+                            cout << "Вы донельзя возмущены \n";
+                           goto povtor;
+                        }
+                        else
+                            {
+                            cout << "возмутившись отсутствием каких-либо монет ушел прочь. Вы чувствуете удовлетворение \n";
+                            goto povtor;
+                            }
+                    }
+                    else
+                        cout << "Но ничего не произошло \n";
+                    goto povtor;
+                    break;
+                }
+            case 5: break;
+        }
+    }
 };
 class CityHall : public Enterprise
 {
-
+// Todo : Будет доступно в Beta 0.1
 };
 class KallTraider : public Enterprise
 {
-
+ // Todo : Будет доступно в Beta 0.1
 };
 class Predict : public Enterprise
 {
-
+// Todo : Будет доступно в Beta 0.1
 };
 
 

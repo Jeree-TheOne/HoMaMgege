@@ -22,24 +22,8 @@ public:
     // Водные *Icearrow(ледянная стрела), *Clone(Клон), *Wikness(Слабость), *Waterdefence(Защита от магии воды);
     // Земля *Boom(Взрыв), *UndeadDead(Упокоить мертвецов), *StoneSkin(Каменная кожа), *DirtDefence(Защита от магии земли);
     // Воздух. *Сhainzipper(Цепная молния), *Accuracy(Точность), *Lucky(Удача), *Dimensiondoor(Дверь измерений)
-     static Spells Clone, Weakness, Waterdefence, Blind, Curse, Fireshield, UndeadDead, StoneSkin, DirtDefence, Accuracy, Lucky, Dimensiondoor, Fireball, Icearrow, boom, Chainzipper;
+     //static Spells Clone, Weakness, Waterdefence, Blind, Curse, Fireshield, UndeadDead, StoneSkin, DirtDefence, Accuracy, Lucky, Dimensiondoor, Fireball, Icearrow, boom, Chainzipper;
 
-    void SetSpell(int Name, string Stih, string Type, string Distance, string Duration, string Level, string Cost)
-    {
-        this->Name = Name;
-        this->Stih = Stih;
-        this->Type = Type;
-        this->Distance = Distance;
-        this->Duration = Duration;
-        this->Level = Level;
-        this->Cost = Cost;
-    }
-void CastSpell(int name, Spells a)
-{
-    switch (Name) {
-
-    }
-}
    enum spellsname
    {
         NClone,
