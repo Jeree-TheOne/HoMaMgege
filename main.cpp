@@ -6,6 +6,7 @@
 #include "Hero.h"
 #include <ctime>
 #include "Units.h"
+#include "Battle.h"
 using namespace std;
 
 int main() {
@@ -38,9 +39,19 @@ int main() {
     Hero *MainHero = new Hero(index);
     cout << "Персонаж успешно создан\n";
 
-    while (MainHero->GetHP() > 0) {
-        cout << "Выберите действие: \n ";
-    }
+    MainHero->army[0].BuyUnits("Лягушка номер раз");
 
+    Battle *b = new Battle;
+    Hero *EnemyHero = new Hero(index);
+    b->SetEnemy(*EnemyHero);
+    //while (MainHero->GetHP() > 0) {
+        //cout << "Выберите действие: \n ";
+        b->StartBattle(*MainHero);
+    //}
+
+
+
+int a;
+cin >> a;
     return 0;
 }

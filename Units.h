@@ -18,7 +18,7 @@ private:
     int Damage;
     int HP;
     int Armor;
-    int Amount = 1;
+    int Amount = 2;
     int MaxAmount;
     int Cost;
 public:
@@ -68,15 +68,15 @@ public:
     Units(){
         Name = "";
     }
-    void AddUnits(string Race, string Name, string Damage, string HP, string Armor, string MaxAmount, int Cost )
+    void AddUnits(string race, string name, string damage, string hp, string armor, string maxAmount, int cost )
     {
-        this->Race = stoi(Race);
-        this->Name = stoi(Name);
-        this->Damage = stoi(Damage);
-        this->HP = stoi(HP);
-        this->Armor = stoi(Armor);
-        this->MaxAmount = stoi(MaxAmount);
-        this->Cost = Cost;
+        Race = stoi(race);
+        Name = stoi(name);
+        Damage = stoi(damage);
+        HP = stoi(hp);
+        Armor = stoi(armor);
+        MaxAmount = stoi(maxAmount);
+        Cost = cost;
     }
     void BuyUnits(string name){
         for (int i = 0; i < size(units);i++){
@@ -88,14 +88,15 @@ public:
                 Armor = stoi(units[i][4]);
                 MaxAmount = stoi(units[i][5]);
                 Cost = stoi(units[i][6]);
-                st:
+                /*st:
                 cout << "Введите количество юнитов: ";
                 int amount;
                 cin >> amount;
                 if (amount < 1 || amount > MaxAmount){
                     cout << "Введено неверное значение";
                     goto st;
-                }
+                }*/
+                break;
             }
         }
     }
@@ -176,6 +177,9 @@ public:
     }
     int GetHP(){
         return HP;
+    }
+    int GetAmount(){
+        return  Amount;
     }
     void SetHp(int HP)
     {

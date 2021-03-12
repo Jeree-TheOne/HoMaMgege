@@ -11,14 +11,14 @@ using namespace std;
 class Spells {
 
 protected:
-  static  string Name; // Название
-    static string Stih; // Стихия заклинания (Всего 4 - Земля, Огонь, Вода, Воздух).
-    static string Type; // Тип (дамажный, антимагический, усиляющий, разум).
-    static int Damage;
-    static int Distance; // Дистанция заклинания (Один/ауе/все персонажи).
-    static int Duration; // Длительность заклинания
-    static int Level; // Уровень заклинания.
-    static int Cost; // Цена в маны
+    string Name; // Название
+    string Stih; // Стихия заклинания (Всего 4 - Земля, Огонь, Вода, Воздух).
+    string Type; // Тип (дамажный, антимагический, усиляющий, разум).
+    int Damage;
+    int Distance; // Дистанция заклинания (Один/ауе/все персонажи).
+    int Duration; // Длительность заклинания
+    int Level; // Уровень заклинания.
+    int Cost; // Цена в маны
 public:
     // (1 - дамаг, 2 - Разум, 3 - баф/дебаф, 4 -  магия/антимагия)
     // Огненные *Fireball(фаерболл), *Blind(Слепота), *Curse(Проклятие), *Fireshield(Огненный щит);
@@ -47,16 +47,16 @@ public:
     Spells()
     {
        int jj = Randomize::GetRand(0,15);
-           this->Name = spells[jj][0];
-           this->Stih = spells[jj][1];
-           this->Type = spells[jj][2];
-           this->Damage = atoi(spells[jj][3].c_str());
-           this->Distance =  atoi(spells[jj][4].c_str());
-           this->Duration =  atoi(spells[jj][5].c_str());
-           this->Level =  atoi(spells[jj][6].c_str());
-           this->Cost =  atoi(spells[jj][7].c_str());
+           Name = spells[jj][0];
+           Stih = spells[jj][1];
+           Type = spells[jj][2];
+           Damage = stoi(spells[jj][3]);
+           Distance =  stoi(spells[jj][4]);
+           Duration =  stoi(spells[jj][5]);
+           Level =  stoi(spells[jj][6]);
+           Cost =  stoi(spells[jj][7]);
     }
-    static string* GetSpell()
+    string* GetSpell()
     {
         string a[8]  = {Name, Stih, Type, to_string(Damage), to_string(Distance), to_string(Duration), to_string(Level), to_string(Cost)};
         return a;

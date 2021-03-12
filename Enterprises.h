@@ -263,8 +263,8 @@ public:
                             cin >> h;
                             if (h == 1)
                             {
-                                int rand1 = Randomize::GetRand(0, hero.GetStrength());
-                                int rand2 = Randomize::GetRand(5, hero.GetStrength()+(7-this->type));
+                                int rand1 = Randomize::GetRand(0, hero.GetDamage());
+                                int rand2 = Randomize::GetRand(5, hero.GetDamage()+(7-this->type));
                                 if (rand1 > rand2)
                                 {
                                     Sleep(1000);
