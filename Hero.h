@@ -33,10 +33,10 @@ private:
 public: //todo: Изменить массивы на векторы
     array<Equipment, 10> Equiped;// Слоты инвенторя Helmet, Amulet, ChestArmor, LeftHand, RightHand, Ring, Nogi, Pet, Access
     array<Perks, 4> perks; //Перки изначально дается 2 рандомных, не повторяются
-     array<Units, 10> army;
-    //string SpellBook[10]; Книжка спеллов, хз какой у нее размер, мб можно листом сделать
+    array<Units, 10> army;
     vector<Equipment> Inventory;
     vector<Spells> MagicBook;
+    array<Spells, 3> Buffs;
     Hero(int type)
     {
         Perks *perks1 = new Perks();
@@ -84,21 +84,6 @@ public: //todo: Изменить массивы на векторы
                 MagicStrength +=nums[3];
             }
         }
-    }
-    void AddSpell()
-    {
-
-    }
-
-    void ShowStats(){
-        cout << "Статы: \n";
-        cout << "Урон: " << Damage << endl;
-        cout << "Здоровье: " << HP << endl;
-        cout << "Броня: " << Armor << endl;
-        cout << "Интеллект: " << Intellect << endl;
-        cout << "Магическая сила: " << MagicStrength << endl;
-        cout << "Золото: " << Gold << endl;
-        cout << "Опыта до следующего уровня: " << Lvl*10 - Xp << endl;
     }
 
     void GetXp(int xp){
@@ -466,38 +451,73 @@ public: //todo: Изменить массивы на векторы
             else
                 cout << i+1 << ") Пусто\n";
     }
+
+    void ShowStats(){
+        cout << "Статы: \n";
+        cout << "Урон: " << Damage << endl;
+        cout << "Здоровье: " << HP << endl;
+        cout << "Броня: " << Armor << endl;
+        cout << "Интеллект: " << Intellect << endl;
+        cout << "Магическая сила: " << MagicStrength << endl;
+        cout << "Золото: " << Gold << endl;
+        cout << "Опыта до следующего уровня: " << Lvl*10 - Xp << endl;
+    }
+
     int GetGold()
     {
         return this->Gold;
     }
-    void Prodaja() // <- Создал метод для осуществления продажи на рынке.
+    int GetDamage()
     {
-
+        return this->Damage;
+    };
+    int GetHP(){
+        return this->HP;
     }
-    void SetGold(int Gold)
-    {
-        this->Gold = Gold;
-    }
-    int GetMAXmana()
-    {
-        return this->MAXmana;
-    }
-    int GetMana()
-    {
-        return this->Mana;
-    }
-    void SetMana(int Mana)
-    {
-        this->Mana = Mana;
+    int GetArmor(){
+        return Armor;
     }
     int GetIntellect()
     {
         return this->Intellect;
     }
-    int GetStrength()
+    int GetMagicStrength(){
+        return MagicStrength;
+    }
+    int GetMana()
     {
-        return this->Damage;
-    };
+        return this->Mana;
+    }
+    int GetMAXmana()
+    {
+        return this->MAXmana;
+    }
+
+    void SetGold(int gold){
+        Gold = gold;
+    }
+    void SetDamage(int damage){
+        Damage = damage;
+    }
+    void SetHP(int hp){
+        HP = hp;
+    }
+    void SetArmor(int armor){
+        Armor = armor;
+    }
+    void SetIntellect(int intellect){
+        Intellect = intellect;
+    }
+    void SetMagicStrength(int magicstrength){
+        MagicStrength = magicstrength;
+    }
+    void SetMana(int Mana)
+    {
+        this->Mana = Mana;
+    }
+    void SetMAXmana(int maxmana){
+        MAXmana = maxmana;
+    }
     /*void HeroDeath()
    {
        if (this->Gold == 0)
