@@ -3,4 +3,4 @@ project(untitled3)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(untitled3 main.cpp Hero.cpp Hero.h Equipment.cpp Equipment.h Locations.cpp Locations.h Perks.cpp Perks.h Spells.cpp Spells.h Randomize.cpp Randomize.h Format.cpp Format.h Enterprises.cpp Enterprises.h)
+add_executable(untitled3 main.cpp Hero.cpp Hero.h Equipment.cpp Equipment.h Locations.cpp Locations.h Perks.cpp Perks.h Spells.cpp Spells.h Randomize.cpp Randomize.h Format.cpp Format.h Enterprises.cpp Enterprises.h Battle.cpp Battle.h)

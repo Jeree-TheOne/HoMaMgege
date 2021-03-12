@@ -30,7 +30,7 @@ int main() {
         goto start;
     }*/
     st:
-    cout << "Введите класс персонажа: \n1) Лучник\n2) Воин\n3) Волшебник\n" ;
+    cout << "\nВведите класс персонажа: \n1) Лучник\n2) Воин\n3) Волшебник\n" ;
     int index;
     cin >> index;
     if (index > 3 || index < 1) goto st;
@@ -38,19 +38,9 @@ int main() {
     Hero *MainHero = new Hero(index);
     cout << "Персонаж успешно создан\n";
 
-
-    MainHero->ShowStats();
-
-    MainHero->GetXp(10);
-
-    MainHero->ShowStats();
-    /*srand(time(NULL));
-    array<int,10> a = {0,0,0,0,0,0,0,0,0,0};
-    for (int i = 0; i < 100000; i++)
-        a[rand() % 10]++;
-    for (int i = 0; i < size(a);i++)
-        cout <<i << ": " << a[i] << endl;*/
-
+    while (MainHero->GetHP() > 0) {
+        cout << "Выберите действие: \n ";
+    }
 
     return 0;
 }
