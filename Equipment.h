@@ -96,23 +96,12 @@ public:
         Stats = equipment[slot*4 + rare][2];
     }
 
-    int DropEquipment(){
+    void DropEquipment(){
         NewEquipment();
         cout << "Вам выпал новый предмет: " << Name <<endl;
         cout << "Слот: " << Type <<endl;
         cout << "Его характеристики: \n" << Format::DeFormat(Stats) << "\n";
-        ch:
-        cout << "Ваши действия: \n1) Надеть новый предмет \n2) Положить в инвентарь\nВыберите действие: ";
-        int action;
-        cin >> action;
-        if (action == 1)
-            return 1;
-        else if (action == 2)
-            return 2;
-        else{
-            cout<<"Введено неверное значение\n";
-            goto ch;
-        }
+        cout << Name << " помещен в инвентарь\n";
     }
     string GetType(){
         return Type;

@@ -41,7 +41,11 @@ goto start;
 
     Hero *MainHero = new Hero(index);
     cout << "Персонаж успешно создан\n";
+    MainHero->Win();
+    MainHero->Win();
+    MainHero->Win();
 
+    MainHero->ShowInventory();
 /* MainHero->army[0].BuyUnits("Лягушка номер раз");
 
 Battle *b = new Battle;

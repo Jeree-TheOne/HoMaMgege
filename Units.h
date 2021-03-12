@@ -176,7 +176,9 @@ public:
     }
 
     void ArmyGetDamage(int damage){
-        if (damage >= (HP * Amount + RemainsHP)+ Armor*1.05) {
+        damage -= Armor*Amount;
+        if (damage < 1) return;
+        if (damage >= HP * Amount + RemainsHP) {
             Name = "";
             return;
         }
@@ -191,6 +193,7 @@ public:
             Amount = TotalHp / HP;
             RemainsHP = TotalHp % HP;
         }
+        cout << "\nНанесенный урон - "<< damage << endl;
     }
 
     string GetRace(){

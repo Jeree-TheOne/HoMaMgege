@@ -530,6 +530,36 @@ public: //todo: Изменить массивы на векторы
        }
    }*/
 
+    void Win(){
+        int bExp = 0;
+        int bGold = 0;
+        for (int i = 0; i < 4; i++){
+            if (perks[i].GetName() == "Ученый")
+                bExp = perks[i].GetStage()*2;
+            if (perks[i].GetName() == "Золотое касание")
+                bGold = perks[i].GetStage()*50;
+        }
+        int getGold = Randomize::GetRand(150,300) + bGold;
+        int getXp = Randomize::GetRand(3,5)+ bExp;
+        cout << "За победу вы получили "<< getGold<< " золота и "<<getXp<<" опыта\n";
+        Gold += Randomize::GetRand(150,300) + bGold;
+        Xp += Randomize::GetRand(3,5)+ bExp;
+        int DropItem = Randomize::GetRand(1,5);
+        if (DropItem == 1){
+            Equipment q;
+            q.DropEquipment();
+            Inventory.push_back(q);
+        }
+    }
+    void Lose(){
+        int loseHP = Randomize::GetRand(5,10);
+        int loseGold = Gold * Randomize::GetRand(20,30)/100;
+        cout << "Вы потеряли "<< loseHP << " здоровья и "<< loseGold<< "золота!\n";
+        cout << "Вас жестко отпинали и бросили в каком-то городе неподалеку...\n";
+        HP -= loseHP;
+        Gold -= loseGold;
+        //TODO: появление в городе
+    }
 };
 
 

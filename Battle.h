@@ -17,10 +17,25 @@ public:
     void StartBattle(Hero hero){
         system("cls");
         ShowArmy(hero, *Enemy);
+        Sleep(500);
         while (true){
+            int EnemysArmiesDead = 0;
+            int HerosArmiesDead = 0;
             for (int i = 0; i < 10; i++){
-                if (hero.army[i].GetName() == "" || Enemy->army[i].GetName() == "")
-                    break;
+                if (hero.army[i].GetName() == "")
+                    HerosArmiesDead++;
+                if (Enemy->army[i].GetName() == "")
+                    EnemysArmiesDead++;
+            }
+            if (EnemysArmiesDead == 10) {
+                cout << "Вы выиграли!!!";
+                hero.Win();
+                break;
+            }
+            if (HerosArmiesDead == 10){
+                cout << "Вы проиграли!!!";
+                hero.Lose();
+                break;
             }
             bool turn = true;
             if (Randomize::GetRand(0,1) == 0) turn = false;
@@ -38,6 +53,7 @@ public:
                     }
                     Enemy->army[num].ArmyGetDamage(hero.army[i].GetDamage() * hero.army[i].GetAmount());
                 }
+                turn = false;
             }
             else{
                 cout << "Ход противника\n";
@@ -49,6 +65,7 @@ public:
                         goto st1;
                     hero.army[1].ArmyGetDamage(Enemy->army[i].GetDamage() * Enemy->army[i].GetAmount());
                 }
+                turn = true;
             }
             break;
         }
@@ -63,7 +80,7 @@ public:
             if (hero.army[i].GetName() == "")
                 name1 = to_string(i+1) + ") Пусто";
             else
-                name1 = to_string(i + 1) + ") " + hero.army[i].GetName() + ", Урон: " + to_string(hero.army[i].GetDamage() * hero.army[i].GetAmount()) +  ", Здоровье: " +to_string( hero.army[i].GetHP() * hero.army[i].GetAmount()) +", Броня: " + to_string( hero.army[i].GetArmor());
+                name1 = to_string(i + 1) + ") " + hero.army[i].GetName() + ", Урон: " + to_string(hero.army[i].GetDamage() * hero.army[i].GetAmount()) +  ", Здоровье: " +to_string( hero.army[i].GetHP() * hero.army[i].GetAmount()) +", Броня: " + to_string( hero.army[i].GetArmor() * hero.army[i].GetAmount());
             if (enemy.army[i].GetName() == "")
                 name2 = to_string(i+1) + ") Пусто";
             else
