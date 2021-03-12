@@ -232,7 +232,7 @@ public:
             // inc[6] - Торговец побрякушками, inc[7] - Шатер предсказательницы.
             for(int i = 0; i<7; i++)
             {
-               /* switch (i)
+                switch (i)
                 {
                    case 0:
                        {
@@ -257,7 +257,9 @@ public:
                     case 2:
                     {
                         if (this->inc[i] == true){
-                            Mercenary mercenary;
+                            Units * unit = new Units();
+                            Mercenary mercenary(unit->FillMercenary(this->type));
+                            unit->~Units();
                             Enterprise *pEnterprise;
                             pEnterprise = &mercenary;
                             enterprises.push_back(*pEnterprise);
@@ -267,7 +269,9 @@ public:
                     case 3:
                     {
                         if (this->inc[i] == true){
-                            MagicTower magicTower;
+                            Spells * spell = new Spells();
+                            MagicTower magicTower(spell->FillSpells(this->type));
+                            spell->~Spells();
                             Enterprise *pEnterprise;
                             pEnterprise = &magicTower;
                             enterprises.push_back(*pEnterprise);
@@ -317,7 +321,7 @@ public:
                         break;
                     }
                 }
-            */}
+            }
             //cin >> j;
 
         }

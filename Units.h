@@ -68,6 +68,10 @@ public:
     Units(){
         Name = "";
     }
+    ~Units()
+    {
+
+    }
     void AddUnits(string race, string name, string damage, string hp, string armor, string maxAmount, int cost )
     {
         Race = stoi(race);

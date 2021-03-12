@@ -397,7 +397,7 @@ public:
         }
     }
 };
-class Mercenary : public Enterprise // Покупка войнов TODO : Сделать после создания юнитов
+class Mercenary : public Enterprise // Покупка войнов
 {
 private:
     vector<Units>Slots;
@@ -436,10 +436,14 @@ public:
                 goto povtorr;
             bool est = false;
             int x = 0;
-            for(x; x<hero.army.size(); x++)
-            {
-                if (hero.army[x].GetName() == "")
-                {
+            cout << "Введите номер юнита, которого необходимо нанять \n";
+            int num;
+            cin >> num;
+            cout << "Введите колличество юнитов, которых необходимо нанять. \n";
+            int kolvo;
+            cin >> kolvo;
+            for(x; x<hero.army.size(); x++) {
+                if (hero.army[x].GetName() == "" || ((hero.army[x].GetName() == Slots[j-1].GetName()) && (hero.army[x].GetMaxAmount()<(hero.army[x].GetAmount()+kolvo)))) {
                     est = true;
                     break;
                 }
@@ -451,26 +455,20 @@ public:
             }
             else
             {
-                cout << "Введите номер юнита, которого необходимо нанять \n";
-                int num;
-                cin >> num;
-                cout << "Введите колличество юнитов, которых необходимо нанять. \n";
-                int kolvo;
-                cin >> kolvo;
                 if (kolvo*Slots[num].GetCost()>hero.GetGold())
                 {
                     cout << "У вас недостаточно золота! \n";
                     Sleep(3000);
                     goto povtor;
                 }
-                else if (kolvo > Slots[num].GetMaxAmount())
+                else if (kolvo+hero.army[x].GetAmount() > Slots[num].GetMaxAmount())
                 {
                     cout << "Толпа не может поместиться в один обоз! Оформите покупки двумя разными чеками \n";
                     goto povtor;
                 }
                 else
                 {
-                    Slots[num].SetAmount(kolvo);
+                    Slots[num].SetAmount(kolvo+hero.army[x].GetAmount());
                     hero.army[x] = Slots[num];
                     hero.SetGold(hero.GetGold()-kolvo*Slots[num].GetCost());
                     goto povtor;
@@ -481,9 +479,94 @@ public:
         }
     }
 };
-class MagicTower : public Enterprise // Покупка заклинаний TODO : Сделать после создания заклинаний
+class MagicTower : public Enterprise // Покупка заклинаний
 {
+private:
+    vector<Spells>Slots;
+public:
+    MagicTower(vector<Spells>Slots)
+    {
+       this->Slots =Slots;
+    }
+   void EnterTheMagicTower(Hero hero)
+    {
+        nachalo:
+        system("cls");
+        cout << "Вы на цырлах пробираетесь в центр холла величавой башни магов \n";
+        cout << "1) Подойти к стойке мейстеров \n";
+        cout << "2) Уйти \n";
+        int j = 0;
+        cin >> j;
+        if (j == 1)
+        {
+            povtor:
+            system("cls");
+            cout << "Вы потихоньку подходите к стойке - уполномоченное лицо, не взирая на ваше присутствие показывает на стойку слева \n";
+            cout << "Подойдя к стойке слева, вы видите возмущенную женщину  'средних лет', которая высказывает непонимание зачем вас к ней направили и выдает талон в кабинет на 30-том этаже \n";
+            cout << "Пройде 20 кругов бюрократического ада, перед вами наконец-то появляется консультант по продаже свитков заклинаний \n";
+            cout << "Вы открываете прайс лист и видите в нём.. \n";
+            cout << "Ваше золото: " << hero.GetGold() << "Ваша магическая сила: " << hero.GetMagicStrength() << "\n";
+            for(int i = 0; i<Slots.size(); i++) {
+                string name = Slots[i].GetSpell()[0];
+                string stih = Slots[i].GetSpell()[1];
+                if (stih == "Fire")
+                    stih = "школы магии огня";
+                else if (stih == "Water")
+                    stih = "школы магии воды";
+                else if (stih == "Earth")
+                    stih = "школы магии земли";
+                else if (stih == "Air")
+                    stih = "школы магии воздуха";
+                string type = Slots[i].GetSpell()[2];
+                if (type == "Damage")
+                    type = "урона";
+                else if (type == "Mind")
+                    type = "разума";
+                else if (type == "Buff")
+                    type = "поддержки";
+                else if (type == "Magic")
+                    type = "архимагического уровня";
+                string damage = Slots[i].GetSpell()[3];
+                string distance = Slots[i].GetSpell()[4];
+                string duration = Slots[i].GetSpell()[5];
+                string level = Slots[i].GetSpell()[6];
+                string mcost = Slots[i].GetSpell()[7];
+                string gcost = Slots[i].GetSpell()[8];
+                cout << ++i << ") " << name << "  - заклинание " << type;
+                if (damage!="0")
+                    cout << "на" << damage << "урона";
+                cout << " " << stih << " время действия - " << duration << " хода, распространяется на " << distance << " отр; Для покупки необходимо владеть хотя бы " << level << " уровнем магической силы, требует маны - " << mcost << " ед. Стоимость покупки - "<< gcost << "золотых монет \n";
 
+            }
+            cout << "Введите номер заклинания, которое необходимо купить или" << Slots.size() <<", чтобы покинуть мага-консультанта \n";
+            n:
+            cin >> j;
+            if (j!= Slots.size())
+            {
+                if (hero.GetGold() < atoi(Slots[j - 1].GetSpell()[7].c_str()))
+                {
+                    cout << "Да вы не в состоянии считать! Вы не можете позволить приобритения данного заклинания \n";
+                    goto n;
+                }
+                else if (hero.GetMagicStrength() < atoi(Slots[j - 1].GetSpell()[6].c_str()))
+                {
+                    cout << "Надев на вас обруч проверки силы магии, консультант заметил, что вам нехватает магической силы \n";
+                    cout << "Приходите позже, когда достигните уровня покупки этого заклинания \n";
+                    goto n;
+                }
+                else
+                {
+                    cout << "Проверив ваши знания с помощью магического обруча, продавец принимает ваш платеж и вручает вам свиток \n";
+                    hero.MagicBook.push_back(Slots[j - 1]);
+                    Slots.erase(Slots.begin() + j-1);
+                    Sleep(5000);
+                    goto povtor;
+                }
+            }
+            else
+                goto nachalo;
+        }
+    }
 };
 class MagicWell : public Enterprise
 {
