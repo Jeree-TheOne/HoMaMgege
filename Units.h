@@ -21,6 +21,7 @@ private:
     int Amount = 2;
     int MaxAmount;
     int Cost;
+    int RemainsHP = 0;
 public:
 
     string units[39][7] = {
@@ -57,7 +58,7 @@ public:
             {"Элементали","Каменный голем","100","300","50","100","3500"},
             {"Элементали","Ледяной дух","250","100","40","100","3100"},
             {"Элементали","Феникс","350","350","70","10","6700"},
-            {"Лягушки","Лягушка номер раз","170","350","70","100","4500"},
+            {"Лягушки","Жаба Клава","170","350","70","100","4500"},
             {"Лягушки","Лягушка номер два","250","450","80","100","5400"},
             {"лягушки","Лягушка номер три","900","700","120","10","12500"},
             {"Гачисты","Slave","10","10","10","10000","10"},
@@ -173,6 +174,25 @@ public:
         }
         return mercenaries;
     }
+
+    void ArmyGetDamage(int damage){
+        if (damage >= (HP * Amount + RemainsHP)+ Armor*1.05) {
+            Name = "";
+            return;
+        }
+        if (RemainsHP == 0) {
+            int KilledUnits = damage / HP;
+            RemainsHP = damage % HP;
+            Amount -= KilledUnits;
+        }
+        else{
+            int TotalHp = (Amount-1) * HP + RemainsHP;
+            TotalHp -= damage;
+            Amount = TotalHp / HP;
+            RemainsHP = TotalHp % HP;
+        }
+    }
+
     string GetRace(){
         return Race;
     }
@@ -185,9 +205,9 @@ public:
     int GetAmount(){
         return  Amount;
     }
-    void SetHp(int HP)
+    void SetHp(int hp)
     {
-        this->HP = HP;
+        HP = hp;
     }
     int GetDamage(){
         return Damage;
