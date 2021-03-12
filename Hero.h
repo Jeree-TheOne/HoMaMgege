@@ -12,9 +12,9 @@
 #include <array>
 #include "Perks.h"
 #include "Equipment.h"
-#include "Spells.h"
 #include "Randomize.h"
 #include "Units.h"
+#include "Spells.h"
 using namespace std;
 
 class Hero {
@@ -36,6 +36,7 @@ public: //todo: Изменить массивы на векторы
      array<Units, 10> army;
     //string SpellBook[10]; Книжка спеллов, хз какой у нее размер, мб можно листом сделать
     vector<Equipment> Inventory;
+    vector<Spells> MagicBook;
     Hero(int type)
     {
         Perks *perks1 = new Perks();
@@ -83,6 +84,10 @@ public: //todo: Изменить массивы на векторы
                 MagicStrength +=nums[3];
             }
         }
+    }
+    void AddSpell()
+    {
+
     }
 
     void ShowStats(){
