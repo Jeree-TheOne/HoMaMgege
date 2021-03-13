@@ -11,6 +11,7 @@
 #include <iostream>
 #include <iomanip>
 #include "Spells.h"
+#include "Boss.h"
 
 class Battle {
 public:
@@ -18,8 +19,11 @@ public:
     Hero *Enemy = new Hero(1);
     void StartBattle(Hero hero) {
         system("cls");
+        SetEnemy();
         ShowArmy(hero, *Enemy);
         Sleep(500);
+        bool turn = true;
+        if (Randomize::GetRand(0, 1) == 0) turn = false;
         while (true) {
             int EnemysArmiesDead = 0;
             int HerosArmiesDead = 0;
@@ -30,17 +34,15 @@ public:
                     EnemysArmiesDead++;
             }
             if (EnemysArmiesDead == 10) {
-                cout << "Вы выиграли!!!";
+                cout << "Вы выиграли!!!\n";
                 hero.Win();
                 break;
             }
             if (HerosArmiesDead == 10) {
-                cout << "Вы проиграли!!!";
+                cout << "Вы проиграли...\n";
                 hero.Lose();
                 break;
             }
-            bool turn = true;
-            if (Randomize::GetRand(0, 1) == 0) turn = false;
             if (turn == true) {
                 cout << "Ваш ход\n";
                 for (int i = 0; i < 10; i++) {
@@ -158,14 +160,62 @@ public:
                         break;
                     }
                 }
+    void StartBossFight(Hero hero, int Hardness){
+        Boss *boss = new Boss(Hardness);
+        IntroBoss(*boss);
+        ShowBossFight(hero,*boss);
+        bool turn = true;
+        if (Randomize::GetRand(0, 1) == 0) turn = false;
+        while (true){
+            int HerosArmiesDead = 0;
+            for (int i = 0; i < 10; i++)
+                if (hero.army[i].GetName() == "") HerosArmiesDead++;
+            if (HerosArmiesDead == 10) {
+                cout << "Босс вас переиграл и уничтожил...\n";
+                hero.Lose();
+                break;
+            }
+            if (boss->GetHP() <= 0){
+                cout << "Вы выиграли Босса!!!\n";
+                hero.Win();
+                break;
+            }
+            if (turn == true){
+                cout << "Ваш ход\n";
+                for (int i = 0; i < 10; i++){
+                    cout << "Сейчас атакует армия "<<i+1 << endl;
+                    Sleep(500);
+                    int damage = hero.army[i].GetDamage()*hero.army[i].GetAmount();
+                    boss->BossGetDamage(damage);
+                    damage - boss->GetArmor() <= 0 ? damage = 0: damage -= boss->GetArmor();
+                    cout << "Босс получил "<< damage << " урона!\n";
+                    ShowBossFight(hero,*boss);
+                }
+                turn = false;
+            }
+            else{
+                cout << "Ход противника\n";
+                st:
+                int num = Randomize::GetRand(0,9);
+                if (hero.army[num].GetName() == "") goto st;
+                hero.army[num].ArmyGetDamage(boss->GetDamage());
+                ShowBossFight(hero,*boss);
+                turn = true;
+            }
+        }
+    }
 
 
-    void SetEnemy(Hero enemy){
-        *Enemy = enemy;
+    void SetEnemy(){
+        string uns[18] = {"Лучник","Воин","Волшебник","Снайпер","Задира","Колдун","Копейщик","Заклинатель","Чернокнижник","Лучница","Чародей","Убийца","Энт-защитник","Энт-чародей","Энт-разведчик","Пожиратель душ","Чернокнижник","Люцифер"};
+        for (int i = 0; i < 10; i++){
+            Enemy->army[i].BuyUnits(uns[Randomize::GetRand(0,17)]);
+            Enemy->army[i].SetAmount(Randomize::GetRand(0,4));
+        }
     }
     void ShowArmy(Hero hero, Hero enemy){
         cout << "\tВы:" << setw(123) << "Ваш противник:\n";
-        string name1, name2,res;
+        string name1, name2;
         for (int i = 0; i < 10; i++){
             if (hero.army[i].GetName() == "")
                 name1 = to_string(i+1) + ") Пусто";
@@ -178,6 +228,27 @@ public:
             cout <<"\t"<<left << setw(100 + (size(name1)/2.85)) << name1 << right  << name2  << endl;
         }
     }
+    void ShowBossFight(Hero hero, Boss boss){
+        Sleep(1000);
+        system("cls");
+        cout << "\tВы:" << setw(123) << boss.GetName();
+        string name1, name2;
+        for (int i = 0; i < 10; i++){
+            if (hero.army[i].GetName() == "")
+                name1 = to_string(i+1) + ") Пусто";
+            else
+                name1 = to_string(i + 1) + ") " + hero.army[i].GetName() + ", Урон: " + to_string(hero.army[i].GetDamage() * hero.army[i].GetAmount()) +  ", Здоровье: " +to_string( hero.army[i].GetHP() * hero.army[i].GetAmount()) +", Броня: " + to_string( hero.army[i].GetArmor());
+            name2 = "Урон: " + to_string(boss.GetDamage()) + " Здоровье: " + to_string(boss.GetHP()) + " Броня " + to_string(boss.GetArmor());
+            cout <<"\t"<<left << setw(100 + (size(name1)/2.85)) << name1 << right  << name2  << endl;//вместо name2 строчки рисунка босса
+        }
+    }
+    void IntroBoss(Boss boss){
+        system("cls");
+        //cout << "\n\n\t\t"<<boss.GetPicture(); Пока хз как реализовать картинку
+        cout << "\n\n\t\tХа-ха, я величайшее существо этого мира!\n\n\t\tМое имя - "<<boss.GetName()<<"\n\n\t\tЯ тебя уничтожу *MUDA MUDA MUDA MUDA MUDA MUDA MUDA MUDA*\n";
+        Sleep(5000);
+    }
+
     void SetSpell(Spells a, Hero hero, Hero *enemy)
     {
         cout << "Выбрано заклинание "<< a.GetSpell()[0] << " \n";

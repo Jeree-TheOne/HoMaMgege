@@ -643,9 +643,9 @@ public:
                 }
                 case 5:
                 {
-                    cout << "Войдя в величественный зал, вы замечаете \n";
+                    cout << "Войдя в величественный зал, вы замечаете... \n";
                     Battle a;
-                 //   a.BossFigth;
+                    a.StartBossFight(hero, type);
 
                 }
             }
