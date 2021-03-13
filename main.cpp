@@ -9,30 +9,31 @@
 #include "Battle.h"
 #include "Locations.h"
 #include "Enterprises.h"
+#include "Outside.h"
 using namespace std;
 
-int main() {
+ int main() {
     SetConsoleOutputCP(CP_UTF8);
-    _CrtSetDebugFillThreshold(0);
-/*start:
+//    _CrtSetDebugFillThreshold(0);
+start:
 system("cls");
 Sleep(1000);
-cout  "1" « endl;
+cout << "1" << endl;
 Sleep(1000);
-cout « "2" « endl;
+cout << "2" << endl;
 Sleep(1000);
-cout « "3" « endl;
+cout << "3" << endl;
 Sleep(1000);
-std::cout « "Ну что, готов окунуться в этот мир, полный приключений,\n"
+std::cout << "Ну что, готов окунуться в этот мир, полный приключений,\n"
 "существ, опасностей и гачистов?\n"
 "Если да, то напиши WE-WE POWER: ";
 string a;
 getline(cin, a);
-cout « endl;
+cout << endl;
 if (a != "WE-WE POWER") {
-cout « "Ну ты че, давай нормально" « endl;
+cout << "Ну ты че, давай нормально" << endl;
 goto start;
-}*/
+}
     st:
     cout << "\nВведите класс персонажа: \n1) Лучник\n2) Воин\n3) Волшебник\n" ;
     int index;
@@ -41,16 +42,15 @@ goto start;
 
     Hero *MainHero = new Hero(index);
     cout << "Персонаж успешно создан\n";
-
-/* MainHero->army[0].BuyUnits("Лягушка номер раз");
-
-Battle *b = new Battle;
-Hero *EnemyHero = new Hero(index);
-b->SetEnemy(*EnemyHero);
-//while (MainHero->GetHP() > 0) {
-//cout « "Выберите действие: \n ";
-b->StartBattle(*MainHero);
-//}*/
-
+    while(true) {
+        City *Gorod = new City();
+        Gorod->EnterTheCity(*MainHero);
+        delete Gorod;
+        system("cls");
+        Outside *Uliza = new Outside();
+        Uliza->SetPath(*MainHero);
+        Uliza->LeaveTheCity(*MainHero);
+        delete Uliza;
+    }
     return 0;
 }

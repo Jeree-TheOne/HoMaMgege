@@ -12,6 +12,7 @@
 #include "Randomize.h"
 #include "Enterprises.h"
 #include "Hero.h"
+#include "Battle.h"
 using namespace std;
 class City {
 private:
@@ -155,7 +156,7 @@ public:
         for(int i = 0; i<7; i++) // Просчет шанса выпадения
         {
             int array[10] = {0,0,0,0,0,0,0,0,0,0}; // Создается массив.
-            for (int j = 0; j<ChanceINC[i]; j++) // ChanceINC - шанс выпадения данного здания.
+            for (int j = 0; j<ChanceINC[i]-1; j++) // ChanceINC - шанс выпадения данного здания.
                 array[j] = 1; // Массив заполняется единичками ровно столько, сколько шанс выпадения здания.
             if (array[Randomize::GetRand(0,9)] == 1) // Вытягиваем на рандом число из того массива.
                 this->inc[i] = true; // Если равен единице - присваеваем значение true.
@@ -163,7 +164,11 @@ public:
                 this->inc[i] = false;
         }
     }
-        void EnterTheCity()
+    ~City()
+    {
+
+    }
+        void EnterTheCity(Hero hero)
         {
 
         cout<< "Вы прибываете в " << this->name << " \n";
@@ -239,6 +244,7 @@ public:
                        {
                            if (this->inc[i] == true) {
                                Tavern tavern;
+                               tavern.SetType(this->type);
                                Enterprise *pEnterprise;
                                pEnterprise = &tavern;
                                enterprises.push_back(*pEnterprise);
@@ -249,6 +255,7 @@ public:
                     {
                         if (this->inc[i] == true) {
                             Marketplace marketplace;
+                            marketplace.SetType(this->type);
                             Enterprise *pEnterprise;
                             pEnterprise = &marketplace;
                             enterprises.push_back(*pEnterprise);
@@ -261,6 +268,7 @@ public:
                             Units * unit = new Units();
                             Mercenary mercenary(unit->FillMercenary(this->type));
                             unit->~Units();
+                            mercenary.SetType(this->type);
                             Enterprise *pEnterprise;
                             pEnterprise = &mercenary;
                             enterprises.push_back(*pEnterprise);
@@ -273,6 +281,7 @@ public:
                             Spells * spell = new Spells();
                             MagicTower magicTower(spell->FillSpells(this->type));
                             spell->~Spells();
+                            magicTower.SetType(this->type);
                             Enterprise *pEnterprise;
                             pEnterprise = &magicTower;
                             enterprises.push_back(*pEnterprise);
@@ -284,6 +293,7 @@ public:
                         {
                             MagicWell magicWell;
                             Enterprise *pEnterprise;
+                            magicWell.SetType(this->type);
                             pEnterprise = &magicWell;
                             enterprises.push_back(*pEnterprise);
                         }
@@ -323,7 +333,38 @@ public:
                     }
                 }
             }
-            //cin >> j;
+            povtor:
+            for (int i = 0; i<6; i++)
+            {
+                switch (i) {
+                    case 0: { if (inc[i] == true) cout << i <<") В таверну. \n"; break;}
+                    case 1: { if (inc[i] == true) cout << i <<") На рыночную площадь.\n"; break;}
+                    case 2: { if (inc[i] == true) cout << i <<") В Лагерь наемников.\n"; break;}
+                    case 3: { if (inc[i] == true) cout << i <<") В Башню магов.\n"; break;}
+                    case 4: { if (inc[i] == true) cout << i <<") К странному колодцу.\n"; break;}
+                    case 5 : cout << i << ") Выйти из города. \n"; break;
+                }
+            }
+            cin >> j;
+            if (j != 5) {
+                if (static_cast<Tavern *>(&enterprises[j]) != nullptr) {
+                    Tavern *tavern = (Tavern *) (&enterprises[j]);
+                    tavern->EnterTheTavern(hero);
+                    goto povtor;
+                } else if (static_cast<Marketplace *>(&enterprises[j]) != nullptr) {
+                    Marketplace *marketplace = (Marketplace *) (&enterprises[j]);
+                    marketplace->EnterTheMarketPlace(hero);
+                    goto povtor;
+                } else if (static_cast<MagicTower *>(&enterprises[j]) != nullptr) {
+                    MagicTower *magicTower = (MagicTower *) (&enterprises[j]);
+                    magicTower->EnterTheMagicTower(hero);
+                    goto povtor;
+                } else if (static_cast<Mercenary *>(&enterprises[j]) != nullptr) {
+                    Mercenary *mercenary = (Mercenary *) (&enterprises[j]);
+                    mercenary->EnterTheMercenaryMarket(hero);
+                    goto povtor;
+                }
+            }
 
         }
        /* int GetType()
@@ -341,9 +382,6 @@ public:
         };*/
 
     }; // <- Класс города( Тут всё про город )
-
-
-
 class Dungeon {
 private:
     string name; // Название данжа
@@ -491,7 +529,7 @@ public:
     // 13 -  Темная комната -> комната с  большой наградой. (маленький шанс).
     // 14 -  Темная комната -> комната со смертносной ловушкой. (очень маленький шанс).
     // 2 - Ловушка (маленький шанс) (Потеря одного из артефактов(средний шанс) ИЛИ потеря части юнитов (средний шанс) ИЛИ смерть гг(очень маленький шанс))
-    // 3 - Вражеские юниты (средний шанс) Внимание! Градация идет от уровня данжа. (Слабые (Маленький шанс), Средние - (Высокий шанс), Сложые (маленький шанс).
+    // 3 - Вражеские юниты (средний шанс)
     // 4 - Сундук (низкий шанс) (Маленькая награда (Высокий шанс), Средняя награда (маленький шанс), Большая награда (очень маленький шанс))
     // 5 - Босс данжа (СМ Поле Type).
     void EnterTheDungeon(Hero hero)
@@ -580,11 +618,41 @@ public:
                 }
                 case 2:
                 {
-                    // TODO ОСТАНОВИЛСЯ ЗДЕСЬ
+                    cout << "Пройдя со своим отрядом в глубь комнаты, вы оступаетесь, слышите резкий хруст и свист.. \n";
+                    cout << "Вероятно, это хрустели ваши войны, вы потеряли 10% здоровья всеё своей армии";
+                    for (Units a : hero.army)
+                        a.SetHp(a.GetHP()-(a.GetHP()*10)/100);
+                    break;
+                }
+                case 3:
+                {
+                    cout << "Навстречу к вам идут защитники этого подземелья, кажется у вас нет выхода.. \n";
+                    Battle a;
+                    a.StartBattle(hero);
+                    break;
+                }
+                case 4:
+                {
+                    Equipment equipment;
+                    equipment.NewEquipment();
+                    cout << "ВЫ УДАРИЛИСЬ МИЗЕНЦЕМ О СУНДУК В ТЕМНОЙ КОМНАТЕ. \n";
+                    cout << "Открыв его, вы увидели виновника торжества  - " << equipment.GetName() <<" \n";
+                    hero.Inventory.push_back(equipment);
+                    cout << "Положив награду куда надо, вы продолжаете путь \n";
+                    break;
+                }
+                case 5:
+                {
+                    cout << "Войдя в величественный зал, вы замечаете \n";
+                    Battle a;
+                 //   a.BossFigth;
+
                 }
             }
         }
         exit:
+        cout << "Вы наконец выбираетесь из царства смрада и продалжаете свой путь \n";
+        Sleep(4000);
         system("cls");
     }
     void Show()
@@ -600,187 +668,6 @@ public:
 
 
 }; // <- Класс Данжена( Тут всё про данж ).
-class Outside {
-private:
-    vector <int> path ;
-public:
-    constexpr const static int ver[30] = {1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 0, 2, 2, 2, 2, 3, 3, 3, 3, 3, 9, 9, 9, 4, 4, 4, 4, 4, 4, 4};
-    Outside()
-    {
-        // 0 - город (после города всегда дорога).
-        // 1 - дорога (вероятность высокая)
-        // 2 - засада на дороге (вероятность средняя).
-        // 3 - Дорога завела вас в лес.
-        // 9 - ловушка в лесу.
-        // 4 - данжон.
-
-    }
-    void SetPath()
-    {
-        path.clear();
-        int PathLength = Randomize::GetRand(3,15);
-        int rand;
-        bool end = false;
-        for (int i = 0; i!=PathLength; i++)
-        {
-            if (end == true)
-                break;
-            else if (i == path.size()-2)
-                path.push_back(1);
-            else if (i == path.size()-1)
-                path.push_back(0);
-            else if (i == 0) {
-                rand = 1;
-            }
-            else
-                povtor:
-                rand = ver[Randomize::GetRand(0,29)];
-            switch (rand)
-            {
-                case 0:
-                {
-                    if (path[i-1] == 1)
-                        path.push_back(rand);
-                    else
-                        end = true;
-                    break;
-                }
-                case 2:
-                {
-                    if (path[i-1] == 1 || path[i-1] == 2)
-                        path.push_back(rand);
-                    else
-                        goto povtor;
-                    break;
-                }
-                case 9:
-                {
-                    if (path[i-1] == 3)
-                        path.push_back(rand);
-                    else
-                        goto povtor;
-                    break;
-
-                }
-                case 4:
-                {
-                    if (path[i-1] == 3)
-                        path.push_back(rand);
-                    else
-                        goto povtor;
-                    break;
-                }
-                default:
-                {
-                    path.push_back(rand);
-                    break;
-                }
-            }
-        }
-        LeaveTheCity();
-    }
-   void LeaveTheCity()
-    {
-        for (int i = 0; i<path.size(); i++)
-        {
-            if (i == 0)
-                cout << "Вы идёте по мощщеной дороге, ведущей из города, вас обдувает слегка теплый ветер... ";
-            else
-            {
-                switch (path[i])
-                {
-                    case 0:
-                    {
-                        cout << "Вы останавливаетесь на развилке - одна из частей дороги ведет в едва-ли различимый за холмами город, другая - в необширную даль \n ";
-                        cout << "Что вы предпримите? \n";
-                        cout << "1) Направиться в город. \n";
-                        cout << "2) Продолжить путешествие \n";
-                        int j = 0;
-                        cin >> j;
-                        if (j == 1) {
-                            goto EnterTheCity;
-                        }
-                        else
-                            goto SetPath;
-
-                    }
-                    case 1:
-                    {
-                        if (path[i-1] == 1)
-                        {
-                            Sleep(500);
-                            cout << "*Процесс ходьбы по дороге* \n";
-                        }
-                        else
-                        {
-                            Sleep(500);
-                            cout << "Наконец вы находите тропинку, которая выводит вас из гущи леса прямо на дорогу посреди поля. \n";
-                        }
-                    }
-                    case 2:
-                    {
-                        if (path[i-1] == 2)
-                        {
-                            cout << "Оказывается это было только начало, к врагу спешит подкрепление! \n";
-                            //FightPlayer(); TODO : Сражение
-                        }
-                        else
-                        {
-                            cout << "Вы чувствуете, что происходит на этой дороге что-то неладное, как вдруг из-под ближайшего холма выходит отряд наемников \n";
-                            cout << "Может это месть? Но за что? Скорее всего обычные Slaves решили поживиться атрибутами Dungeon master. Вы командуете занять отрядам свои позиции \n";
-                           // FightPlayer(); TODO : Сражение
-                        }
-                    }
-                    case 3:
-                    {
-                        if (path[i-1] == 3)
-                        {
-                            Sleep(500);
-                            cout << "*Процесс пересечения леса* \n";
-                        }
-                        else
-                        {
-                            cout << "Вы и не заметили, как извилистая дорога завела вас в лес.. \n";
-                        }
-                    }
-                    case 4:
-                    {
-                        if (path[i-1] == 3)
-                        {
-                            cout << "Покинув первый данж, вы натыкаетесь на второй - похоже тут проложена целая система \n";
-                            cout << "Может эти заброшенные гробницы раньше были городами, кто знает? \n";
-                        }
-                        else if (path[i-1] == 3)
-                        {
-                            cout << "Сквозь гущу леса вы натыкаетесь на поляну, центр которой занят каким-то огромным зданием, напоминающем гробницу \n";
-                            cout << "Вы чувствуете зловещее присутствие, однако разорение такой гробницы может сулить большую выгоду \n";
-
-                        }
-                        if (path[i-1] == 3 || path[i-1] == 3)
-                        cout << "1) Войти в Dungeon \n";
-                        cout << "2) Продолжить путешествие \n";
-                        int j;
-                        cin >> j;
-                        if (j == 2) {
-                            i++;
-                        }
-                        else
-                        {
-                            Dungeon Dunj;
-                           // Dunj.EnterTheDungeon(); TODO Вход в данжон
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-        SetPath:
-        SetPath();
-        EnterTheCity:
-        City city;
-        city.EnterTheCity();
-    }
-}; // <- Класс Аутсайда( Тут всё про пересеченную местность ).
 
 
 #endif //UNTITLED3_LOCATIONS_H

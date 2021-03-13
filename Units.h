@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include "Randomize.h"
+#include "Spells.h"
 
 
 using namespace std;
@@ -23,7 +24,7 @@ private:
     int Cost;
     int RemainsHP = 0;
 public:
-
+    vector<Spells> Buffs;
     string units[39][7] = {
             {"Люди","Лучник","6","5","2","1000","110"},
             {"Люди","Воин","5","8","4","1000","100"},
@@ -176,6 +177,44 @@ public:
     }
 
     void ArmyGetDamage(int damage){
+        if (!this->Buffs.empty())
+        {
+            for (Spells a: Buffs)
+            {
+                if (a.GetSpell()[0] == "Curse")
+                {
+                    damage = (damage * 2)/3 + damage;
+                }
+              else  if (a.GetSpell()[0] == "Fireshield")
+                {
+                    damage = damage - (damage * 25)/100 ;
+                }
+                else  if (a.GetSpell()[0] == "Wikness")
+                {
+                    damage = damage + (damage * 10)/100;
+                }
+                else  if (a.GetSpell()[0] == "WaterDefence")
+                {
+                    damage = damage - (damage * 15)/100;
+                }
+                else  if (a.GetSpell()[0] == "StoneSkin")
+                {
+                    damage = damage - (damage * 30)/100;
+                }
+                else  if (a.GetSpell()[0] == "DirtDefence")
+                {
+                    damage = damage - (damage * 15)/100;
+                }
+                else  if (a.GetSpell()[0] == "Accuracy")
+                {
+                    damage = damage - (damage * 15)/100;
+                }
+                else  if (a.GetSpell()[0] == "Lucky")
+                {
+                    damage = damage - (damage *(Randomize::GetRand(0,1)) * 50)/100;
+                }
+            }
+        }
         if (damage >= (HP * Amount + RemainsHP)+ Armor*1.05) {
             Name = "";
             return;
@@ -192,6 +231,7 @@ public:
             RemainsHP = TotalHp % HP;
         }
     }
+
 
     string GetRace(){
         return Race;
@@ -228,6 +268,7 @@ public:
 
 
 };
+
 
 
 #endif //MAIN_CPP_UNITS_H

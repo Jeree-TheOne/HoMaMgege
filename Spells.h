@@ -27,17 +27,17 @@ public:
     // Водные *Icearrow(ледянная стрела), *Clone(Клон), *Wikness(Слабость), *Waterdefence(Защита от магии воды);
     // Земля *Boom(Взрыв), *EarthElemental, *StoneSkin(Каменная кожа), *DirtDefence(Защита от магии земли);
     // Воздух. *Сhainzipper(Цепная молния), *Accuracy(Точность), *Lucky(Удача), *Dimensiondoor(Дверь измерений)
-    string spells[16][9] = {
+    string spells[14][9] = {
             { "Fireball", "Fire", "Damage", "30", "1", "1", "1", "15", "250" },
             { "Blind", "Fire", "Mind", "0", "1", "3", "3", "15", "800" },
             { "Curse", "Fire", "Buff", "0", "1", "3", "2", "10", "600" },
             { "Fireshield", "Fire", "Magic", "0", "1", "3", "4", "15", "900" },
             { "Icearrow", "Water", "Damage", "15", "1", "1", "2", "8", "300" },
-            { "Clone", "Water", "Mind", "0", "1", "3", "5", "25", "3000" },
+            /*{ "Clone", "Water", "Mind", "0", "1", "3", "5", "25", "3000" },*/
             { "Wikness", "Water", "Buff", "0", "1", "3", "1", "5", "300" },
             { "WaterDefence", "Water", "Magic", "0", "1", "3", "2", "8", "250" },
-            { "Boom", "Earth", "Damage", "200", "1", "1", "10", "40", "5000" },
-            { "EarthElemental", "Earth", "Mind", "0", "1", "1", "8", "50", "5000" },
+            { "Boom", "Earth", "Damage", "500", "1", "1", "10", "40", "5000" },
+        //    { "EarthElemental", "Earth", "Mind", "0", "1", "1", "8", "50", "5000" },
             { "StoneSkin", "Earth", "Buff", "0", "1", "3", "2", "10", "250" },
             { "DirtDefence", "Earth", "Magic", "0", "1", "3", "4", "10", "300" },
             { "Chainzippper", "Air", "Damage", "50", "3", "1", "10", "6000" },
@@ -57,6 +57,14 @@ public:
            Level =  stoi(spells[jj][6]);
            MCost =  stoi(spells[jj][7]);
            GCost = stoi(spells[jj][8]);
+    }
+    int GetDuration()
+    {
+        return this->Duration;
+    }
+    void SetDuration(int Duration)
+    {
+        this->Duration = Duration;
     }
     string* GetSpell()
     {
@@ -125,6 +133,7 @@ public:
             povtor:
             Spells spell;
             spell.SetCost(spell.GetCost()+spell.GetCost()*costpercent/100);
+            if (!spells.empty())
             for (int j = 0; j < length; j++)
             {
                 if (spell.GetSpell()[0] == spells[i].GetSpell()[0])
@@ -135,6 +144,7 @@ public:
         }
         return spells;
     }
+
 };
 
 
