@@ -36,7 +36,6 @@ public: //todo: Изменить массивы на векторы
     array<Units, 10> army;
     vector<Equipment> Inventory;
     vector<Spells> MagicBook;
-    array<Spells, 3> Buffs;
     Hero(int type)
     {
         Perks *perks1 = new Perks();
@@ -75,13 +74,14 @@ public: //todo: Изменить массивы на векторы
                 break;
         }
         for (int i = 0; i < 4; i++){
-            if (perks[i].GetName() != "") {
+            if (perks[1].GetName() != "") {
                 int *nums = new int[4];
-                nums = Format::FormatForPerkBonusStats(perks[i].GetAction());
-                Damage +=nums[0];
-                Armor +=nums[1];
-                Intellect +=nums[2];
-                MagicStrength +=nums[3];
+                    nums = Format::FormatForPerkBonusStats(perks[i].GetAction());
+                    Damage += nums[0];
+                    Armor += nums[1];
+                    Intellect += nums[2];
+                    MagicStrength += nums[3];
+
             }
         }
     }
@@ -518,6 +518,36 @@ public: //todo: Изменить массивы на векторы
     void SetMAXmana(int maxmana){
         MAXmana = maxmana;
     }
+    void Win(){
+        int bExp = 0;
+        int bGold = 0;
+        for (int i = 0; i < 4; i++){
+            if (perks[i].GetName() == "Ученый")
+                bExp = perks[i].GetStage()*2;
+            if (perks[i].GetName() == "Золотое касание")
+                bGold = perks[i].GetStage()*50;
+        }
+        int getGold = Randomize::GetRand(150,300) + bGold;
+        int getXp = Randomize::GetRand(3,5)+ bExp;
+        cout << "За победу вы получили "<< getGold<< " золота и "<<getXp<<" опыта\n";
+        Gold += Randomize::GetRand(150,300) + bGold;
+        Xp += Randomize::GetRand(3,5)+ bExp;
+        int DropItem = Randomize::GetRand(1,5);
+        if (DropItem == 1){
+            Equipment q;
+            q.DropEquipment();
+            Inventory.push_back(q);
+        }
+    }
+    void Lose(){
+        int loseHP = Randomize::GetRand(5,10);
+        int loseGold = Gold * Randomize::GetRand(20,30)/100;
+        cout << "Вы потеряли "<< loseHP << " здоровья и "<< loseGold<< "золота!\n";
+        cout << "Вас жестко отпинали и бросили в каком-то городе неподалеку...\n";
+        HP -= loseHP;
+        Gold -= loseGold;
+
+    }
     /*void HeroDeath()
    {
        if (this->Gold == 0)
@@ -529,6 +559,32 @@ public: //todo: Изменить массивы на векторы
            this->Gold = this->Gold - this->Gold * (GoldPercent/100);
        }
    }*/
+    Spells CastSpell()
+    {
+        if (this->MagicBook.empty())
+            cout << "Вы еще не знаете никаких заклинаний";
+        else {
+            cout << "Ваша мана : " << this->Mana << " \n";
+            cout << "Возможные к касту заклинания: \n";
+            int i = 0;
+            for ( i = 0; i <MagicBook.size(); i++)
+            {
+                if (stoi(MagicBook[i].GetSpell()[7]) <= this->Mana && stoi(MagicBook[i].GetSpell()[6]) <= this->MagicStrength)
+                cout << i + 1 <<". " << MagicBook[i].GetSpell()[0] << " стоимость - " << MagicBook[i].GetSpell()[7] << " маны \n";
+                else
+                    i--;
+            }
+            if (i == 0)
+                cout << "Нет доступных заклинаний для каста \n";
+            else
+            {
+                cout << "Введите номер заклинания для каста \n";
+                int j;
+                cin >> j;
+                return MagicBook[j-1];
+            }
+        }
+    }
 
     void Win(){
         int bExp = 0;
