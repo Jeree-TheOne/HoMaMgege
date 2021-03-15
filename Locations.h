@@ -156,7 +156,7 @@ public:
         for(int i = 0; i<7; i++) // Просчет шанса выпадения
         {
             int array[10] = {0,0,0,0,0,0,0,0,0,0}; // Создается массив.
-            for (int j = 0; j<ChanceINC[i]-1; j++) // ChanceINC - шанс выпадения данного здания.
+            for (int j = 0; j<ChanceINC[i]; j++) // ChanceINC - шанс выпадения данного здания.
                 array[j] = 1; // Массив заполняется единичками ровно столько, сколько шанс выпадения здания.
             if (array[Randomize::GetRand(0,9)] == 1) // Вытягиваем на рандом число из того массива.
                 this->inc[i] = true; // Если равен единице - присваеваем значение true.
@@ -346,29 +346,31 @@ public:
             for (int i = 0; i<6; i++)
             {
                 switch (i) {
-                    case 0: { if (inc[i] == true) cout << ++x <<") В таверну. \n"; break;}
-                    case 1: { if (inc[i] == true) cout << ++x <<") На рыночную площадь.\n"; break;}
-                    case 2: { if (inc[i] == true) cout << ++x <<") В Лагерь наемников.\n"; break;}
-                    case 3: { if (inc[i] == true) cout << ++x <<") В Башню магов.\n"; break;}
-                    case 4: { if (inc[i] == true) cout << ++x <<") К странному колодцу.\n"; break;}
-                    case 5 : cout << x << ") Выйти из города. \n"; break;
+                    case 0: { if (inc[i] == true) { x++; cout << x <<") В таверну. \n";} break; }
+                    case 1: { if (inc[i] == true) { x++; cout << x <<") На рыночную площадь.\n";} break;}
+                    case 2: { if (inc[i] == true) { x++; cout << x <<") В Лагерь наемников.\n";} break;}
+                    case 3: { if (inc[i] == true) { x++; cout << x <<") В Башню магов.\n";} break;}
+                    case 4: { if (inc[i] == true) { x++; cout << x <<") К странному колодцу.\n";} break;}
+                    case 5 : cout << ++x << ") Выйти из города. \n"; break;
                 }
             }
             cin >> j;
-            if (j != 5) {
-                if (static_cast<Tavern *>(&enterprises[j]) != nullptr) {
-                    Tavern *tavern = (Tavern *) (&enterprises[j]);
-                    tavern->EnterTheTavern(hero);
-                    goto povtor;
-                } else if (static_cast<Marketplace *>(&enterprises[j]) != nullptr) {
+            if (j != x)
+            { // TODO всегда выпадает перво - фиксить
+                if (static_cast<Marketplace *>(&enterprises[j]) != NULL) {
                     Marketplace *marketplace = (Marketplace *) (&enterprises[j]);
                     marketplace->EnterTheMarketPlace(hero);
                     goto povtor;
-                } else if (static_cast<MagicTower *>(&enterprises[j]) != nullptr) {
+                }
+                else if (static_cast<Tavern *>(&enterprises[j]) != NULL) {
+                    Tavern *tavern = (Tavern *) (&enterprises[j]);
+                    tavern->EnterTheTavern(hero);
+                    goto povtor;
+                }   else if (static_cast<MagicTower *>(&enterprises[j]) != NULL) {
                     MagicTower *magicTower = (MagicTower *) (&enterprises[j]);
                     magicTower->EnterTheMagicTower(hero);
                     goto povtor;
-                } else if (static_cast<Mercenary *>(&enterprises[j]) != nullptr) {
+                } else if (static_cast<Mercenary *>(&enterprises[j]) != NULL) {
                     Mercenary *mercenary = (Mercenary *) (&enterprises[j]);
                     mercenary->EnterTheMercenaryMarket(hero);
                     goto povtor;

@@ -47,7 +47,7 @@ public:
                     case 3: j= 10; break;
                     case 4: j= 10; break;
                     case 5: j= 5; break;
-                    case 6: j= 0; break;
+                    case 6: j= 5; break;
                     case 7: j= 2; break;
                 };
         switch(this->type)
@@ -71,6 +71,7 @@ public:
     }
     void EnterTheTavern(Hero hero)
     {
+        // TODO не заходит в таверну
         int j;
         cout << "Вы подходите ко стойке хозяина таверны и решаете.. \n";
         while(roomExists == true) {
@@ -90,7 +91,7 @@ public:
     bool ArendRoom(Hero hero)
     {
         int j = this->eventhandler[Randomize::GetRand(0, this->eventhandler.size()-1)];
-                switch (j)
+                switch (this->eventhandler[j])
                 {
                     case 0:
                         {
@@ -334,6 +335,7 @@ public:
     }
     void EnterTheMarketPlace(Hero hero)
     {
+        // TODO не показывает ассортимент и после вылетает
         cout << "Вы прибываете на рынок местного города, вы решаете..";
         centrmarket:
         cout << "\n";
@@ -367,6 +369,7 @@ public:
 
             cout << "Вы желаете.. \n 1) Купить предмет. \n 2) Продать предмет. \n 3) Вернуться на рыночную площадь \n";
             int DEJSTVIJE;
+            cin >> DEJSTVIJE;
             if (DEJSTVIJE == 3)
                 goto centrmarket;
             else if (DEJSTVIJE == 1)
@@ -412,6 +415,7 @@ public:
     Mercenary(vector<Units>Slots)
     {
         this->Slots = Slots;
+
     }
     void EnterTheMercenaryMarket(Hero hero)
     {
