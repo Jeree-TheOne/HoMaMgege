@@ -19,7 +19,7 @@ private:
     int Damage;
     int HP;
     int Armor;
-    int Amount = 1;
+    int Amount = 2;
     int MaxAmount;
     int Cost;
     int RemainsHP = 0;
@@ -215,8 +215,7 @@ public:
                 }
             }
         }
-        damage -= Armor;
-        if (damage >= HP * Amount + RemainsHP) {
+        if (damage >= (HP * Amount + RemainsHP)+ Armor*1.05) {
             Name = "";
             return;
         }

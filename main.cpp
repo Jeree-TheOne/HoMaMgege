@@ -14,7 +14,6 @@ using namespace std;
 
  int main() {
     SetConsoleOutputCP(CP_UTF8);
-//    _CrtSetDebugFillThreshold(0);
 start:
 system("cls");
 Sleep(1000);
@@ -32,6 +31,7 @@ getline(cin, a);
 cout << endl;
 if (a != "WE-WE POWER") {
 cout << "Ну ты че, давай нормально" << endl;
+
 goto start;
 }
     st:

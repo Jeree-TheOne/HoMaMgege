@@ -66,25 +66,12 @@ public:
             res = stats[5] + " - " + num + "\n";
         return res;
     }
-    static int* FormatForPerkBonusStats(string action){
-        string stats[4] = {"D","A","I","MS"};
-        int nums[4] = {0, 0, 0, 0};
-        string num, act;
-        for (int i = 0; i < action.length(); i++) {
+    static int FormatForPerkBonusStats(string action){
+        string num;
+        for (int i = 0; i < action.length(); i++)
             if (isdigit(action[i]))
                 num += action[i];
-            else
-                act += action[i];
-        }
-        if (act == "D")
-            nums[0] = stoi(num);
-        else if (act == "A")
-            nums[1] = stoi(num);
-        else if (act == "I")
-            nums[2] = stoi(num);
-        else if (act == "MS")
-            nums[3] = stoi(num);
-        return nums;
+        return stoi(num);
     }
 
     static string UpPerk(string action, int stage) {
@@ -101,7 +88,7 @@ public:
 
     static int *FormatForBonusStats(string format) {
         string stats[6] = {"Урон", "Здоровье", "Броня", "Интеллект", "Магическая сила", "Стоимость"};
-        int nums[6] = {0, 0, 0, 0, 0, 0};
+        int nums1[6] = {0, 0, 0, 0, 0, 0};
         vector<string> arr;
         string delim("_");
         size_t prev = 0;
@@ -112,7 +99,7 @@ public:
         while ((next = format.find(delim, prev)) != string::npos) {
             string tmp = format.substr(prev, next - prev);
             if (stoi(tmp) != 0)
-                nums[index] = stoi(tmp);
+                nums1[index] = stoi(tmp);
             ++index;
             arr.push_back(format.substr(prev, next - prev));
             prev = next + delta;
@@ -122,7 +109,7 @@ public:
             res += stats[index] + ": " + tmp + "\n";
         arr.push_back(format.substr(prev));
 
-        return nums;
+        return nums1;
 
     }
 };

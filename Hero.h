@@ -74,14 +74,21 @@ public: //todo: Изменить массивы на векторы
                 break;
         }
         for (int i = 0; i < 4; i++){
-            if (perks[1].GetName() != "") {
-                int *nums = new int[4];
-                    nums = Format::FormatForPerkBonusStats(perks[i].GetAction());
-                    Damage += nums[0];
-                    Armor += nums[1];
-                    Intellect += nums[2];
-                    MagicStrength += nums[3];
-
+            if (perks[i].GetName() != "") {
+                int stat = Format::FormatForPerkBonusStats(perks[i].GetAction());
+                string act ="";
+                for (int j = 0; j < 2; j++){
+                    if (!isdigit(perks[i].GetAction()[j]))
+                        act += perks[i].GetAction()[j];
+                }
+                if (act == "D")
+                    Damage+=stat;
+                else if (act == "A")
+                    Armor+=stat;
+                else if ( act == "I")
+                    Intellect+=stat;
+                else
+                    MagicStrength+=stat;
             }
         }
     }
@@ -93,12 +100,20 @@ public: //todo: Изменить массивы на векторы
             ++Lvl;
             for (int i = 0; i < 4; i++){
                 if (perks[i].GetName() != "") {
-                    int *nums = new int[4];
-                    nums = Format::FormatForPerkBonusStats(perks[i].GetAction());
-                    Damage -=nums[0];
-                    Armor -=nums[1];
-                    Intellect -=nums[2];
-                    MagicStrength -=nums[3];
+                    int stat = Format::FormatForPerkBonusStats(perks[i].GetAction());
+                    string act ="";
+                    for (int j = 0; j < 2; j++){
+                        if (!isdigit(perks[i].GetAction()[j]))
+                            act += perks[i].GetAction()[j];
+                    }
+                    if (act == "D")
+                        Damage-=stat;
+                    else if (act == "A")
+                        Armor-=stat;
+                    else if ( act == "I")
+                        Intellect-=stat;
+                    else
+                        MagicStrength-=stat;
                 }
             }
             if (Type == "Лучник"){
@@ -231,12 +246,20 @@ public: //todo: Изменить массивы на векторы
             }
             for (int i = 0; i < 4; i++){
                 if (perks[i].GetName() != "") {
-                    int *nums = new int[4];
-                    nums = Format::FormatForPerkBonusStats(perks[i].GetAction());
-                    Damage +=nums[0];
-                    Armor +=nums[1];
-                    Intellect +=nums[2];
-                    MagicStrength +=nums[3];
+                    int stat = Format::FormatForPerkBonusStats(perks[i].GetAction());
+                    string act ="";
+                    for (int j = 0; j < 2; j++){
+                        if (!isdigit(perks[i].GetAction()[j]))
+                            act += perks[i].GetAction()[j];
+                    }
+                    if (act == "D")
+                        Damage+=stat;
+                    else if (act == "A")
+                        Armor+=stat;
+                    else if ( act == "I")
+                        Intellect+=stat;
+                    else
+                        MagicStrength+=stat;
                 }
             }
         }
@@ -546,7 +569,7 @@ public: //todo: Изменить массивы на векторы
         cout << "Вас жестко отпинали и бросили в каком-то городе неподалеку...\n";
         HP -= loseHP;
         Gold -= loseGold;
-        //TODO: появление в городе
+
     }
     /*void HeroDeath()
    {
@@ -585,8 +608,6 @@ public: //todo: Изменить массивы на векторы
             }
         }
     }
-
-
 
 };
 

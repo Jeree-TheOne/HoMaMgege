@@ -126,6 +126,8 @@ public:
                             Sleep(500);
                             cout << "Наконец вы находите тропинку, которая выводит вас из гущи леса прямо на дорогу посреди поля. \n";
                         }
+                        break;
+
                     }
                     case 2:
                     {
@@ -144,6 +146,8 @@ public:
                             battle->StartBattle(hero);
                             delete battle;
                         }
+                        break;
+
                     }
                     case 3:
                     {
@@ -156,6 +160,8 @@ public:
                         {
                             cout << "Вы и не заметили, как извилистая дорога завела вас в лес.. \n";
                         }
+                        break;
+
                     }
                     case 4:
                     {
@@ -188,6 +194,7 @@ public:
                 }
             }
         }
+
         SetPath:
         SetPath(hero);
         EnterTheCity:

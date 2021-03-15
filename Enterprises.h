@@ -73,7 +73,7 @@ public:
     {
         int j;
         cout << "Вы подходите ко стойке хозяина таверны и решаете.. \n";
-        while(j == 1 && roomExists == true) {
+        while(roomExists == true) {
             int i = 0;
             if (roomExists == true)
                 cout << i++ << ") Снять комнату. \n";
@@ -81,6 +81,8 @@ public:
             cin >> j;
             if (j == 1 && roomExists == true)
                 roomExists = ArendRoom(hero);
+            else
+                break;
         }
         cout << "\n";
         cout << "\n";
@@ -134,6 +136,7 @@ public:
                                                 return false;
                                             }
                                         }
+                                        break;
                                     }
                                 case 2:
                                 {
@@ -164,6 +167,8 @@ public:
                                             return false;
                                         }
                                     }
+                                    break;
+
                                 }
                                 case 3:
                                 {
@@ -214,9 +219,11 @@ public:
                                             return false;
                                         }
                                     }
+                                    break;
                                 }
                                 case 4: {
                                     return false;
+                                    break;
                                 }
                             }
                         }
