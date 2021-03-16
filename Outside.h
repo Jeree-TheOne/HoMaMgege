@@ -14,6 +14,7 @@
 
 class Outside {
 private:
+
     vector <int> path ;
 public:
     constexpr const static int ver[30] = {1, 1, 1, 1, 1, 1, 1, 3, 3, 0, 0, 1, 2, 2, 3, 3, 3, 3, 3, 3, 3, 9, 9, 4, 4, 4, 4, 4, 4, 4};

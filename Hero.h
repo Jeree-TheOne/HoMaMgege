@@ -105,6 +105,9 @@ public:
         if (Xp >= Lvl*10){
             Xp -= Lvl*10;
             ++Lvl;
+            for (int i= 0;i < 10; i++)
+                if (army[i].GetName() != "")
+                    army[i].DeleteHeroStats(Damage, Armor, HP);
             for (int i = 0; i < 4; i++){
                 if (perks[i].GetName() != "") {
                     int stat = Format::FormatForPerkBonusStats(perks[i].GetAction());
@@ -270,6 +273,9 @@ public:
                 }
             }
         }
+        for (int i= 0;i < 10; i++)
+            if (army[i].GetName() != "")//todo апейт статов армии
+                army[i].AddHeroStats(Damage, Armor, HP);
     }
 
     void AddToInventory(Equipment item){
@@ -340,11 +346,11 @@ public:
         Damage += nums[0];
         HP += nums[1];
         Armor += nums[2];
-        Intellect += nums[3];
+        Intellect += nums[3];//todo плюс статы от шмоток
         MagicStrength += nums[4];
         for (int i = 0; i<10; i++)
             if (army[i].GetName() != "")
-                army[i].AddHeroStats(Damage, Armor, HP);
+                army[i].AddHeroStats(nums[0], nums[2], nums[3]);
         cout << "\nПредмет надет успешно\n\n";
     }
 
@@ -360,17 +366,14 @@ public:
         }
         int* nums = new int[6];
         nums = Format::FormatForBonusStats(Equiped[index - 1].GetStats());
-        for (int i = 0; i<10; i++)
-            if (army[i].GetName() != "")
-                army[i].DeleteHeroStats(Damage, Armor, HP);
         Damage -= nums[0];
-        HP -= nums[1];
+        HP -= nums[1];//todo минус статы от шмоток
         Armor -= nums[2];
         Intellect -= nums[3];
         MagicStrength -= nums[4];
             for (int i = 0; i<10; i++)
                 if (army[i].GetName() != "")
-                    army[i].AddHeroStats(Damage, Armor, HP);
+                    army[i].AddHeroStats(nums[0], nums[2], nums[1]);
         Inventory.push_back(Equiped[index - 1]);// Если шмотки нет, то не должно быть возможности ее заменить иначе пздц в инвентаре будет
         Equiped[index - 1] =  Equipment();
         system("cls");
@@ -565,7 +568,7 @@ public:
                 system("cls");
                 break;
         }
-    }
+    }//метод возможности челикса проверить все свои поля
 
     int GetGold()
     {
@@ -634,8 +637,8 @@ public:
         int getGold = Randomize::GetRand(150,300) + bGold;
         int getXp = Randomize::GetRand(3,5)+ bExp;
         cout << "За победу вы получили "<< getGold<< " золота и "<<getXp<<" опыта\n";
-        Gold += Randomize::GetRand(150,300) + bGold;
-        Xp += Randomize::GetRand(3,5)+ bExp;
+        Gold += getGold;
+        GetXp(getXp);
         int DropItem = Randomize::GetRand(1,5);
         if (DropItem == 1){
             Equipment q;
@@ -654,7 +657,7 @@ public:
         Sleep(2000);
         HeroDeath();
     }
-    bool HeroDeath()
+    bool HeroDeath()//todo смээээээрт
    {
        if (HP == 0){
            cout << "Ты сдох чел, Я не могу поверить, мы столько времени с тобой провели...\n И как все закончилось... Покойся с миром\n";
