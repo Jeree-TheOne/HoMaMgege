@@ -6,6 +6,7 @@
 #define UNTITLED3_HERO_H
 #include <windows.h>
 #include <string>
+#include <conio.h>
 #include <iostream>
 #include <list>
 #include <vector>
@@ -30,7 +31,7 @@ private:
     int Gold = 2500;
     int Xp = 0;
     int Lvl = 1;
-public: //todo: Изменить массивы на векторы
+public:
     array<Equipment, 10> Equiped;// Слоты инвенторя Helmet, Amulet, ChestArmor, LeftHand, RightHand, Ring, Nogi, Pet, Access
     array<Perks, 4> perks; //Перки изначально дается 2 рандомных, не повторяются
     array<Units, 10> army;
@@ -38,6 +39,12 @@ public: //todo: Изменить массивы на векторы
     vector<Spells> MagicBook;
     Hero(int type)
     {
+        army[0].BuyUnits("Лучник");
+        army[0].SetAmount(10);
+        army[0].AddHeroStats(Damage, Armor, HP);
+        army[1].BuyUnits("Воин");
+        army[1].SetAmount(10);
+        army[1].AddHeroStats(Damage, Armor, HP);
         Perks *perks1 = new Perks();
         perks1->NewPerk();
         perks.at(0) = *perks1;
@@ -335,6 +342,9 @@ public: //todo: Изменить массивы на векторы
         Armor += nums[2];
         Intellect += nums[3];
         MagicStrength += nums[4];
+        for (int i = 0; i<10; i++)
+            if (army[i].GetName() != "")
+                army[i].AddHeroStats(Damage, Armor, HP);
         cout << "\nПредмет надет успешно\n\n";
     }
 
@@ -350,11 +360,17 @@ public: //todo: Изменить массивы на векторы
         }
         int* nums = new int[6];
         nums = Format::FormatForBonusStats(Equiped[index - 1].GetStats());
+        for (int i = 0; i<10; i++)
+            if (army[i].GetName() != "")
+                army[i].DeleteHeroStats(Damage, Armor, HP);
         Damage -= nums[0];
         HP -= nums[1];
         Armor -= nums[2];
         Intellect -= nums[3];
         MagicStrength -= nums[4];
+            for (int i = 0; i<10; i++)
+                if (army[i].GetName() != "")
+                    army[i].AddHeroStats(Damage, Armor, HP);
         Inventory.push_back(Equiped[index - 1]);// Если шмотки нет, то не должно быть возможности ее заменить иначе пздц в инвентаре будет
         Equiped[index - 1] =  Equipment();
         system("cls");
@@ -486,6 +502,71 @@ public: //todo: Изменить массивы на векторы
         cout << "Опыта до следующего уровня: " << Lvl*10 - Xp << endl;
     }
 
+    void ViewInventory(){
+        view:
+        cout << "Выберите, что хотите посмотреть: \n1) Армия\n2) Экипировка\n3) Книга заклинаний\n4) Навыки\n5) Характеристики героя\n6) Инвентарь\n7) Назад";
+        int j = NULL;
+        cin >> j;
+        switch (j) {
+            case 1:
+                system("cls");
+                for (int i = 0; i < 10; i++){
+                    if (army[i].GetName() != "")
+                        cout << i+1 << ") " << army[i].GetName() << ", Урон: " << army[i].GetDamage() <<  ", Здоровье: " << army[i].GetHP()<< ", Броня: " << army[i].GetArmor() << " , Количество юнитов: "<< army[i].GetAmount() << endl;
+                    else cout << i+1 << ") Пусто\n";
+                }
+                cout << "\nНажмите любую кнопку, чтобы выйти\n";
+                while (!kbhit());
+                system("cls");
+                goto view;
+            case 2:
+                system("cls");
+                ShowEquiped();
+                cout << "\nНажмите любую кнопку, чтобы выйти\n";
+                while (!kbhit());
+                system("cls");
+                goto view;
+            case 3:
+                system("cls");
+                for (int i = 0; i < MagicBook.size(); i++){
+                    cout << i+1 << " ) " << MagicBook[i].GetName() <<" ,Стихия: "<< MagicBook[i].GetStih() << " , Тип: "<<MagicBook[i].GetType();
+                    if (MagicBook[i].GetType() == "Damage")
+                        cout << " , Урон: "<< MagicBook[i].GetDamage();
+                    else
+                        cout << " , Длительность: "<< MagicBook[i].GetDuration();
+                    cout << " , Уровень: " << MagicBook[i].GetLevel() << " , Затраты маны: "<< MagicBook[i].GetMCost() << endl;
+                }
+                cout << "\nНажмите любую кнопку, чтобы выйти\n";
+                while (!kbhit());
+                system("cls");
+                goto view;
+            case 4:
+                system("cls");
+                ShowPerks();
+                cout << "\nНажмите любую кнопку, чтобы выйти\n";
+                while (!kbhit());
+                system("cls");
+                goto view;
+            case 5:
+                system("cls");
+                ShowStats();
+                cout << "\nНажмите любую кнопку, чтобы выйти\n";
+                while (!kbhit());
+                system("cls");
+                goto view;
+            case 6:
+                system("cls");
+                ShowInventory();
+                cout << "\nНажмите любую кнопку, чтобы выйти\n";
+                while (!kbhit());
+                system("cls");
+                goto view;
+            case 7:
+                system("cls");
+                break;
+        }
+    }
+
     int GetGold()
     {
         return this->Gold;
@@ -558,7 +639,8 @@ public: //todo: Изменить массивы на векторы
         int DropItem = Randomize::GetRand(1,5);
         if (DropItem == 1){
             Equipment q;
-            q.DropEquipment();
+            cout << "\nВам выпал новый предмет!";
+            AddToInventory(q);
             Inventory.push_back(q);
         }
     }
@@ -569,31 +651,31 @@ public: //todo: Изменить массивы на векторы
         cout << "Вас жестко отпинали и бросили в каком-то городе неподалеку...\n";
         HP -= loseHP;
         Gold -= loseGold;
-
+        Sleep(2000);
+        HeroDeath();
     }
-    /*void HeroDeath()
+    bool HeroDeath()
    {
-       if (this->Gold == 0)
-           Endgame(0); // Заканчиваем игру на плохую концовку.
-           else
-               {
-           int GoldPercent = Randomize::GetRand(25, 75); // процент взысканий за смерть.
-               // Все юниты погибают(кроме одной клеточки рандомного).
-           this->Gold = this->Gold - this->Gold * (GoldPercent/100);
+       if (HP == 0){
+           cout << "Ты сдох чел, Я не могу поверить, мы столько времени с тобой провели...\n И как все закончилось... Покойся с миром\n";
+           return true;
        }
-   }*/
+   }
     Spells CastSpell()
     {
-        if (this->MagicBook.empty())
+        if (this->MagicBook.empty()) {
             cout << "Вы еще не знаете никаких заклинаний";
+
+        }
         else {
             cout << "Ваша мана : " << this->Mana << " \n";
             cout << "Возможные к касту заклинания: \n";
             int i = 0;
             for ( i = 0; i <MagicBook.size(); i++)
             {
-                if (stoi(MagicBook[i].GetSpell()[7]) <= this->Mana && stoi(MagicBook[i].GetSpell()[6]) <= this->MagicStrength)
-                cout << i + 1 <<". " << MagicBook[i].GetSpell()[0] << " стоимость - " << MagicBook[i].GetSpell()[7] << " маны \n";
+                //Name, Stih, Type, to_string(Damage), to_string(Distance), to_string(Duration), to_string(Level), to_string(MCost), to_string(GCost)
+                if (MagicBook[i].GetMCost() <= this->Mana && MagicBook[i].GetLevel() <= this->MagicStrength)
+                cout << i + 1 <<". " << MagicBook[i].GetName() << " стоимость - " << MagicBook[i].GetMCost() << " маны \n";
                 else
                     i--;
             }

@@ -58,18 +58,36 @@ public:
            MCost =  stoi(spells[jj][7]);
            GCost = stoi(spells[jj][8]);
     }
-    int GetDuration()
+    void SetDuration(int duration)
     {
-        return this->Duration;
+        Duration = duration;
     }
-    void SetDuration(int Duration)
+
+    //Name, Stih, Type, to_string(Damage), to_string(Distance), to_string(Duration), to_string(Level), to_string(MCost), to_string(GCost)
+    string GetName()
     {
-        this->Duration = Duration;
+        return Name;
     }
-    string* GetSpell()
-    {
-        string a[9]  = {Name, Stih, Type, to_string(Damage), to_string(Distance), to_string(Duration), to_string(Level), to_string(MCost), to_string(GCost)};
-        return a;
+    string GetStih(){
+        return Stih;
+    }
+    string GetType(){
+        return Type;
+    }
+    int GetDamage(){
+        return Damage;
+    }
+    int GetDistance(){
+        return Distance;
+    }
+    int GetDuration(){
+        return Duration;
+    }
+    int GetLevel(){
+        return Level;
+    }
+    int GetMCost(){
+        return MCost;
     }
     int GetCost()
     {
@@ -136,7 +154,7 @@ public:
             if (!spells.empty())
             for (int j = 0; j < length; j++)
             {
-                if (spell.GetSpell()[0] == spells[i].GetSpell()[0])
+                if (spell.GetName() == spells[i].GetName())
                     goto povtor;
             }
 

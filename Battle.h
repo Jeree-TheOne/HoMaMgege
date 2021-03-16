@@ -15,7 +15,6 @@
 
 class Battle {
 public:
-    Battle(){};
     Hero *Enemy = new Hero(1);
     void StartBattle(Hero hero) {
         system("cls");
@@ -50,7 +49,7 @@ public:
                     if (hero.army[i].GetName() == "") continue;
                     if (!hero.army[i].Buffs.empty()) {
                         for (Spells a: hero.army[i].Buffs) {
-                            if (a.GetSpell()[0] == "Blind") {
+                            if (a.GetName() == "Blind") {
                                 cout << "Армия  " << i + 1 << " ослеплена и не может двигаться. Эффект исчезнет через "
                                      << a.GetDuration() << " хода \n";
                                 if (i != 9) {
@@ -112,7 +111,7 @@ public:
                                 int num = Randomize::GetRand(0, 9);
                                 if (!Enemy->army[i].Buffs.empty()) {
                                     for (Spells a: Enemy->army[i].Buffs) {
-                                        if (a.GetSpell()[0] == "Blind") {
+                                        if (a.GetName() == "Blind") {
                                             cout << "Армия  " << i + 1
                                                  << " ослеплена и не может двигаться. Эффект исчезнет через "
                                                  << a.GetDuration() << " хода \n";
@@ -251,27 +250,28 @@ public:
 
     void SetSpell(Spells a, Hero hero, Hero *enemy)
     {
-        cout << "Выбрано заклинание "<< a.GetSpell()[0] << " \n";
+        cout << "Выбрано заклинание "<< a.GetName() << " \n";
         cout << "Выберите цель заклинания \n";
         int j;
         cin >> j;
         j--;
-        if (a.GetSpell()[2] == "Damage")
+        //Name, Type, to_string(Damage), to_string(Distance), to_string(Duration), to_string(Level), to_string(MCost), to_string(GCost)
+        if (a.GetType() == "Damage")
         {
 // TODO если успею доделатть защиту от магии
-            if (a.GetSpell()[4] == "1")
-            enemy->army[j].ArmyGetDamage(hero.GetMagicStrength()/10*atoi(a.GetSpell()[3].c_str()) +  atoi(a.GetSpell()[3].c_str()));
+            if (a.GetDistance() == 1)
+            enemy->army[j].ArmyGetDamage(hero.GetMagicStrength()/10*a.GetDamage() +  a.GetDamage());
             else
-                if (enemy->army.size()>atoi(a.GetSpell()[4].c_str()))
+                if (enemy->army.size()>a.GetDistance())
                 {
-                    int x = atoi(a.GetSpell()[4].c_str())-1;
+                    int x = a.GetDistance()-1;
                     if (j == 0)
                     {
                         while (j<x/2)
                         {
-                            enemy->army[j].ArmyGetDamage(hero.GetMagicStrength()/10*atoi(a.GetSpell()[3].c_str()) +  atoi(a.GetSpell()[3].c_str()));
+                            enemy->army[j].ArmyGetDamage(hero.GetMagicStrength()/10*a.GetDamage() +  a.GetDamage());
                             cout << "\n";                             cout << "\n";                             cout << "\n";
-                            cout << "Заклинание" << a.GetSpell()[0] << " нанесло " << hero.GetMagicStrength()/10*atoi(a.GetSpell()[3].c_str()) +  atoi(a.GetSpell()[3].c_str()) << " урона.\n";
+                            cout << "Заклинание" << a.GetName() << " нанесло " << hero.GetMagicStrength()/10*a.GetDamage() +  a.GetDamage()<< " урона.\n";
                             j++;
                         }
                     }
@@ -279,9 +279,9 @@ public:
                     {
                         while (j>x/2)
                         {
-                            enemy->army[j].ArmyGetDamage(hero.GetMagicStrength()/10*atoi(a.GetSpell()[3].c_str()) +  atoi(a.GetSpell()[3].c_str()));
+                            enemy->army[j].ArmyGetDamage(hero.GetMagicStrength()/10*a.GetDamage() +  a.GetDamage());
                             cout << "\n";                             cout << "\n";                             cout << "\n";
-                            cout << "Заклинание" << a.GetSpell()[0] << " нанесло " << hero.GetMagicStrength()/10*atoi(a.GetSpell()[3].c_str()) +  atoi(a.GetSpell()[3].c_str()) << " урона.\n";
+                            cout << "Заклинание" << a.GetName() << " нанесло " << hero.GetMagicStrength()/10*a.GetDamage() +  a.GetDamage() << " урона.\n";
                             j--;
                         }
                     }
@@ -289,18 +289,18 @@ public:
                     {
                         for (int i = j-x+1; i< j+x+1; i++)
                         {
-                            enemy->army[i].ArmyGetDamage(hero.GetMagicStrength()/10*atoi(a.GetSpell()[3].c_str()) +  atoi(a.GetSpell()[3].c_str()));
+                            enemy->army[i].ArmyGetDamage(hero.GetMagicStrength()/10*a.GetDamage() +  a.GetDamage());
                         }
                         cout << "\n";                             cout << "\n";                             cout << "\n";
-                        cout << "Заклинание" << a.GetSpell()[0] << " нанесло " << hero.GetMagicStrength()/10*atoi(a.GetSpell()[3].c_str()) +  atoi(a.GetSpell()[3].c_str()) << " урона.\n";
+                        cout << "Заклинание" << a.GetName() << " нанесло " << hero.GetMagicStrength()/10*a.GetDamage() +  a.GetDamage() << " урона.\n";
                     }
                 }
                 else
                 {
                     for(Units b: enemy->army)
-                        b.ArmyGetDamage(hero.GetMagicStrength()/10*atoi(a.GetSpell()[3].c_str()) +  atoi(a.GetSpell()[3].c_str()));
+                        b.ArmyGetDamage(hero.GetMagicStrength()/10*a.GetDamage() +  a.GetDamage());
                 }
-            hero.SetMana(hero.GetMana()-atoi(a.GetSpell()[6].c_str()));
+            hero.SetMana(hero.GetMana()-a.GetMCost());
 
         }
         else
@@ -309,13 +309,13 @@ public:
             {
                 cout << "На отряде слишком много чар! Подождите пока они прекратят свои действия \n";
                 for(Spells b:enemy->army[j].Buffs)
-                    cout << " " << b.GetSpell()[0] << ". Осталось " << b.GetSpell()[4] << " хода\n";
+                    cout << " " << b.GetName() << ". Осталось " << b.GetDuration() << " хода\n";
             }
             else{
-                if (a.GetSpell()[0]!="Dimensiondoor")
+                if (a.GetName()!="Dimensiondoor")
                     enemy->army[j].Buffs.push_back(a);
-             /*   else
-                    TeleportToCity();*/
+            //else
+                    //Outside::LeaveDungeon(hero);
             }
         }
 

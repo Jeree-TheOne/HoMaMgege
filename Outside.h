@@ -10,11 +10,12 @@
 #include "Enterprises.h"
 #include "Hero.h"
 #include "Locations.h"
+#include "Battle.h"
+
 class Outside {
 private:
     vector <int> path ;
 public:
-    // TODO слишком часто выпадают двойки
     constexpr const static int ver[30] = {1, 1, 1, 1, 1, 1, 1, 3, 3, 0, 0, 1, 2, 2, 3, 3, 3, 3, 3, 3, 3, 9, 9, 4, 4, 4, 4, 4, 4, 4};
     Outside()
     {
@@ -83,6 +84,11 @@ public:
             }
             LeaveTheCity(hero);
         }
+    }
+    void LeaveDungeon(Hero hero){
+        cout << "Вы сбежали из Дунгеона, повезло, повезло...\n";
+        Sleep(2000);
+        SetPath(hero);
     }
     void LeaveTheCity(Hero hero)
     {

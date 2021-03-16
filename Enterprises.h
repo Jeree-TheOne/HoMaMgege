@@ -119,8 +119,7 @@ public:
                                             cout   << "- Вот черт, забылся старик уже, что скоро у нас освободится одна комната - жадно выхватив купюру из-под прилавка, он открывает ключом люк в погреб \n";
                                             cout << "Спускаясь за ним в заприлавочное подземелье, вы становитесь невользным слушателем, о том, как в далеком прошлом этот подземный Gym был покинут всеми Masters, кроме одного \n";
                                             cout << "Выслушав истории мужика о его leather gloves, вы ложитесь на stinky матрац, где проведете всю ночь \n";
-                                            // TODO сделать восстановление здоровья юнитов
-                                            Sleep(1000);
+                                            Sleep(5000);
                                             hero.SetMana(hero.GetMAXmana());
                                             cout << "\n";
                                             cout << "Вы хорошо выспались и отдохнули";
@@ -134,6 +133,7 @@ public:
                                                 cout   << " FUCKING SLAVE! - стукнул хозяина заведения по столу, - Ты за кого меня принимаешь? За jabhronie?\n";
                                                 cout << "Пошёл быстро нахер отседова, чтобы глаза мои больше твоей нахальской рожи не видывали! \n";
                                                 cout << "Вам ничего не остается, как отойти от стойки. \n";
+                                                Sleep(5000);
                                                 return false;
                                             }
                                         }
@@ -149,7 +149,6 @@ public:
                                     else if (this->type >= 3)
                                     {
                                        cout  << "Потеребя усы, он случайно находит ключ и называет вам номер комнаты";
-                                        // TODO сделать восстановление здоровья юнитов
                                         Sleep(1000);
                                         hero.SetMana(hero.GetMAXmana());
                                         cout << "\n";
@@ -181,8 +180,7 @@ public:
                                                     << "- Я прибыл из центрального DungGym-надзора, предъявите ваши leather-gloves, оформим протокол о ненадлежайшем состоянии этой лачуги - С уверенностью в груди заявили вы, не выдав себя \n";
                                             cout
                                                     << "Засуетившись, трактирщик внезапно находит ключ от свободной комнаты. Протянув вам конверт с ключом и чем-то звенящим, печальным выражением лица дал вам понять, что сожалеет и в скором времени исправится \n";
-                                            // TODO сделать восстановление здоровья юнитов
-                                            Sleep(1000);
+                                            Sleep(5000);
                                             hero.SetMana(hero.GetMAXmana());
                                             cout << "\n";
                                             cout << "Вы хорошо выспались и отдохнули";
@@ -203,9 +201,8 @@ public:
                                                     << "Подойдя к нему, вы затеяли светский разговор и поняли причину обиды такого робкого, но опасного мужчины - он потерял семью на недавней войне со Slaves\n";
                                             cout
                                                     << " Трактирщик с ярким Slavevskym акцентом слышит о чем вы говорите и, с дрожью в ногах, отдает вам ключ сугубо на одну ночь, пригрозив задушить вас во сне. \n";
-                                            // TODO сделать восстановление здоровья юнитов
                                             hero.SetMana(hero.GetMAXmana());
-                                            Sleep(1000);
+                                            Sleep(5000);
                                             cout << "\n";
                                             cout << "Вы хорошо выспались и отдохнули";
                                             cout << "\n";
@@ -434,7 +431,7 @@ public:
             cout << "Лагерь наёмников: \n";
             for (int i = 0; i<this->Slots.size(); i++)
             {
-                cout << i << ") " << Slots[i].GetName() << " Расса:  " << Slots[i].GetRace() << " Броня: " << Slots[i].GetArmor() << " Аттака: " << Slots[i].GetDamage() << " Здоровье: " << Slots[i].GetHP() << " Максимальное колличество в одной клетке: " << Slots[i].GetMaxAmount() << " Цена: " << Slots[i].GetCost() <<"\n";
+                cout << i << ") " << Slots[i].GetName() << " Раса:  " << Slots[i].GetRace() << " Броня: " << Slots[i].GetArmor() << " Атака: " << Slots[i].GetDamage() << " Здоровье: " << Slots[i].GetHP() << " Максимальное колличество в одной клетке: " << Slots[i].GetMaxAmount() << " Цена: " << Slots[i].GetCost() <<"\n";
                 cout << "\n";
             }
             cout << "\n";
@@ -518,8 +515,9 @@ public:
             cout << "Вы открываете прайс лист и видите в нём.. \n";
             cout << "Ваше золото: " << hero.GetGold() << "Ваша магическая сила: " << hero.GetMagicStrength() << "\n";
             for(int i = 0; i<Slots.size(); i++) {
-                string name = Slots[i].GetSpell()[0];
-                string stih = Slots[i].GetSpell()[1];
+                //Name, Stih, Type, to_string(Damage), to_string(Distance), to_string(Duration), to_string(Level), to_string(MCost), to_string(GCost)
+                string name = Slots[i].GetName();
+                string stih = Slots[i].GetStih();
                 if (stih == "Fire")
                     stih = "школы магии огня";
                 else if (stih == "Water")
@@ -528,7 +526,7 @@ public:
                     stih = "школы магии земли";
                 else if (stih == "Air")
                     stih = "школы магии воздуха";
-                string type = Slots[i].GetSpell()[2];
+                string type = Slots[i].GetType();
                 if (type == "Damage")
                     type = "урона";
                 else if (type == "Mind")
@@ -537,14 +535,14 @@ public:
                     type = "поддержки";
                 else if (type == "Magic")
                     type = "архимагического уровня";
-                string damage = Slots[i].GetSpell()[3];
-                string distance = Slots[i].GetSpell()[4];
-                string duration = Slots[i].GetSpell()[5];
-                string level = Slots[i].GetSpell()[6];
-                string mcost = Slots[i].GetSpell()[7];
-                string gcost = Slots[i].GetSpell()[8];
+                int damage = Slots[i].GetDamage();
+                int distance = Slots[i].GetDistance();
+                int duration = Slots[i].GetDuration();
+                int level = Slots[i].GetLevel();
+                int mcost = Slots[i].GetMCost();
+                int gcost = Slots[i].GetCost();
                 cout << ++i << ") " << name << "  - заклинание " << type;
-                if (damage!="0")
+                if (damage!=0)
                     cout << "на" << damage << "урона";
                 cout << " " << stih << " время действия - " << duration << " хода, распространяется на " << distance << " отр; Для покупки необходимо владеть хотя бы " << level << " уровнем магической силы, требует маны - " << mcost << " ед. Стоимость покупки - "<< gcost << "золотых монет \n";
 
@@ -554,12 +552,12 @@ public:
             cin >> j;
             if (j!= Slots.size())
             {
-                if (hero.GetGold() < atoi(Slots[j - 1].GetSpell()[7].c_str()))
+                if (hero.GetGold() < Slots[j - 1].GetCost())
                 {
                     cout << "Да вы не в состоянии считать! Вы не можете позволить приобритения данного заклинания \n";
                     goto n;
                 }
-                else if (hero.GetMagicStrength() < atoi(Slots[j - 1].GetSpell()[6].c_str()))
+                else if (hero.GetMagicStrength() < Slots[j - 1].GetMCost())
                 {
                     cout << "Надев на вас обруч проверки силы магии, консультант заметил, что вам нехватает магической силы \n";
                     cout << "Приходите позже, когда достигните уровня покупки этого заклинания \n";

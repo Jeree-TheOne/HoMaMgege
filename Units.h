@@ -94,14 +94,7 @@ public:
                 Armor = stoi(units[i][4]);
                 MaxAmount = stoi(units[i][5]);
                 Cost = stoi(units[i][6]);
-                /*st:
-                cout << "Введите количество юнитов: ";
-                int amount;
-                cin >> amount;
-                if (amount < 1 || amount > MaxAmount){
-                    cout << "Введено неверное значение";
-                    goto st;
-                }*/
+                // Добавить статы от перса к юнитам, но я хз как
                 break;
             }
         }
@@ -179,37 +172,38 @@ public:
     void ArmyGetDamage(int damage){
         if (!this->Buffs.empty())
         {
+            //Name, Stih, Type, to_string(Damage), to_string(Distance), to_string(Duration), to_string(Level), to_string(MCost), to_string(GCost)
             for (Spells a: Buffs)
             {
-                if (a.GetSpell()[0] == "Curse")
+                if (a.GetName() == "Curse")
                 {
                     damage = (damage * 2)/3 + damage;
                 }
-              else  if (a.GetSpell()[0] == "Fireshield")
+              else  if (a.GetName() == "Fireshield")
                 {
                     damage = damage - (damage * 25)/100 ;
                 }
-                else  if (a.GetSpell()[0] == "Wikness")
+                else  if (a.GetName() == "Wikness")
                 {
                     damage = damage + (damage * 10)/100;
                 }
-                else  if (a.GetSpell()[0] == "WaterDefence")
+                else  if (a.GetName() == "WaterDefence")
                 {
                     damage = damage - (damage * 15)/100;
                 }
-                else  if (a.GetSpell()[0] == "StoneSkin")
+                else  if (a.GetName() == "StoneSkin")
                 {
                     damage = damage - (damage * 30)/100;
                 }
-                else  if (a.GetSpell()[0] == "DirtDefence")
+                else  if (a.GetName() == "DirtDefence")
                 {
                     damage = damage - (damage * 15)/100;
                 }
-                else  if (a.GetSpell()[0] == "Accuracy")
+                else  if (a.GetName() == "Accuracy")
                 {
                     damage = damage - (damage * 15)/100;
                 }
-                else  if (a.GetSpell()[0] == "Lucky")
+                else  if (a.GetName() == "Lucky")
                 {
                     damage = damage - (damage *(Randomize::GetRand(0,1)) * 50)/100;
                 }
@@ -230,6 +224,17 @@ public:
             Amount = TotalHp / HP;
             RemainsHP = TotalHp % HP;
         }
+    }
+
+    void AddHeroStats(int damage, int armor, int hp){
+        Damage += damage;
+        Armor += armor;
+        HP += hp;
+    }
+    void DeleteHeroStats(int damage, int armor, int hp){
+        Damage -= damage;
+        Armor -= armor;
+        HP -= hp;
     }
 
 

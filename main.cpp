@@ -41,6 +41,8 @@ goto start;
     if (index > 3 || index < 1) goto st;
 
     Hero *MainHero = new Hero(index);
+    Battle *f = new Battle;
+    f->StartBattle(*MainHero);
     cout << "Персонаж успешно создан\n";
     while(true) {
         City *Gorod = new City();
